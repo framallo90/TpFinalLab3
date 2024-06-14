@@ -62,9 +62,5 @@ public class Consola {
         }
         return patente.toString().toUpperCase();
     }
-
-    public static void main(String[] args) {
-        String patente = patente("pat");
-        System.out.println(patente);
-    }
+    // Consola estática que nos servira con todas las clases del programa
 }
