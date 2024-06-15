@@ -98,4 +98,8 @@ public class CompradorRepository implements IRepository<Comprador,String> {
         updateFile();
     }
 
+    public Set<Comprador> getListaCompradores() {
+        return listaCompradores;
+    }
+
 }
