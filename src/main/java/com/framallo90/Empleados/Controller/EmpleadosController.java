@@ -127,11 +127,4 @@ public class EmpleadosController {
         String dniEmpleado = Consola.ingresarXString("dni del empleado");
         empleadosRepository.remove(dniEmpleado);
     }
-    public static void main(String[] args) {
-        EmpleadosRepository empleadosRepository1 = new EmpleadosRepository();
-        EmpleadosView empleadosView1 = new EmpleadosView();
-        EmpleadosController controller = new EmpleadosController(empleadosRepository1,empleadosView1);
-        controller.crearEmpleado();
-        controller.modificarEmpleado();
-    }
 }
