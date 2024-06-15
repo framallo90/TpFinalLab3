@@ -52,7 +52,7 @@ public class EmpleadosController {
      * Permite al usuario modificar un empleado existente.
      */
     public void modificarEmpleado() {
-        String dniEmpleado = Consola.ingresarXString("dni del empleado");
+        String dniEmpleado = String.valueOf(Consola.ingresarXInteger("dni del empleado"));
         Empleados empleadoAModificar = empleadosRepository.find(dniEmpleado);
 
         if (empleadoAModificar != null) {
@@ -80,7 +80,7 @@ public class EmpleadosController {
                          0) salir
                          """);
 
-            String opcion = Consola.ingresarXString("opcion");
+            String opcion = String.valueOf(Consola.ingresarXInteger("opcion"));
             Consola.limpiarBuffer();
 
             switch (opcion) {
@@ -106,6 +106,7 @@ public class EmpleadosController {
                     break;
                 case "5":
                     // Modificar la contraseña del empleado.
+                    //Tener en cuenta que en este momento la contraseña no puede tener numeros por cómo funciona 'Consola.ingresarXString()'
                     empleadosRepository.cambioPassword(empleado, Consola.ingresarXString("nueva password"));
                     break;
                 case "6":
@@ -126,5 +127,13 @@ public class EmpleadosController {
     public void removeEmpleado() {
         String dniEmpleado = Consola.ingresarXString("dni del empleado");
         empleadosRepository.remove(dniEmpleado);
+    }
+
+    public static void main(String[] args) {
+        EmpleadosView empleadosView1 = new EmpleadosView();
+        EmpleadosRepository empleadosRepository1 = new EmpleadosRepository();
+        EmpleadosController empleadosController = new EmpleadosController(empleadosRepository1,empleadosView1);
+        empleadosController.crearEmpleado();
+        empleadosController.modificarEmpleado();
     }
 }
