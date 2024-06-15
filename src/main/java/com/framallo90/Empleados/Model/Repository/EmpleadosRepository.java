@@ -6,7 +6,7 @@
  */
 package com.framallo90.Empleados.Model.Repository;
 import com.framallo90.Empleados.Model.Entity.Empleados;
-import com.framallo90.Interfaces.repo;
+import com.framallo90.Interfaces.IRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-public class EmpleadosRepository implements repo<Empleados> {
+public class EmpleadosRepository implements IRepository<Empleados,String> {
     private List<Empleados> list;
     private static final String PATH_EMPLEADOS = "empleados.json";
     private final Gson gson = new Gson();

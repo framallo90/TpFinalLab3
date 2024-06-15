@@ -22,8 +22,9 @@ public class Main {
         AutomovilRepository automovilRepository = new AutomovilRepository();
         AutomovilView automovilView = new AutomovilView();
         AutomovilController automovilController = new AutomovilController(automovilRepository,automovilView);
+        automovilController.mostrarAutomovilesEnStock();
+        automovilController.modificarAutomovilEnStock();
+        automovilController.mostrarAutomovilesEnStock();
 
-        automovilController.mostrarAutomoviles();
-        System.out.println("contador ->" + Automovil.getCont());
     }
 }

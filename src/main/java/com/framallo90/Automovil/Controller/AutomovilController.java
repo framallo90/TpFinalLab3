@@ -7,36 +7,54 @@ import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
 public class AutomovilController {
-    private AutomovilRepository automovilRepository;
-    private AutomovilView automovilView;
+    private final AutomovilRepository automovilRepository;
+    private final AutomovilView automovilView;
 
     public AutomovilController(AutomovilRepository automovilRepository, AutomovilView automovilView) {
         this.automovilRepository = automovilRepository;
         this.automovilView = automovilView;
     }
-    public void crearAutomovil()
+
+    /**
+     * Controlador principal para el manejo de los automóviles en la concesionaria
+     * Permite agregar nuevos automóviles al stock, listar los vehículos en stock,
+     * modificar aspectos de vehículos, borrarlos del stock.
+     */
+    public void agregarAutomovilAlStock()
     {
         Automovil nuevo = new Automovil(this.automovilView.ingresoMarca(),
                 this.automovilView.ingresoModelo(),this.automovilView.ingresoPrecio(),this.automovilView.ingresoPatente());
+        /// Carga de automovil
 
-        this.automovilRepository.add(nuevo);
+        this.automovilRepository.add(nuevo); // lo añadimos
     }
-    public void borrarAutomovil()
+    public void borrarAutomovilEnStock()
     {
-        Integer id = Consola.ingresarXInteger("ID: ");
         try {
-            this.automovilRepository.remove(id);
+            this.automovilRepository.remove(Consola.ingresarXInteger("ID"));
         }catch (InvalidIdNotFound e) {
             System.out.println(e.getMessage());
         }
+        /**
+         * Manejamos el caso de que el ID no este en la lista
+         */
     }
-    public void modificarAutomovil()
+    public void modificarAutomovilEnStock()
     {
-        /// La unica que falta,
+        try {
+            this.automovilRepository.update(Consola.ingresarXInteger("ID"));
+        }catch (InvalidIdNotFound e)
+        {
+            System.out.println(e.getMessage());
+        }
+        /**
+         * Manejamos el caso de que el ID no este en la lista
+         */
     }
-    public void mostrarAutomoviles()
+    public void mostrarAutomovilesEnStock()
     {
         this.automovilView.mostrarAutomoviles(this.automovilRepository.getAutomovilList());
+        ///Mostramos la lista
     }
 
 }

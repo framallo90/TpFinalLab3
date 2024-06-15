@@ -56,6 +56,10 @@ public class Automovil {
         return precio;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setPrecio(Double precio) {
         this.precio = precio;
     }

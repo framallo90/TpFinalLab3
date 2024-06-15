@@ -65,6 +65,7 @@ public class Consola {
             scanner.next(); // Limpiar la entrada no válida
         }
         Integer numero = scanner.nextInt();
+        scanner.nextLine(); // buffer
         if (numero < 0) {
             throw new IllegalArgumentException("El numero debe ser mayor o igual a 0.");
         }
@@ -95,6 +96,34 @@ public class Consola {
      * @return La patente del vehículo ingresada por el usuario en mayúsculas.
      * @throws IllegalArgumentException Si el usuario ingresa una patente en un formato inválido.
      */
+
+    public static String patente(String x) {
+        StringBuilder patente = new StringBuilder();
+        while (true) {
+            System.out.println("Ingresar " + x + " (letras): ");
+            String s = scanner.nextLine();
+            if (s.matches("[a-zA-Z]{3}")) {
+                patente.append(s.toUpperCase());
+                break;
+            } else {
+                System.out.println("Ingresar un dato válido (3 letras).");
+            }
+        }
+
+        while (true) {
+            Integer numero = ingresarXInteger("numeros (3 dígitos)");
+            String num = String.format("%03d", numero); // Asegura que el número tenga 3 dígitos
+            if (num.length() == 3) {
+                patente.append(num);
+                break;
+            } else {
+                System.out.println("Ingrese solamente 3 números.");
+            }
+        }
+
+        return patente.toString().toUpperCase();
+    }
+    /* Metodo viejo patente, no permitia ingresar los numeros empezando con '0'
     public static String patente(String x) {
         StringBuilder patente = new StringBuilder();
         while (true) {
@@ -114,7 +143,6 @@ public class Consola {
             num = String.valueOf(numero);
             if (num.length() == 3) {
                 patente.append(num);
-                scanner.nextLine(); // buffer
                 break;
             } else {
                 System.out.println("Ingrese solamente 3 numeros.");
@@ -124,4 +152,4 @@ public class Consola {
         return patente.toString().toUpperCase();
     }
     // Consola estática que nos servira con todas las clases del programa
-}
+*/}
