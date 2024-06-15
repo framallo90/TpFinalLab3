@@ -7,11 +7,20 @@ public class Automovil {
     private Double precio;
     private String patente;
 
-    public Automovil(String marca, String modelo, Double precio) {
+    public Automovil(String marca, String modelo, Double precio,String patente) {
         this.id = ++cont;
         this.marca = marca;
         this.modelo = modelo;
         this.precio = precio;
+        this.patente = patente;
+    }
+
+    public String getPatente() {
+        return patente;
+    }
+
+    public void setPatente(String patente) {
+        this.patente = patente;
     }
 
     public Integer getId() {
@@ -49,5 +58,16 @@ public class Automovil {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Automovil{" +
+                "id=" + id +
+                ", marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", precio=" + precio +
+                ", patente='" + patente + '\'' +
+                '}';
     }
 }

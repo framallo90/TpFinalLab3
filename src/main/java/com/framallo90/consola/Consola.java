@@ -35,6 +35,8 @@ public class Consola {
             scanner.next();
         }
         Double numero = scanner.nextDouble();
+
+        scanner.nextLine(); /// buffer
         return numero;
     }
 
@@ -55,6 +57,7 @@ public class Consola {
             String num = String.valueOf(numero);
             if(num.length()==3){
                 patente.append(num);
+                scanner.nextLine(); // buffer
                 break;
             }else {
                 System.out.println("Ingrese solamente 3 numeros.");
@@ -62,5 +65,6 @@ public class Consola {
         }
         return patente.toString().toUpperCase();
     }
+
     // Consola estática que nos servira con todas las clases del programa
 }

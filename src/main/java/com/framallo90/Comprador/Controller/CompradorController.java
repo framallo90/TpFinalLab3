@@ -3,6 +3,7 @@ package com.framallo90.Comprador.Controller;
 import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Comprador.Model.Repository.CompradorRepository;
 import com.framallo90.Comprador.View.CompradorView;
+import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
 public class CompradorController {
@@ -24,7 +25,19 @@ public class CompradorController {
     }
 
     public void remove(){
-        compradorRepository.remove(String.valueOf(Consola.ingresarXInteger("id")));
+        try {
+            compradorRepository.remove(String.valueOf(Consola.ingresarXInteger("id")));
+        }catch (InvalidIdNotFound e) {
+            System.out.println(e.getMessage());
+        }
     }
+    /// terminar
+    public void update()
+    {
 
+    }
+    public void show()
+    {
+
+    }
 }

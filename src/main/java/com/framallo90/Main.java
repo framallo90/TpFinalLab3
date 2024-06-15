@@ -1,5 +1,10 @@
 package com.framallo90;
 
+import com.framallo90.Automovil.Controller.AutomovilController;
+import com.framallo90.Automovil.Model.Entity.Automovil;
+import com.framallo90.Automovil.Model.Repository.AutomovilRepository;
+import com.framallo90.Automovil.View.AutomovilView;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -13,5 +18,12 @@ public class Main {
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
         }
+
+        AutomovilRepository automovilRepository = new AutomovilRepository();
+        AutomovilView automovilView = new AutomovilView();
+        AutomovilController automovilController = new AutomovilController(automovilRepository,automovilView);
+
+        automovilController.mostrarAutomoviles();
+        System.out.println("contador ->" + Automovil.getCont());
     }
 }

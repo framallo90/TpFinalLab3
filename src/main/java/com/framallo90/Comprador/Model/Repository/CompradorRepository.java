@@ -1,7 +1,8 @@
 package com.framallo90.Comprador.Model.Repository;
 
 import com.framallo90.Comprador.Model.Entity.Comprador;
-import com.framallo90.Interfaces.repo;
+import com.framallo90.Excepciones.InvalidIdNotFound;
+import com.framallo90.Interfaces.IRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -10,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CompradorRepository implements repo <Comprador>{
+public class CompradorRepository implements IRepository<Comprador,String> {
     private static final String FILE_PATH = "src/main/resources/Compradores.json";
     private Gson gson = new Gson();
     private Set<Comprador> listaCompradores = new HashSet<>();
@@ -47,15 +48,23 @@ public class CompradorRepository implements repo <Comprador>{
     }
 
     @Override
-    public void remove(String id) {
+    public void remove(String id) throws InvalidIdNotFound{
         Comprador remove = find(id);
-        listaCompradores.remove(remove);
-        updateFile();
+        if (remove != null) {
+            listaCompradores.remove(remove);
+            updateFile();
+        }else
+            throw new InvalidIdNotFound("El id ingresado no existe.");
     }
 
     @Override
-    public void update(String id) {
-
+    public void update(String id) throws InvalidIdNotFound {
+        Comprador comprador = find(id);
+        if (comprador != null)
+        {
+            /// terminar
+        }else
+            throw new InvalidIdNotFound("El id ingresado no existe.");
     }
 
     @Override
