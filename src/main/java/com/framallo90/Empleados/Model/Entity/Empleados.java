@@ -149,4 +149,17 @@ public class Empleados extends Usuario {
     public static void setCont(Integer cont) {
         Empleados.cont = cont;
     }
+
+    //DOCUMENTAR
+
+    @Override
+    public String toString() {
+        return "Empleados{" +
+                "id=" + id +
+                ", autosvendidos=" + autosvendidos +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", tipo='" + tipo + '\'' +
+                '}';
+    }
 }

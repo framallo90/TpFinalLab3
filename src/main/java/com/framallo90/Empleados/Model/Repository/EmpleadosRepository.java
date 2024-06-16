@@ -16,15 +16,20 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-public class EmpleadosRepository implements IRepository<Empleados,String> {
+public class EmpleadosRepository implements IRepository<Empleados, String> {
     private List<Empleados> list;
-    private static final String PATH_EMPLEADOS = "empleados.json";
+    private static final String PATH_EMPLEADOS = "src/main/resources/empleados.json";
     private final Gson gson = new Gson();
     public EmpleadosRepository() {
         this.loadEmpleados();
         if (!this.list.isEmpty())
             Empleados.setCont(this.list.getLast().getId());
     }
+
+    public List<Empleados> getList() {
+        return list;
+    }
+
     public void loadEmpleados(){
         try (FileReader fileReader = new FileReader(PATH_EMPLEADOS)) {
             Type type = new TypeToken<List<Empleados>>(){}.getType();
@@ -51,7 +56,6 @@ public class EmpleadosRepository implements IRepository<Empleados,String> {
         this.list.add(object);
         this.saveEmpleados();
     }
-
     @Override
     public void remove(String id) {
         Empleados remover = this.find(id);

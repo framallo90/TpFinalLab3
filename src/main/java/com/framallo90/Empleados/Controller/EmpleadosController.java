@@ -129,11 +129,58 @@ public class EmpleadosController {
         empleadosRepository.remove(dniEmpleado);
     }
 
-    public static void main(String[] args) {
-        EmpleadosView empleadosView1 = new EmpleadosView();
-        EmpleadosRepository empleadosRepository1 = new EmpleadosRepository();
-        EmpleadosController empleadosController = new EmpleadosController(empleadosRepository1,empleadosView1);
-        empleadosController.crearEmpleado();
-        empleadosController.modificarEmpleado();
+    //documentar
+    public Empleados find(){
+        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXString("dni del empleado"));
+        if (buscar == null )Consola.soutString("No se ha encontrado el empleado.");
+        return buscar;
     }
+
+    public void mostrar(){
+        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXString("dni del empleado"));
+        if (buscar == null )Consola.soutString("No se ha encontrado el empleado.");
+        else {this.empleadosView.muestroEmpleado(buscar);}
+    }
+
+    public void mostrarHistorial(){
+        this.empleadosView.muestroEmpleados(this.empleadosRepository.getList());
+    }
+
+    public void menuControllerEmpleados()
+    {
+        int opt;
+        do {
+            System.out.println("1. Agregar empleado.");
+            System.out.println("2. Modificar empleado.");
+            System.out.println("3. Elimniar empleado.");
+            System.out.println("4. Buscar un empleado");
+            System.out.println("5. Historial de empleado.");
+            System.out.println("6. SALIR.");
+            opt = Consola.ingresarXInteger("opcion");
+            switch (opt){
+                case 1:
+                    crearEmpleado();
+                    break;
+                case 2:
+                    modificarEmpleado();
+                    break;
+                case 3:
+                    removeEmpleado();
+                    break;
+                case 4:
+                    mostrar();
+                    break;
+                case 5:
+                    mostrarHistorial();
+                    break;
+                case 6:
+                    System.out.println("Saliendo....");
+                    break;
+                default:
+                    System.out.println("Opcion invalida vuelva a intentarlo");
+                    break;
+            }
+        }while (opt!=6);
+    }
+
 }

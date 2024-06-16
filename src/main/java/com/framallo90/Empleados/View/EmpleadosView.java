@@ -9,6 +9,9 @@ package com.framallo90.Empleados.View;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.consola.Consola;
 
+import java.awt.*;
+import java.util.List;
+
 public class EmpleadosView {
 
     /**
@@ -52,5 +55,21 @@ public class EmpleadosView {
                 System.out.println("ingresar un dato válido");
             }
         }
+    }
+
+    //DOCUMENTAR
+    public void muestroEmpleado(Empleados empleados){
+        Consola.soutString(empleados.toString());
+    }
+
+    public void muestroEmpleados(List<Empleados> empleadosList){
+        for (Empleados empleados : empleadosList)
+            Consola.soutString(empleados.toString());
+    }
+
+    //DOCUMENTAR
+    public void printMenuAdministrador(){
+        System.out.println("""
+                1.""");
     }
 }
