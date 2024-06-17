@@ -23,7 +23,7 @@ public class AutomovilController {
     public void agregarAutomovilAlStock()
     {
         Automovil nuevo = new Automovil(this.automovilView.ingresoMarca(),
-                this.automovilView.ingresoModelo(),this.automovilView.ingresoPrecio(),this.automovilView.ingresoPatente());
+                this.automovilView.ingresoModelo(),this.automovilView.ingresoPrecio(),this.automovilView.ingresoPatente(),this.automovilView.ingresoAnio());
         /// Carga de automovil
 
         this.automovilRepository.add(nuevo); // lo añadimos

@@ -25,5 +25,8 @@ public class Main {
         MetodoDePago metodoDePago = metodoView.cargarMetodoDP(100000d);
         System.out.println(metodoDePago.toString());
 
+
+
+
     }
 }

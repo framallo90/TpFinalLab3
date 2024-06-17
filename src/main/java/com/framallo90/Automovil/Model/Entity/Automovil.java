@@ -6,13 +6,15 @@ public class Automovil {
     private String marca,modelo;
     private Double precio;
     private String patente;
+    private Integer anio;
 
-    public Automovil(String marca, String modelo, Double precio,String patente) {
+    public Automovil(String marca, String modelo, Double precio,String patente,Integer anio) {
         this.id = ++cont;
         this.marca = marca;
         this.modelo = modelo;
         this.precio = precio;
         this.patente = patente;
+        this.anio = anio;
     }
 
     public String getPatente() {
@@ -26,7 +28,6 @@ public class Automovil {
     public Integer getId() {
         return id;
     }
-
 
     public static Integer getCont() {
         return cont;
@@ -64,12 +65,21 @@ public class Automovil {
         this.precio = precio;
     }
 
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
     @Override
     public String toString() {
         return "Automovil{" +
                 "id=" + id +
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
+                ", anio='" + anio + '\'' +
                 ", precio=" + precio +
                 ", patente='" + patente + '\'' +
                 '}';

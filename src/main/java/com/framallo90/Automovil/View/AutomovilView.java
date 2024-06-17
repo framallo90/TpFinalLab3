@@ -42,5 +42,7 @@ public class AutomovilView {
     {
         return Consola.patente("patente");
     }
+    public Integer ingresoAnio() {return Consola.ingresarXInteger("anio");
+    }
 
 }

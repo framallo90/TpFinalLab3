@@ -61,7 +61,7 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
         Automovil automovil = find(id);
         if (automovil != null) /// Se ejecuta si lo encuentra en la lista
         {
-            System.out.println("1. Marca\n2. Modelo\n3. Precio\n4. Patente ");
+            System.out.println("1. Marca\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
             Integer IDMod = Consola.ingresarXInteger("numero");
             switch (IDMod)
             {
@@ -76,6 +76,12 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
                     break;
                 case 4:
                     automovil.setPatente(Consola.patente("patente"));
+                    break;
+                case 5:
+                    automovil.setAnio(Consola.ingresarXInteger("anio"));
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
                     break;
                 /**
                  * Para evitar cargar todo el vehiculo desde 0, utilizamos un switch
