@@ -11,6 +11,12 @@ public class MetodoDePago {
         this.cuotas = cuotas;
         this.precioFinanciado = precioFinanciado;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    
     @Override
     public String toString() {
         return tipo.toUpperCase() + ", CANT. CUOTAS: " + cuotas + ". Precio final (financiado): " + precioFinanciado;
