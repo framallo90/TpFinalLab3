@@ -50,4 +50,11 @@ public class MetodoView {
         return cuotas == 12 || cuotas == 24 || cuotas == 36 || cuotas == 48;
         /// Si se ingreso bien, devuelve true, sino false.
     }
+
+    public void printMenuModifMDP(){
+        System.out.println("""
+                desea cambiar la forma de pago?
+                1.si
+                2.no""");
+    }
 }
