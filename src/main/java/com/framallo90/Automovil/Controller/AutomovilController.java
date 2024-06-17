@@ -57,4 +57,8 @@ public class AutomovilController {
         ///Mostramos la lista
     }
 
+     public Automovil find(Integer id){
+        return this.automovilRepository.find(id);
+    }
+
 }
