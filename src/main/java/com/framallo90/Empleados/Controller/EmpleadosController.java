@@ -62,7 +62,12 @@ public class EmpleadosController {
             // El empleado no se encuentra. Se informa al usuario.
             Consola.soutString("No se ha encontrado al empleado con DNI: " + dniEmpleado);
         }
-    }/**
+    }
+    //documentar
+    public void modificarEmpleado(Empleados empleadoAModificar) {
+        modificacion(empleadoAModificar);
+    }
+    /**
      * Permite al usuario modificar los datos de un empleado existente.
      *
      * @param empleado El empleado a modificar.
@@ -130,9 +135,8 @@ public class EmpleadosController {
     }
 
     //documentar
-    public Empleados find(){
-        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXString("dni del empleado"));
-        if (buscar == null )Consola.soutString("No se ha encontrado el empleado.");
+    public Empleados find(Integer id){
+        Empleados buscar = this.empleadosRepository.find(String.valueOf(id));
         return buscar;
     }
 
@@ -150,12 +154,7 @@ public class EmpleadosController {
     {
         int opt;
         do {
-            System.out.println("1. Agregar empleado.");
-            System.out.println("2. Modificar empleado.");
-            System.out.println("3. Elimniar empleado.");
-            System.out.println("4. Buscar un empleado");
-            System.out.println("5. Historial de empleado.");
-            System.out.println("6. SALIR.");
+            this.empleadosView.printMenuAdministrador();
             opt = Consola.ingresarXInteger("opcion");
             switch (opt){
                 case 1:
