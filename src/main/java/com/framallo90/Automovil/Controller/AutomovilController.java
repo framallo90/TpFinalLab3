@@ -1,20 +1,16 @@
 package com.framallo90.Automovil.Controller;
-
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Automovil.Model.Repository.AutomovilRepository;
 import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
-
 public class AutomovilController {
     private final AutomovilRepository automovilRepository;
     private final AutomovilView automovilView;
-
     public AutomovilController(AutomovilRepository automovilRepository, AutomovilView automovilView) {
         this.automovilRepository = automovilRepository;
         this.automovilView = automovilView;
     }
-
     /**
      * Controlador principal para el manejo de los automóviles en la concesionaria
      * Permite agregar nuevos automóviles al stock, listar los vehículos en stock,
@@ -51,14 +47,25 @@ public class AutomovilController {
          * Manejamos el caso de que el ID no este en la lista
          */
     }
+    //SOBRECARGA
+    public void modificarAutomovilEnStock(Automovil automovil)
+    {
+        try {
+            this.automovilRepository.update(automovil.getId());
+        }catch (InvalidIdNotFound e)
+        {
+            System.out.println(e.getMessage());
+        }
+        /**
+         * Manejamos el caso de que el ID no este en la lista
+         */
+    }
     public void mostrarAutomovilesEnStock()
     {
         this.automovilView.mostrarAutomoviles(this.automovilRepository.getAutomovilList());
         ///Mostramos la lista
     }
-
-     public Automovil find(Integer id){
+    public Automovil find(Integer id){
         return this.automovilRepository.find(id);
     }
-
 }
