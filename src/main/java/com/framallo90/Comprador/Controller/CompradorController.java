@@ -113,12 +113,53 @@ public class CompradorController {
             }
         }while (opt != 5);
     }
+    //sobrecarga
+    public void update(Comprador comprador)
+    {
+        int opt;
+        do{
+            System.out.println("1. Nombre");
+            System.out.println("2. Apellido");
+            System.out.println("3. DNI");
+            System.out.println("4. E-Mail");
+            System.out.println("5. SALIR.");
+            opt = Consola.ingresarXInteger("elemento a modificar");
+            switch (opt){
+                case 1:
+                    compradorRepository.cambioNombre(comprador,Consola.ingresarXString("nuevo nombre"));
+                    break;
 
+                case 2:
+                    compradorRepository.cambioApellido(comprador,Consola.ingresarXString("nuevo apellido"));
+                    break;
+
+                case 3:
+                    compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("nuevo DNI"));
+                    break;
+
+                case 4:
+                    compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
+                    break;
+
+                case 5:
+                    System.out.println("Saliendo....");
+                    break;
+
+                default:
+                    System.out.println("Opcion invalida, vuelva a intentarlo.");
+                    break;
+            }
+        }while (opt != 5);
+    }
     public void show()
     {
         String id = String.valueOf(Consola.ingresarXInteger("id del comprador buscado"));
         Comprador comprador = compradorRepository.find(id);
         compradorView.muestroUnComprador(comprador);
+    }
+
+    public Comprador find (String id){
+        return compradorRepository.find(id);
     }
 
     public void verHisorial(){
