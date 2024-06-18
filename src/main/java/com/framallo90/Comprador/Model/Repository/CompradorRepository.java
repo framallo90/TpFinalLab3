@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CompradorRepository implements IRepository<Comprador,String> {
+public class CompradorRepository implements IRepository<Comprador,Integer> {
     private static final String FILE_PATH = "src/main/resources/Compradores.json";
     private Gson gson = new Gson();
     private Set<Comprador> listaCompradores = new HashSet<>();
@@ -48,7 +48,7 @@ public class CompradorRepository implements IRepository<Comprador,String> {
     }
 
     @Override
-    public void remove(String id) throws InvalidIdNotFound{
+    public void remove(Integer id) throws InvalidIdNotFound{
         Comprador remove = find(id);
         if (remove != null) {
             listaCompradores.remove(remove);
@@ -58,7 +58,7 @@ public class CompradorRepository implements IRepository<Comprador,String> {
     }
 
     @Override
-    public void update(String id) throws InvalidIdNotFound {
+    public void update(Integer id) throws InvalidIdNotFound {
         Comprador comprador = find(id);
         if (comprador != null)
         {
@@ -68,10 +68,10 @@ public class CompradorRepository implements IRepository<Comprador,String> {
     }
 
     @Override
-    public Comprador find(String id) {
+    public Comprador find(Integer id) {
         Comprador buscado = null;
         for (Comprador comprador : listaCompradores){
-            if(comprador.getId().equals(Integer.parseInt(id)));{
+            if(comprador.getId().equals(id));{
                 buscado = comprador;
             }
         }

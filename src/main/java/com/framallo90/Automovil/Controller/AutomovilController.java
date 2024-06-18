@@ -5,9 +5,7 @@ import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -42,7 +40,7 @@ public class AutomovilController {
          * Manejamos el caso de que el ID no este en la lista
          */
     }
-    public void modificarAutomovilEnStock()
+    public void modificar()
     {
         try {
             this.automovilRepository.update(Consola.ingresarXInteger("ID"));
@@ -55,17 +53,14 @@ public class AutomovilController {
          */
     }
     //SOBRECARGA
-    public void modificarAutomovilEnStock(Automovil automovil)
+    public Automovil cambiarCoche(Automovil automovil)
     {
-        try {
-            this.automovilRepository.update(automovil.getId());
-        }catch (InvalidIdNotFound e)
-        {
-            System.out.println(e.getMessage());
+        Automovil retorno = this.automovilRepository.find(Consola.ingresarXInteger("ID del automocil"));
+        if (retorno == null) {
+            Consola.soutString("No se ha encontrado un automovil con el id ingresado");
+            return automovil;
         }
-        /**
-         * Manejamos el caso de que el ID no este en la lista
-         */
+        return retorno;
     }
     public void mostrarAutomovilesEnStock()
     {
@@ -146,5 +141,65 @@ public class AutomovilController {
             }
 
         }while(opc != 0);
+    }
+
+    public void menuAutomovilAdmin(){
+        int eleccion;
+        while (true){
+            automovilView.printMenuAutomovilAdmin();
+            eleccion = Consola.ingresarXInteger("eleccion");
+            switch (eleccion){
+                case 0: //salir
+                    return;
+                case 1: //agregar
+                    this.agregarAutomovilAlStock();
+                    break;
+                case 2://remover
+                    this.borrarAutomovilEnStock();
+                    break;
+                case 3://modificar
+                    this.modificar();
+                    break;
+                case 4://mostrar
+                    Automovil find = find(Consola.ingresarXInteger("id del automovil"));
+                    if (find == null){Consola.soutString("No se ha encontrado un automovil con el id ingresado.");}
+                    else Consola.soutString(find.toString());
+                    break;
+                case 5://ver stock
+                    this.mostrarAutomovilesEnStock();
+                    break;
+                case 6://ver lista filtrada
+                    this.buscarAutomovilesXFiltro();
+                    break;
+                default: //Opción no reconocida
+                    Consola.soutString("El dato ingresado no es válido. Reintentar");
+                    break;
+            }
+        }
+    }
+    public void menuAutomovilVendedor(){
+        int eleccion;
+        while (true){
+            automovilView.printMenuAutomovilVendedor();
+            eleccion = Consola.ingresarXInteger("eleccion");
+            switch (eleccion){
+                case 0: //salir
+                    return;
+                case 1://mostrar
+                    Automovil find = find(Consola.ingresarXInteger("id del automovil"));
+                    if (find == null){}
+                    else Consola.soutString(find.toString());
+                    break;
+                case 2://ver stock
+                    this.mostrarAutomovilesEnStock();
+                    break;
+                case 3://ver lista filtrada
+                    this.buscarAutomovilesXFiltro();
+                    break;
+                default: //Opción no reconocida
+                    Consola.soutString("El dato ingresado no es válido. Reintentar");
+                    break;
+            }
+        }
     }
 }

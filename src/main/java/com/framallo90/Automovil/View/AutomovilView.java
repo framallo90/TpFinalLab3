@@ -45,4 +45,23 @@ public class AutomovilView {
     public Integer ingresoAnio() {return Consola.ingresarXInteger("anio");
     }
 
+    public void printMenuAutomovilAdmin(){
+        System.out.println("""
+                MENU AUTOMOVIL (administrador)
+                1. agregar 
+                2. borrar 
+                3. modificar
+                4. buscar automovil
+                5. lista automoviles
+                6. lista automoviles (con filtro)
+                0. salir""");
+    }
+    public void printMenuAutomovilVendedor(){
+        System.out.println("""
+                MENU AUTOMOVIL (vendedor)
+                1. buscar automovil
+                2. lista automoviles
+                3. lista automoviles (con filtro)
+                0. salir""");
+    }
 }

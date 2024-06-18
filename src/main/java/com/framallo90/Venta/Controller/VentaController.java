@@ -39,7 +39,7 @@ public class VentaController {
         if (empleados == null) {
             throw new InvalidIdNotFound("empleado no encontrado");
         }
-        Comprador comprador = this.compradorController.find(Consola.ingresarXString("id del comprador:"));
+        Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador:"));
         if (comprador == null) throw new InvalidIdNotFound("comprador no encontrado");
         Automovil automovil = this.automovilController.find(Consola.ingresarXInteger("id del automovil"));
         if (automovil == null)throw new InvalidIdNotFound("automovil no encontrado");
@@ -79,7 +79,7 @@ public class VentaController {
                     compradorController.update(venta.getComprador());
                     break;
                 case 3: //automovil
-                    automovilController.modificarAutomovilEnStock(venta.getAutomovil());
+                    venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
                     break;
                 case 4: //fecha
                     updateFecha(venta.getFecha());

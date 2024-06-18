@@ -156,16 +156,5 @@ public class Empleados extends Usuario {
         return tipo;
     }
 
-    //DOCUMENTAR
 
-    @Override
-    public String toString() {
-        return "Empleados{" +
-                "id=" + id +
-                ", autosvendidos=" + autosvendidos +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
-    }
 }

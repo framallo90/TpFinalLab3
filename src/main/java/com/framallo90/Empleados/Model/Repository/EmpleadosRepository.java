@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-public class EmpleadosRepository implements IRepository<Empleados, String> {
+public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     private List<Empleados> list;
     private static final String PATH_EMPLEADOS = "src/main/resources/empleados.json";
     private final Gson gson = new Gson();
@@ -57,7 +57,7 @@ public class EmpleadosRepository implements IRepository<Empleados, String> {
         this.saveEmpleados();
     }
     @Override
-    public void remove(String id) {
+    public void remove(Integer id) {
         Empleados remover = this.find(id);
         if (remover == null) return;
         this.list.remove(remover);
@@ -71,7 +71,7 @@ public class EmpleadosRepository implements IRepository<Empleados, String> {
      * @param id El ID del empleado a actualizar.
      */
     @Override
-    public void update(String id) {
+    public void update(Integer id) {
         // TODO: Implementar la funcionalidad de actualización de un empleado.
         throw new UnsupportedOperationException("La actualización de empleados aún no está implementada");
     }
@@ -83,9 +83,9 @@ public class EmpleadosRepository implements IRepository<Empleados, String> {
      * @return El objeto Empleado encontrado o null si no se encuentra.
      */
     @Override
-    public Empleados find(String id) {
+    public Empleados find(Integer id) {
         for (Empleados empleados : this.list) {
-            if (empleados.getDni() == Integer.parseInt(id)) return empleados;
+            if (empleados.getId() == id) return empleados;
         }
         return null;
     }

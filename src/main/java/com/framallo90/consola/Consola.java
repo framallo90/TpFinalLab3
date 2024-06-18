@@ -32,6 +32,8 @@ public class Consola {
         }
     }
 
+
+
     /**
      * Solicita al usuario que ingrese un String y lo valida para que solo contenga letras y espacios.
      *
@@ -161,16 +163,62 @@ public class Consola {
 
     public static void printMenuVendedor(){
         System.out.println("""
-                1. inicar una venta
-                . historial de ventas
+                VENDEDOR
+                1. gestión de clientes
+                2. gestión de ventas
+                3. stock de carros
                 0. salir""");
     }
 
     public static void printMenuAdministrador(){
         System.out.println("""
+                ADMINISTRADOR
+                1. gestión de clientes
+                2. gestión de ventas
+                3. gestión de carros
+                4. gestión de usuarios
+                0. salir""");
+    }
+    public static void gestionClientes(){
+        System.out.println("""
+                GESTION DE CLIENTES
+                1. agregar cliente
+                2. modificar cliente
+                3. remover cliente
+                4. ver lista de clientes
+                0. salir
+                """);
+    }
+    public static void gestionVentas(){
+        System.out.println("""
+                GESTION DE VENTAS
+                1. iniciar venta
+                2. ver historial de ventas
+                0. salir
                 """);
     }
 
+
+    public static void gestionCarros(){
+        System.out.println("""
+                GESTION DE CARROS
+                1. agregar 
+                2. modificar 
+                3. remover
+                4. búsqueda
+                5. mostrar lista
+                0. salir
+                """);
+    }
+    public static void gestionUsuarios(){
+        System.out.println("""
+                GESTION DE USUARIOS
+                1. agregar usuario
+                2. modificar usuario
+                3. remover usuario
+                0. salir
+                """);
+    }
 
 
 }

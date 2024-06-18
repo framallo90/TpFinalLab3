@@ -9,7 +9,6 @@ package com.framallo90.Empleados.View;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.consola.Consola;
 
-import java.awt.*;
 import java.util.List;
 
 public class EmpleadosView {
@@ -28,7 +27,7 @@ public class EmpleadosView {
         dni = Consola.ingresarXInteger("dni");
         Consola.limpiarBuffer();
         username = Consola.ingresarXString("username");
-        password = Consola.ingresarXString("password");
+        password = Consola.ingresarXStringSimple("password");
         tipo = this.generarTipo();
 
         return new Empleados(nombre, apellido, dni, 0, username, password, tipo);
@@ -57,15 +56,6 @@ public class EmpleadosView {
         }
     }
 
-    //DOCUMENTAR
-    public void muestroEmpleado(Empleados empleados){
-        Consola.soutString(empleados.toString());
-    }
-
-    public void muestroEmpleados(List<Empleados> empleadosList){
-        for (Empleados empleados : empleadosList)
-            Consola.soutString(empleados.toString());
-    }
 
     //DOCUMENTAR
     public void printMenuAdministrador(){
@@ -75,5 +65,22 @@ public class EmpleadosView {
         System.out.println("4. Buscar un empleado");
         System.out.println("5. Historial de empleado.");
         System.out.println("6. SALIR.");
+    }
+
+    public void mostrarEmpleado(Empleados empleados){
+
+        System.out.println("=========================================");
+        System.out.println("ID: " + empleados.getId());
+        System.out.println("Nombre: " + empleados.getApellido() + ", " + empleados.getNombre());
+        System.out.println("Dni: "+empleados.getDni());
+        System.out.println("Tipo de usuario: "+empleados.getTipo());
+        System.out.println("Autos vendidos: "+empleados.getAutosvendidos());
+        System.out.println("username: "+empleados.getUsername());
+        System.out.println("=========================================");
+    }
+    public void muestroEmpleados(List<Empleados> empleados){
+        for (Empleados empleados1 : empleados){
+            mostrarEmpleado(empleados1);
+        }
     }
 }

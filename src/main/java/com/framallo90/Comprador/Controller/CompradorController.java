@@ -64,11 +64,12 @@ public class CompradorController {
         String email = compradorView.ingresoEmail();
 
         Comprador comprador = new Comprador(nombre,apellido,dni,email);
+        this.compradorRepository.add(comprador);
     }
 
     public void remove(){
         try {
-            compradorRepository.remove(String.valueOf(Consola.ingresarXInteger("id")));
+            compradorRepository.remove(Consola.ingresarXInteger("id"));
         }catch (InvalidIdNotFound e) {
             System.out.println(e.getMessage());
         }
@@ -77,14 +78,14 @@ public class CompradorController {
     public void update()
     {
         int opt;
+        Comprador comprador = compradorRepository.find(Consola.ingresarXInteger("id"));
         do{
-            System.out.println("Ingrese el id del cliente a modificar: ");
-            Comprador comprador = compradorRepository.find(String.valueOf(Consola.ingresarXInteger("id")));
             System.out.println("1. Nombre");
             System.out.println("2. Apellido");
             System.out.println("3. DNI");
             System.out.println("4. E-Mail");
             System.out.println("5. SALIR.");
+            System.out.println("Ingrese el id del cliente a modificar: ");
             opt = Consola.ingresarXInteger("elemento a modificar");
             switch (opt){
                 case 1:
@@ -153,12 +154,13 @@ public class CompradorController {
     }
     public void show()
     {
-        String id = String.valueOf(Consola.ingresarXInteger("id del comprador buscado"));
+        Integer id = Consola.ingresarXInteger("id del comprador buscado");
         Comprador comprador = compradorRepository.find(id);
-        compradorView.muestroUnComprador(comprador);
+        if (comprador != null)
+            compradorView.muestroUnComprador(comprador);
     }
 
-    public Comprador find (String id){
+    public Comprador find (Integer id){
         return compradorRepository.find(id);
     }
 

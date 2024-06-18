@@ -39,7 +39,7 @@ public class EmpleadosController {
     public void crearEmpleado() {
         Empleados nuevoEmpleado = empleadosView.generarEmpleado();
 
-        if (empleadosRepository.find(String.valueOf(nuevoEmpleado.getDni())) != null) {
+        if (empleadosRepository.find(nuevoEmpleado.getDni()) != null) {
             // El empleado ya existe. Se disminuye el contador de empleados en 1.
             Empleados.setCont(Empleados.getCont() - 1);
         } else {
@@ -52,15 +52,15 @@ public class EmpleadosController {
      * Permite al usuario modificar un empleado existente.
      */
     public void modificarEmpleado() {
-        String dniEmpleado = String.valueOf(Consola.ingresarXInteger("dni del empleado"));
-        Empleados empleadoAModificar = empleadosRepository.find(dniEmpleado);
+        Integer idEmpleado = Consola.ingresarXInteger("dni del empleado");
+        Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
 
         if (empleadoAModificar != null) {
             // El empleado se encuentra. Se procede a la modificación.
             modificacion(empleadoAModificar);
         } else {
             // El empleado no se encuentra. Se informa al usuario.
-            Consola.soutString("No se ha encontrado al empleado con DNI: " + dniEmpleado);
+            Consola.soutString("No se ha encontrado al empleado de id: " + idEmpleado);
         }
     }
     //documentar
@@ -130,20 +130,20 @@ public class EmpleadosController {
      * Permite al usuario eliminar un empleado existente.
      */
     public void removeEmpleado() {
-        String dniEmpleado = Consola.ingresarXString("dni del empleado");
-        empleadosRepository.remove(dniEmpleado);
+        Integer id = Consola.ingresarXInteger("id del empleado");
+        empleadosRepository.remove(id);
     }
 
     //documentar
     public Empleados find(Integer id){
-        Empleados buscar = this.empleadosRepository.find(String.valueOf(id));
+        Empleados buscar = this.empleadosRepository.find(id);
         return buscar;
     }
 
     public void mostrar(){
-        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXString("dni del empleado"));
+        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("id del empleado"));
         if (buscar == null )Consola.soutString("No se ha encontrado el empleado.");
-        else {this.empleadosView.muestroEmpleado(buscar);}
+        else {this.empleadosView.mostrarEmpleado(buscar);}
     }
 
     public void mostrarHistorial(){

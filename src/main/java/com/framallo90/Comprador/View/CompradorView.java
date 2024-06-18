@@ -8,7 +8,7 @@ import java.util.Set;
 public class CompradorView {
     public String ingresoEmail(){
         while (true) {
-            String email = Consola.ingresarXString("email");
+            String email = Consola.ingresarXStringSimple("email");
             if (!email.contains("@")) {
                 System.out.println("El email debe tener un @.");
             }else
