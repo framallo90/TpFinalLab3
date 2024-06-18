@@ -59,6 +59,8 @@ public class Empleados extends Usuario {
         this.tipo = tipo;
     }
 
+
+
     /**
      * Método getter para obtener el ID único del empleado.
      *

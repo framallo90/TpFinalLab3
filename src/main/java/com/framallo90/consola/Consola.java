@@ -157,4 +157,20 @@ public class Consola {
         return patente.toString().toUpperCase();
     }
     // Consola estática que nos servira con todas las clases del programa
-*/}
+*/
+
+    public static void printMenuVendedor(){
+        System.out.println("""
+                1. inicar una venta
+                . historial de ventas
+                0. salir""");
+    }
+
+    public static void printMenuAdministrador(){
+        System.out.println("""
+                """);
+    }
+
+
+
+}
