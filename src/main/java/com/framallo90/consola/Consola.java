@@ -50,7 +50,12 @@ public class Consola {
             }
         }
     }
-
+    public static String ingresarXStringSimple(String x) {
+        while (true) {
+            System.out.println("Ingresar " + x + ": ");
+            return scanner.nextLine();
+        }
+    }
     /**
      * Solicita al usuario que ingrese un número entero y lo valida para que sea mayor o igual a cero.
      *

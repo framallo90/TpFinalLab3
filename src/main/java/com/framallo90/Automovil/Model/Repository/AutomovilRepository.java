@@ -69,7 +69,7 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
                     automovil.setMarca(Consola.ingresarXString("marca"));
                     break;
                 case 2:
-                    automovil.setModelo(Consola.ingresarXString("modelo"));
+                    automovil.setModelo(Consola.ingresarXStringSimple("modelo"));
                     break;
                 case 3:
                     automovil.setPrecio(Consola.ingresarXdouble("precio"));

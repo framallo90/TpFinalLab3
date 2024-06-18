@@ -32,7 +32,7 @@ public class AutomovilView {
     }
 
     public String ingresoModelo(){
-        return Consola.ingresarXString("modelo");
+        return Consola.ingresarXStringSimple("modelo");
     }
 
     public Double ingresoPrecio(){
