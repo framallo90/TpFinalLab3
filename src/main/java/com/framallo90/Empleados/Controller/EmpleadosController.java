@@ -182,4 +182,11 @@ public class EmpleadosController {
         }while (opt!=6);
     }
 
+    public static void main(String[] args) {
+        EmpleadosRepository empleadosRepository1 = new EmpleadosRepository();
+        EmpleadosView empleadosView1 = new EmpleadosView();
+        EmpleadosController empleadosControllerl = new EmpleadosController(empleadosRepository1,empleadosView1);
+
+        empleadosControllerl.crearEmpleado();
+    }
 }
