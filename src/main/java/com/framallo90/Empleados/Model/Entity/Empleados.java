@@ -150,6 +150,10 @@ public class Empleados extends Usuario {
         Empleados.cont = cont;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     //DOCUMENTAR
 
     @Override
