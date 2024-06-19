@@ -39,13 +39,16 @@ public class EmpleadosController {
     public void crearEmpleado() {
         Empleados nuevoEmpleado = empleadosView.generarEmpleado();
 
-        if (empleadosRepository.find(nuevoEmpleado.getDni()) != null) {
-            // El empleado ya existe. Se disminuye el contador de empleados en 1.
-            Empleados.setCont(Empleados.getCont() - 1);
-        } else {
-            // El empleado no existe. Se agrega al repositorio.
-            empleadosRepository.add(nuevoEmpleado);
+        if (nuevoEmpleado != null) {
+            if (empleadosRepository.find(nuevoEmpleado.getDni()) != null) {
+                // El empleado ya existe. Se disminuye el contador de empleados en 1.
+                Empleados.setCont(Empleados.getCont() - 1);
+            } else {
+                // El empleado no existe. Se agrega al repositorio.
+                empleadosRepository.add(nuevoEmpleado);
+            }
         }
+        else Consola.soutString("Error al crear un empleado. Volviendo...");
     }
 
     /**
@@ -107,12 +110,12 @@ public class EmpleadosController {
                     break;
                 case "4":
                     // Modificar el username del empleado.
-                    empleadosRepository.cambioUsername(empleado, Consola.ingresarXString("nuevo username"));
+                    empleadosRepository.cambioUsername(empleado, Consola.ingresarXStringSimple("nuevo username"));
                     break;
                 case "5":
                     // Modificar la contraseña del empleado.
                     //Tener en cuenta que en este momento la contraseña no puede tener numeros por cómo funciona 'Consola.ingresarXString()'
-                    empleadosRepository.cambioPassword(empleado, Consola.ingresarXString("nueva password"));
+                    empleadosRepository.cambioPassword(empleado, Consola.ingresarXStringSimple("nueva password"));
                     break;
                 case "6":
                     // Modificar el tipo de empleado.
