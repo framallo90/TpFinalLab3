@@ -18,6 +18,7 @@ public class CompradorController {
     public void compradorMenu(){
         int opt;
         do {
+            System.out.println("MENU CLIENTES");
             System.out.println("1. Agregar cliente.");
             System.out.println("2. Modificar cliente.");
             System.out.println("3. Elimniar cliente.");
