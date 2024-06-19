@@ -5,8 +5,11 @@ import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class AutomovilController {
@@ -70,74 +73,165 @@ public class AutomovilController {
     public Automovil find(Integer id){
         return this.automovilRepository.find(id);
     }
-    public void buscarAutomovilesXFiltro(){
-        Stack<List<Automovil>> pilaListas = new Stack<>();
-        Stack<String> pilaTags = new Stack<>();
-        pilaListas.push(this.automovilRepository.getAutomovilList().stream().toList());
-        int opc = -1;
 
+    public void buscarAutomovilesXFiltro(){
+
+        Predicate<Automovil>[] arrayCondiciones = new Predicate[5];
+        arrayCondiciones[0] = null;arrayCondiciones[1] = null;
+        arrayCondiciones[2] = null;arrayCondiciones[3] = null;
+        arrayCondiciones[4] = null;
+
+        String[] arrayTagsMostrar = new String[5];
+        //tendremos un maximo de 5 filtros unicos
+
+        int cont = 0;
+        int opc = -1;
         do{
-            System.out.println("Menu \n1 - filtrar por marca\n2 - filtrar por modelo\n3 - filtrar por anio\n4 - establecer precio maximo\n5 - establecer precio minimo");
-            if(pilaListas.size() > 1){
-                System.out.println("6 - quitar filtro");
-            }
+            System.out.println("Menu " +
+                    "\n1 - filtrar por marca" +
+                    "\n2 - filtrar por modelo" +
+                    "\n3 - filtrar por anio" +
+                    "\n4 - establecer precio maximo" +
+                    "\n5 - establecer precio minimo"
+            );
+            if(cont>0){System.out.println("6 - quitar filtro");}
             System.out.println("0 - atras");
 
             opc = Consola.ingresarXInteger("opcion");
+
+
+
+            //se agrega/cambia/saca uno de los filtros
             switch (opc){
                 case 1:
                     String marca = automovilView.ingresoMarca();
-                    pilaListas.push(pilaListas.getLast().stream().filter(a -> a.getMarca().equalsIgnoreCase(marca)).collect(Collectors.toList()));
-                    pilaTags.push(" Marca: " + marca+" |");
+                    arrayCondiciones[0] = m -> m.getMarca().equalsIgnoreCase(marca);
+                    arrayTagsMostrar[0] = "Marca " + marca + " | ";
                     break;
-
                 case 2:
                     String modelo = automovilView.ingresoModelo();
-                    pilaListas.push(pilaListas.getLast().stream().filter(a -> a.getModelo().equalsIgnoreCase(modelo)).collect(Collectors.toList()));
-                    pilaTags.push(" Modelo: " + modelo+" |");
+                    arrayCondiciones[1] = m -> m.getModelo().equalsIgnoreCase(modelo);
+                    arrayTagsMostrar[1] = "Modelo " + modelo + " | ";
                     break;
-
                 case 3:
                     Integer anio = automovilView.ingresoAnio();
-                    pilaListas.push(pilaListas.getLast().stream().filter(a -> a.getAnio() == anio).collect(Collectors.toList()));
-                    pilaTags.push(" Anio: " + anio.toString()+" |");
+                    arrayCondiciones[2] = (a -> a.getAnio().equals(anio));
+                    arrayTagsMostrar[2] = "Anio " + anio.toString() + " | ";
                     break;
-
                 case 4:
                     Double max = Consola.ingresarXdouble("maximo");
-                    pilaListas.push(pilaListas.getLast().stream().filter(a -> a.getPrecio() <= max).collect(Collectors.toList()));
-                    pilaTags.push(" Precio maximo: " + max.toString()+" |");
+                    arrayCondiciones[3] = p-> p.getPrecio() <= max;
+                    arrayTagsMostrar[3] = "Precio hasta $" + max + " | ";
                     break;
                 case 5:
                     Double min = Consola.ingresarXdouble("minimo");
-                    pilaListas.push(pilaListas.getLast().stream().filter(a -> a.getPrecio()>=min).collect(Collectors.toList()));
-                    pilaTags.push(" Precio minimo: " + min.toString() +" |");
+                    arrayCondiciones[4] = p -> p.getPrecio() >= min;
+                    arrayTagsMostrar[4] = "Precio desde $" + min + " | ";
                     break;
                 case 6:
-                    if(pilaListas.size()>1){
-                        pilaListas.pop();
-                        pilaTags.pop();
+                    if(cont>0){
+                        System.out.println("\n1 - filtro marca" +
+                                "\n2 - filtro modelo" +
+                                "\n3 - filtro anio" +
+                                "\n4 - filtro precio maximo" +
+                                "\n5 - filtro precio minimo" +
+                                "\n6 - atras"
+                        );
+                        Integer sacar = Consola.ingresarXInteger("opcion");
+                        if(6 > sacar && sacar>0){
+                            arrayCondiciones[sacar-1] = null;
+                        }
+                    }else{
+                        System.out.println("Opcion no reconocida");
                     }
                     break;
-
                 case 0:
+                    //se sale
                     break;
-
                 default:
+                    opc = -1;
                     System.out.println("Opcion no reconocida");
                     break;
             }
-            if(!pilaTags.isEmpty()){
-                System.out.print("|Filtros| |");
-                for(String st:pilaTags){
-                    System.out.print(st);
+
+
+            //verifico el array de filtros y si tengo los paso a una lista para usarlos
+            List<Predicate<Automovil>> listaFiltros = new ArrayList<>();
+            for(Predicate<Automovil> p:arrayCondiciones){
+                if(p != null){
+                    listaFiltros.add(p);
                 }
-                System.out.println();
             }
-            if(!pilaListas.isEmpty()){
-                pilaListas.getLast().forEach(System.out::println);
-            }else{
-                System.out.println("No quedan automoviles que cumplan la condicion");
+
+            cont = listaFiltros.size();
+
+            if(opc != 0){
+                if(cont >0){///si se usan filtros
+                    ///muestra los filtros que se usan
+                    System.out.println("Filtros:");
+                    System.out.printf("\033[36m | ");
+                    for (int i = 0;i<5;i++){
+                        if(arrayCondiciones[i] != null){
+                            System.out.printf("\033[36m" + arrayTagsMostrar[i]);
+                        }
+                    }
+                    System.out.println("\u001B[0m");
+                    //procesa los datos y muestra si hay coincidencias o no
+                    Integer coincidencias = 0;
+                    if (cont == 1) {
+                        coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
+                                .filter(listaFiltros.get(0))
+                                .peek(System.out::println)
+                                .count();
+
+                    } else if( cont == 2){
+                        coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
+                                .filter(listaFiltros.get(0))
+                                .filter(listaFiltros.get(1))
+                                .peek(System.out::println)
+                                .count();
+                    } else if(cont == 3) {
+                        coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
+                                .filter(listaFiltros.get(0))
+                                .filter(listaFiltros.get(1))
+                                .filter(listaFiltros.get(2))
+                                .peek(System.out::println)
+                                .count();
+
+                    } else if(cont == 4) {
+                        coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
+                                .filter(listaFiltros.get(0))
+                                .filter(listaFiltros.get(1))
+                                .filter(listaFiltros.get(2))
+                                .filter(listaFiltros.get(3))
+                                .peek(System.out::println)
+                                .count();
+                    } else if (cont == 5){
+                        coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
+                                .filter(arrayCondiciones[0])
+                                .filter(arrayCondiciones[1])
+                                .filter(arrayCondiciones[2])
+                                .filter(arrayCondiciones[3])
+                                .filter(arrayCondiciones[4])
+                                .peek(System.out::println)
+                                .count();
+                    }
+
+
+                    ///avisa que no hay coincidencias
+                    if(coincidencias == 0){
+                        System.out.println("No hay automoviles que coincidan con los filtros");
+                    }
+
+
+                }else{
+                    ///muestra la lista resultante sin filtros
+                    if(this.automovilRepository.getAutomovilList().size() == 0){
+                        System.out.println("No hay automoviles");
+                    }else{
+                        this.automovilRepository.getAutomovilList().forEach(System.out::println);
+                    }
+                }
             }
 
         }while(opc != 0);
