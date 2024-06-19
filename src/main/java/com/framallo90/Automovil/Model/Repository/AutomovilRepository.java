@@ -1,5 +1,6 @@
 package com.framallo90.Automovil.Model.Repository;
 import com.framallo90.Automovil.Model.Entity.Automovil;
+import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.framallo90.consola.Consola;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.framallo90.Automovil.Model.Entity.Automovil.getCont;
 
@@ -100,12 +102,12 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
          * Método que se encarga de buscar un automovil por ID en la lista, si no lo encuentra
          * o la lista esta vacía devuelve null
          */
-        for (Automovil automovil : automovilList)
-        {
-            if (automovil.getId().equals(integer))
-                return automovil;
+        Optional<Automovil> devol = this.automovilList.stream().filter(a ->a.getId().equals(integer)).findFirst();
+        if(devol.isEmpty()){
+            return null;
+        }else{
+            return  devol.get();
         }
-        return null;
     }
 
     public void loadAutomoviles()
