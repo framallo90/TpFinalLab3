@@ -153,14 +153,12 @@ public class VentaController {
                     Consola.soutString("saliendo...");
                     return;
                 case 1://agregar venta
-                    while(true){
                         try {
                             this.add();
                             break;
                         } catch (InvalidIdNotFound e) {
                             Consola.soutString(e.getMessage());
                         }
-                    }
                     break;
                 case 2://mostrar
                     while(true){
@@ -173,23 +171,19 @@ public class VentaController {
                     }
                     break;
                 case 3: //modificar una vnta
-                    while(true){
-                        try {
-                            this.update();
-                            break;
-                        } catch (InvalidIdNotFound e) {
-                            Consola.soutString(e.getMessage());
-                        }
+                    try {
+                        this.update();
+                        break;
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutString(e.getMessage());
                     }
                     break;
                 case 4://remover
-                    while(true){
-                        try {
-                            this.remover();
-                            break;
-                        } catch (InvalidIdNotFound e) {
-                            Consola.soutString(e.getMessage());
-                        }
+                    try {
+                        this.remover();
+                        break;
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutString(e.getMessage());
                     }
                     break;
                 case 5: //mostrar todas

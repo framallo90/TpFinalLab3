@@ -1,12 +1,9 @@
 package com.framallo90.Venta.Model.Entity;
-
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
-
 import java.time.LocalDate;
-
 public class Venta {
     private final Integer idVenta;
     private static Integer cont = 0;
@@ -15,6 +12,7 @@ public class Venta {
     private Automovil automovil;
     private LocalDate fecha;
     private MetodoDePago transaccion;
+
 
     public Venta(Empleados empleados, Comprador comprador, Automovil automovil, LocalDate fecha, MetodoDePago transaccion) {
         this.idVenta = ++cont;
@@ -76,6 +74,7 @@ public class Venta {
     public void setMetodoDePago(MetodoDePago transaccion) {
         this.transaccion = transaccion;
     }
+
     @Override
     public String toString() {
         return "Venta{" +
