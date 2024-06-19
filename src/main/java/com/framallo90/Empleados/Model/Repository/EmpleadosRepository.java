@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     private List<Empleados> list;
     private static final String PATH_EMPLEADOS = "src/main/resources/empleados.json";
@@ -84,10 +86,12 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     @Override
     public Empleados find(Integer id) {
-        for (Empleados empleados : this.list) {
-            if (empleados.getId() == id) return empleados;
+        Optional<Empleados> devol = this.list.stream().filter(e ->e.getId().equals(id)).findFirst();
+        if(devol.isEmpty()){
+            return null;
+        }else{
+            return  devol.get();
         }
-        return null;
     }
 
     /**
