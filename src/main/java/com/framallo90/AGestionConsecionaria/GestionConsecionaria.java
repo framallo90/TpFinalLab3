@@ -36,56 +36,63 @@ public class GestionConsecionaria {
         VentaController ventaController = new VentaController(empleadosController,compradorController,automovilController,metodoController,ventaView,ventaRepository);
         Login login = new Login();
         Empleados  empleadoIngresado = null;
-        do {
-            empleadoIngresado = login.login();
-            if (empleadoIngresado==null)
-                Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
-        } while (empleadoIngresado == null);
 
         //---------------------
         int eleccion = 0;
 
         do {
-            if (empleadoIngresado.getTipo().equalsIgnoreCase("admin") ||
-                    empleadoIngresado.getTipo().equalsIgnoreCase("administrador")){
-                Consola.printMenuAdministrador();
-                eleccion = Consola.ingresarXInteger("elección");
-                switch (eleccion){
-                    case 0: // salir
-                        break;
-                    case 1: // gestion clientes
-                        compradorController.compradorMenu();
-                        break;
-                    case 2: // gestion ventas
-                        ventaController.menuVentas();
-                        break;
-                    case 3: // gestion carros
-                        automovilController.menuAutomovilAdmin();
-                        break;
-                    case 4: // gestion usuarios
-                        empleadosController.menuControllerEmpleados();
-                        break;
-                    default: //opcion no reconocida
-                        Consola.soutString("No se reconoce la opción ingresada.");
-                        break;
-                }
+            if (empleadoIngresado == null) {
+                Consola.printMenuLogin();
+                eleccion = Consola.ingresarXInteger("eleccion");
+                if (eleccion == 0) return;
+                empleadoIngresado = login.login();
             }
-            else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor")){
-                Consola.printMenuVendedor();
-                eleccion = Consola.ingresarXInteger("elección");
-                switch (eleccion){
-                    case 0: // salir
-                        break;
-                    case 1: // gestion clientes
-                        compradorController.compradorMenu();
-                        break;
-                    case 2: // gestion ventas
-                        ventaController.menuVentas();
-                        break;
-                    case 3: // gestion carros
-                        automovilController.menuAutomovilAdmin();
+            if (empleadoIngresado==null)
+                Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
+            else{
+                if (empleadoIngresado.getTipo().equalsIgnoreCase("admin") || empleadoIngresado.getTipo().equalsIgnoreCase("administrador")){
+                    Consola.printMenuAdministrador();
+                    eleccion = Consola.ingresarXInteger("elección");
+                    switch (eleccion){
+                        case 0: // salir
+                            empleadoIngresado = null;
+                            break;
+                        case 1: // gestion clientes
+                            compradorController.compradorMenu();
+                            break;
+                        case 2: // gestion ventas
+                            ventaController.menuVentas();
+                            break;
+                        case 3: // gestion carros
+                            automovilController.menuAutomovilAdmin();
+                            break;
+                        case 4: // gestion usuarios
+                            empleadosController.menuControllerEmpleados();
+                            break;
+                        default: //opcion no reconocida
+                            Consola.soutString("No se reconoce la opción ingresada.");
+                            break;
+                    }
                 }
+                else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor")){
+                    Consola.printMenuVendedor();
+                    eleccion = Consola.ingresarXInteger("elección");
+                    switch (eleccion){
+                        case 0: // salir
+                            empleadoIngresado = null;
+                            break;
+                        case 1: // gestion clientes
+                            compradorController.compradorMenu();
+                            break;
+                        case 2: // gestion ventas
+                            ventaController.menuVentas();
+                            break;
+                        case 3: // gestion carros
+                            automovilController.menuAutomovilAdmin();
+                    }
+                }
+                else Consola.soutString("Credenciales incorrectas.");
             }
-        } while (eleccion != 0);
+        } while (true);
     }
 }
