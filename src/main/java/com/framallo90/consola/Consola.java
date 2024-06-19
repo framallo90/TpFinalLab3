@@ -220,5 +220,9 @@ public class Consola {
                 """);
     }
 
-
+    public static void printMenuLogin(){
+        System.out.println("""
+                1. iniciar sesión
+                0. salir del programa""");
+    }
 }
