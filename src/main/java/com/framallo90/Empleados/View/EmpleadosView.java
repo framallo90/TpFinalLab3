@@ -64,7 +64,7 @@ public class EmpleadosView {
         System.out.println("3. Elimniar empleado.");
         System.out.println("4. Buscar un empleado");
         System.out.println("5. Historial de empleado.");
-        System.out.println("6. SALIR.");
+        System.out.println("6. Atras.");
     }
 
     public void mostrarEmpleado(Empleados empleados){
@@ -75,7 +75,7 @@ public class EmpleadosView {
         System.out.println("Dni: "+empleados.getDni());
         System.out.println("Tipo de usuario: "+empleados.getTipo());
         System.out.println("Autos vendidos: "+empleados.getAutosvendidos());
-        System.out.println("username: "+empleados.getUsername());
+        System.out.println("Username: "+empleados.getUsername());
         System.out.println("=========================================");
     }
     public void muestroEmpleados(List<Empleados> empleados){

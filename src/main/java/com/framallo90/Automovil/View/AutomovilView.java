@@ -48,20 +48,20 @@ public class AutomovilView {
     public void printMenuAutomovilAdmin(){
         System.out.println("""
                 MENU AUTOMOVIL (administrador)
-                1. agregar 
-                2. borrar 
-                3. modificar
-                4. buscar automovil
-                5. lista automoviles
-                6. lista automoviles (con filtro)
-                0. salir""");
+                1. Agregar 
+                2. Borrar 
+                3. Modificar
+                4. Buscar automovil
+                5. Lista automoviles
+                6. Lista automoviles (con filtro)
+                0. Atras""");
     }
     public void printMenuAutomovilVendedor(){
         System.out.println("""
                 MENU AUTOMOVIL (vendedor)
-                1. buscar automovil
-                2. lista automoviles
-                3. lista automoviles (con filtro)
-                0. salir""");
+                1. Buscar automovil
+                2. Lista automoviles
+                3. Lista automoviles (con filtro)
+                0. Atras""");
     }
 }

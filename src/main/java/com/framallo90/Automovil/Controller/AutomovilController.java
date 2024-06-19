@@ -169,11 +169,11 @@ public class AutomovilController {
             int opc = -1;
             do{
                 System.out.println("Menu " +
-                        "\n1 - filtrar por marca" +
-                        "\n2 - filtrar por modelo" +
-                        "\n3 - filtrar por anio" +
-                        "\n4 - establecer precio maximo" +
-                        "\n5 - establecer precio minimo"
+                        "\n1 - Filtrar por marca" +
+                        "\n2 - Filtrar por modelo" +
+                        "\n3 - Filtrar por anio" +
+                        "\n4 - Establecer precio maximo" +
+                        "\n5 - Establecer precio minimo"
                 );
                 if(cont>0){System.out.println("6 - quitar filtro");}
                 System.out.println("0 - atras");
@@ -211,12 +211,13 @@ public class AutomovilController {
                         break;
                     case 6:
                         if(cont>0){
-                            System.out.println("\n1 - filtro marca" +
-                                    "\n2 - filtro modelo" +
-                                    "\n3 - filtro anio" +
-                                    "\n4 - filtro precio maximo" +
-                                    "\n5 - filtro precio minimo" +
-                                    "\n6 - atras"
+                            System.out.println(
+                                    "\n1 - Filtro marca" +
+                                    "\n2 - Filtro modelo" +
+                                    "\n3 - Filtro anio" +
+                                    "\n4 - Filtro precio maximo" +
+                                    "\n5 - Filtro precio minimo" +
+                                    "\n0 - Atras"
                             );
                             Integer sacar = Consola.ingresarXInteger("opcion");
                             if(6 > sacar && sacar>0){
@@ -253,11 +254,14 @@ public class AutomovilController {
                         System.out.printf("\033[36m | ");
                         for (int i = 0;i<5;i++){
                             if(arrayCondiciones[i] != null){
-                                System.out.printf("\033[36m" + arrayTagsMostrar[i]);
+                                System.out.printf(arrayTagsMostrar[i]);
                             }
                         }
                         System.out.println("\u001B[0m");
-                        //procesa los datos y muestra si hay coincidencias o no
+
+
+
+                        //procesa los datos y muestra si hay coincidencias
                         Integer coincidencias = 0;
                         if (cont == 1) {
                             coincidencias = (int) this.automovilRepository.getAutomovilList().stream()

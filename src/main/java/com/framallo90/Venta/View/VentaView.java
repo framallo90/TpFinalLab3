@@ -53,13 +53,13 @@ public class VentaView {
     public void printMenuModifVenta(){
         System.out.println("""
                 datos de la venta
-                1. empleado
-                2. comprador
-                3. automovil
-                4. fecha
-                5. metodo de pago
+                1. Empleado
+                2. Comprador
+                3. Automovil
+                4. Fecha
+                5. Metodo de pago
                 
-                0. salir
+                0. Atras
                 """);
     }
 
@@ -68,18 +68,18 @@ public class VentaView {
         System.out.println("1. Cambiar día");
         System.out.println("2. Cambiar mes");
         System.out.println("3. Cambiar año");
-        System.out.println("0. Salir");
+        System.out.println("0. Atras");
     }
 
     public void printMenuVentas(){
         System.out.println("""
                 Menu ventas
-                1. agregar
-                2. mostrar
-                3. modificar
-                4. remover
-                5. mostrar todas
-                0. salir
+                1. Agregar
+                2. Mostrar
+                3. Modificar
+                4. Remover
+                5. Mostrar todas
+                0. Atras
                 """);
     }
 }
