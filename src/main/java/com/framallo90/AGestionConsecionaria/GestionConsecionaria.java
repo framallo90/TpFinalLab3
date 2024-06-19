@@ -45,7 +45,9 @@ public class GestionConsecionaria {
                 Consola.printMenuLogin();
                 eleccion = Consola.ingresarXInteger("eleccion");
                 if (eleccion == 0) return;
-                empleadoIngresado = login.login();
+                else if (eleccion == 1)
+                    empleadoIngresado = login.login();
+                else Consola.soutString("Ingresar una opción válida!");
             }
             if (empleadoIngresado==null)
                 Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
