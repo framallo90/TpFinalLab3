@@ -26,11 +26,29 @@ public class EmpleadosView {
         apellido = Consola.ingresarXString("apellido");
         dni = Consola.ingresarXInteger("dni");
         Consola.limpiarBuffer();
-        username = Consola.ingresarXString("username");
-        password = Consola.ingresarXStringSimple("password");
+        username = Consola.ingresarXStringSimple("username");
+        while (true){
+            password = Consola.ingresarXStringSimple("password");
+            if (validarPassword(password)) break;
+            else if (password.equals("0")) return null;
+            else Consola.soutString("Contraseña inválida. Debe tener al menos:" +
+                        "\n 1 letra minúscula" +
+                        "\n 1 letra mayúscula" +
+                        "\n 1 número" +
+                        "\n 1 caracter especial (!#$%&);");
+        }
         tipo = this.generarTipo();
 
         return new Empleados(nombre, apellido, dni, 0, username, password, tipo);
+    }
+
+    private boolean validarPassword(String password) {
+
+        // Patrón de expresión regular para la validación
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).*$";
+
+        // Validación usando expresiones regulares
+        return password.matches(regex);
     }
 
     /**
@@ -64,7 +82,7 @@ public class EmpleadosView {
         System.out.println("3. Elimniar empleado.");
         System.out.println("4. Buscar un empleado");
         System.out.println("5. Historial de empleado.");
-        System.out.println("6. Atras.");
+        System.out.println("6. SALIR.");
     }
 
     public void mostrarEmpleado(Empleados empleados){
@@ -75,7 +93,7 @@ public class EmpleadosView {
         System.out.println("Dni: "+empleados.getDni());
         System.out.println("Tipo de usuario: "+empleados.getTipo());
         System.out.println("Autos vendidos: "+empleados.getAutosvendidos());
-        System.out.println("Username: "+empleados.getUsername());
+        System.out.println("username: "+empleados.getUsername());
         System.out.println("=========================================");
     }
     public void muestroEmpleados(List<Empleados> empleados){
