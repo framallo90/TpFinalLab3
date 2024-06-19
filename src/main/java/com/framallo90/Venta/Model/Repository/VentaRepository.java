@@ -9,45 +9,96 @@ import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
 import com.framallo90.Venta.Model.Entity.Venta;
 import com.framallo90.consola.Consola;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VentaRepository  implements IRepository<Venta,Integer> {
     private Map<Integer, Venta> map;
     private static final String PATH_VENTAS = "src/main/resources/ventas.json";
-    private final Gson gson = new Gson();
+    private final Gson gson;
 
     public VentaRepository() {
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
         this.loadVentas();
     }
 
-    public void loadVentas(){
-        try(FileReader fileReader = new FileReader(PATH_VENTAS)){
-            Type listType = new TypeToken<Map<Integer,Venta>>(){}.getType();
-            this.map = gson.fromJson(fileReader,listType);
-            if (this.map == null) this.map = new HashMap<>();
+    // Custom LocalDateAdapter class
+    private static class LocalDateAdapter extends TypeAdapter<LocalDate> {
+
+        @Override
+        public void write(JsonWriter out, LocalDate value) throws IOException {
+            if (value == null) {
+                out.nullValue();
+                return;
+            }
+            // You can customize the format here (e.g., "yyyy-MM-dd")
+            out.value(value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        }
+
+        @Override
+        public LocalDate read(JsonReader in) throws IOException {
+            String dateString;
+            try {
+                // Check for null values first
+                if (in.peek() == JsonToken.NULL) {
+                    in.skipValue();
+                    return null;
+                }
+                // Read the date string using the appropriate method
+                dateString = in.nextString();
+
+                // Define a custom DateTimeFormatter for the specific format
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                // Parse the date string using the custom formatter
+                return LocalDate.parse(dateString, formatter);
+            } catch (Exception e) {
+                // Handle potential exceptions during reading
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+    }
+
+    public void loadVentas() {
+        try (FileReader fileReader = new FileReader(PATH_VENTAS)) {
+            Type listType = new TypeToken<Map<Integer, Venta>>() {}.getType();
+            this.map = gson.fromJson(fileReader, listType);
         } catch (FileNotFoundException e) {
+            // File not found, initialize empty map
             this.map = new HashMap<>();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void saveVentas(){
-        try(FileWriter fileWriter = new FileWriter(PATH_VENTAS)){
-            gson.toJson(this.map,fileWriter);
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Other IO exceptions, log or handle appropriately
+            e.printStackTrace(); // Or use a logging library here
+        } finally {
+            // Ensure map is always initialized, even on errors
+            if (this.map == null) {
+                this.map = new HashMap<>();
+            }
         }
     }
 
+
+    public void saveVentas() {
+        try (Writer fileWriter = new FileWriter(PATH_VENTAS)) {
+            gson.toJson(this.map, fileWriter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public Map<Integer, Venta> getMap() {
         return map;
     }
