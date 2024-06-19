@@ -16,8 +16,8 @@ public class Login {
 
     // Función que realiza el login buscando en el JSON.
     public Empleados login() {
-        String username = Consola.ingresarXString("nombre de usuario");
-        String password = Consola.ingresarXString("contrasena");
+        String username = Consola.ingresarXStringSimple("nombre de usuario");
+        String password = Consola.ingresarXStringSimple("contrasena");
         // Carga la lista de empleados desde el repositorio.
         List<Empleados> empleados = empleadosRepository.getList();
         if (empleados == null || empleados.isEmpty()) {
