@@ -1,6 +1,7 @@
 package com.framallo90.Comprador.Model.Repository;
 
 import com.framallo90.Comprador.Model.Entity.Comprador;
+import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.google.gson.Gson;
@@ -9,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class CompradorRepository implements IRepository<Comprador,Integer> {
@@ -69,13 +71,12 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
 
     @Override
     public Comprador find(Integer id) {
-        Comprador buscado = null;
-        for (Comprador comprador : listaCompradores){
-            if(comprador.getId().equals(id));{
-                buscado = comprador;
-            }
+        Optional<Comprador> devol = this.listaCompradores.stream().filter(c ->c.getId().equals(id)).findFirst();
+        if(devol.isEmpty()){
+            return null;
+        }else{
+            return  devol.get();
         }
-        return buscado;
     }
 
     public void cambioNombre(Comprador comprador, String nuevoNom){
