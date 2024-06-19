@@ -1,5 +1,6 @@
 package com.framallo90.Venta.View;
 import com.framallo90.Automovil.Model.Entity.Automovil;
+import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
@@ -17,15 +18,27 @@ public class VentaView {
         return new Venta(empleados, comprador, automovil, fecha, transaccion);
     }
     public void mostrarVenta(Venta venta){
-        System.out.println(venta.toString());
+
+        System.out.println("======================================");
+        System.out.println("VentaID: "+venta.getIdVenta());
+        System.out.println("Fecha: "+ venta.getFecha());
+        System.out.println("Vendedor: "+venta.getEmpleados().getApellido()+", "+venta.getEmpleados().getNombre());
+        System.out.println("Cliente: "+venta.getComprador().getApellido()+", "+venta.getComprador().getNombre());
+        System.out.println("Detalle de la venta:"+venta.getAutomovil().getMarca()+", "+venta.getAutomovil().getModelo()+", "+venta.getAutomovil().getAnio());
+        System.out.println("Precio "+ venta.getAutomovil().getPrecio());
+        System.out.println("Metodo de pago: " + venta.getTransaccion().getTipo());
+        System.out.println("Cantidad de cuotas: " + venta.getTransaccion().getCuotas());
+        System.out.println("Precio Financiado: " + venta.getTransaccion().getPrecioFinanciado());
+        System.out.println("======================================");
     }
+
     public void mostrarHistorial(Map<Integer, Venta> map){
         if (map.isEmpty()){
             System.out.println("Aún no hay ventas registradas...");
             return;
         }
         for (Map.Entry<Integer,Venta> entry:map.entrySet()){
-            System.out.println(entry.getValue().toString());
+            mostrarVenta(entry.getValue());
         }
     }
     public void mostrarFecha(LocalDate fecha){
