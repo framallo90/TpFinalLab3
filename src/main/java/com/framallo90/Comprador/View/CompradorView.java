@@ -6,14 +6,19 @@ import com.framallo90.consola.Consola;
 import java.util.Set;
 
 public class CompradorView {
-    public String ingresoEmail(){
+    public String ingresoEmail() {
         while (true) {
-            String email = Consola.ingresarXStringSimple("email");
-            if (!email.contains("@")) {
-                System.out.println("El email debe tener un @.");
-            }else
-                return email;
+            String email = Consola.ingresarXStringSimple("Ingrese su correo electrónico: ");
 
+            // Patrón de expresión regular para validar email
+            String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$";
+
+            // Validación con expresiones regulares
+            if (email.matches(regex)) {
+                return email;
+            } else {
+                System.out.println("Correo electrónico no válido. Intente nuevamente.");
+            }
         }
     }
 
