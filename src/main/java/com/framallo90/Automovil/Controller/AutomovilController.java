@@ -180,18 +180,16 @@ public class AutomovilController {
 
                 opc = Consola.ingresarXInteger("opcion");
 
-
-
                 //se agrega/cambia/saca uno de los filtros
                 switch (opc){
                     case 1:
                         String marca = automovilView.ingresoMarca();
-                        arrayCondiciones[0] = m -> m.getMarca().equalsIgnoreCase(marca);
+                        arrayCondiciones[0] = m -> m.getMarca().toLowerCase().contains(marca.toLowerCase());
                         arrayTagsMostrar[0] = "Marca " + marca + " | ";
                         break;
                     case 2:
                         String modelo = automovilView.ingresoModelo();
-                        arrayCondiciones[1] = m -> m.getModelo().equalsIgnoreCase(modelo);
+                        arrayCondiciones[1] = m -> m.getModelo().toLowerCase().contains(modelo.toLowerCase());
                         arrayTagsMostrar[1] = "Modelo " + modelo + " | ";
                         break;
                     case 3:
