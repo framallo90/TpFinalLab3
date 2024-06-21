@@ -33,6 +33,7 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
         this.loadVentas();
+        
     }
 
     // Custom LocalDateAdapter class

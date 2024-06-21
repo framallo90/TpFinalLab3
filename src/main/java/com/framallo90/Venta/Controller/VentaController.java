@@ -153,24 +153,25 @@ public class VentaController {
 
     public void menuVentas(){
         int eleccion;
-        while (true){
+        do{
             this.ventaView.printMenuVentas();
             eleccion = Consola.ingresarXInteger("eleccion");
             switch(eleccion){
                 case 0: //salir
                     Consola.soutString("saliendo...");
-                    return;
+                    break;
                 case 1://agregar venta
-                        try {
-                            this.add();
-                            break;
-                        } catch (InvalidIdNotFound e) {
-                            Consola.soutString(e.getMessage());
-                        }
+                    try {
+                        this.add();
+                        break;
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutString(e.getMessage());
+                    }
                     break;
                 case 2://mostrar
                     while(true){
                         try {
+                            this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                             this.show();
                             break;
                         } catch (InvalidIdNotFound e) {
@@ -180,6 +181,7 @@ public class VentaController {
                     break;
                 case 3: //modificar una vnta
                     try {
+                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                         this.update();
                         break;
                     } catch (InvalidIdNotFound e) {
@@ -188,6 +190,7 @@ public class VentaController {
                     break;
                 case 4://remover
                     try {
+                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                         this.remover();
                         break;
                     } catch (InvalidIdNotFound e) {
@@ -201,6 +204,9 @@ public class VentaController {
                     Consola.soutString("ingresar un dato valido");
                     break;
             }
+
         }
+        while (eleccion!=0);
+
     }
 }

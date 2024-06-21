@@ -340,12 +340,15 @@ public class AutomovilController {
                     agregarAutomovilAlStock();
                     break;
                 case 2: // remover
+                    mostrarAutomovilesEnStock();
                     borrarAutomovilEnStock();
                     break;
                 case 3: // modificar
+                    mostrarAutomovilesEnStock();
                     modificar();
                     break;
                 case 4: // mostrar
+                    mostrarAutomovilesEnStock();
                     Automovil find = find(Consola.ingresarXInteger("id del automovil"));
                     if (find == null) {
                         Consola.soutString("No se ha encontrado un automovil con el id ingresado.");
@@ -375,6 +378,7 @@ public class AutomovilController {
                 case 0: // salir
                     return;
                 case 1: // mostrar
+                    mostrarAutomovilesEnStock();
                     Automovil find = find(Consola.ingresarXInteger("id del automovil"));
                     if (find == null) {
                     } else {
