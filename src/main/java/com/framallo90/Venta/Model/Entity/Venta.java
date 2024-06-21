@@ -19,7 +19,7 @@ public class Venta {
         this.empleados = empleados;
         this.comprador = comprador;
         this.automovil = automovil;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.fecha = formatter.format(LocalDate.now());
         this.transaccion = transaccion;
     }
