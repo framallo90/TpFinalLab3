@@ -71,50 +71,56 @@ public class GestionConsecionaria {
                 else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor"))
                     this.menuVendedor(empleadoIngresado);
                 else Consola.soutString("Credenciales incorrectas.");
-        } while (true);
+        } while (eleccion!=0);
     }
     private void menuAdmin(Empleados empleadoIngresado){
         Integer eleccion;
-        Consola.printMenuAdministrador();
-        eleccion = Consola.ingresarXInteger("elección");
-        switch (eleccion){
-            case 0: // salir
-                empleadoIngresado = null;
-                break;
-            case 1: // gestion clientes
-                compradorController.compradorMenu();
-                break;
-            case 2: // gestion ventas
-                ventaController.menuVentas();
-                break;
-            case 3: // gestion carros
-                automovilController.menuAutomovilAdmin();
-                break;
-            case 4: // gestion usuarios
-                empleadosController.menuControllerEmpleados();
-                break;
-            default: //opcion no reconocida
-                Consola.soutString("No se reconoce la opción ingresada.");
-                break;
-        }
+        do{
+            Consola.printMenuAdministrador();
+            eleccion = Consola.ingresarXInteger("elección");
+            switch (eleccion){
+                case 0: // salir
+                    empleadoIngresado = null;
+                    break;
+                case 1: // gestion clientes
+                    compradorController.compradorMenu();
+                    break;
+                case 2: // gestion ventas
+                    ventaController.menuVentas();
+                    break;
+                case 3: // gestion carros
+                    automovilController.menuAutomovilAdmin();
+                    break;
+                case 4: // gestion usuarios
+                    empleadosController.menuControllerEmpleados();
+                    break;
+                default: //opcion no reconocida
+                    Consola.soutString("No se reconoce la opción ingresada.");
+                    break;
+            }
+
+        }while (eleccion!=0);
 
     }
     private void menuVendedor(Empleados empleadoIngresado){
         Integer eleccion;
-        Consola.printMenuVendedor();
-        eleccion = Consola.ingresarXInteger("elección");
-        switch (eleccion){
-            case 0: // salir
-                empleadoIngresado = null;
-                break;
-            case 1: // gestion clientes
-                compradorController.compradorMenu();
-                break;
-            case 2: // gestion ventas
-                ventaController.menuVentas();
-                break;
-            case 3: // gestion carros
-                automovilController.menuAutomovilAdmin();
-        }
+        do {
+            Consola.printMenuVendedor();
+            eleccion = Consola.ingresarXInteger("elección");
+            switch (eleccion){
+                case 0: // salir
+                    empleadoIngresado = null;
+                    break;
+                case 1: // gestion clientes
+                    compradorController.compradorMenu();
+                    break;
+                case 2: // gestion ventas
+                    ventaController.menuVentas();
+                    break;
+                case 3: // gestion carros
+                    automovilController.menuAutomovilAdmin();
+            }
+
+        }while (eleccion!=0);
     }
 }
