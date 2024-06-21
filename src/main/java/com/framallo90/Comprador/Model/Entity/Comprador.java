@@ -33,4 +33,10 @@ public class Comprador extends Usuario
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public static void setCont(Integer cont) {
+        Comprador.cont = cont;
+    }
+
+
 }
