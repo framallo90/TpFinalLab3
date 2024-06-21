@@ -34,18 +34,21 @@ public class CompradorController {
                     break;
 
                 case 2:
+                    this.verHisorial();
                     update();
                     break;
 
                 case 3:
+                    this.verHisorial();
                     remove();
                     break;
 
-                case 4:
+                case 4: //buscar
+                    this.verHisorial();
                     show();
                     break;
 
-                case 5:
+                case 5: //ver todos
                     verHisorial();
                     break;
 

@@ -164,12 +164,15 @@ public class EmpleadosController {
                     crearEmpleado();
                     break;
                 case 2:
+                    mostrarHistorial();
                     modificarEmpleado();
                     break;
                 case 3:
+                    mostrarHistorial();
                     removeEmpleado();
                     break;
                 case 4:
+                    mostrarHistorial();
                     mostrar();
                     break;
                 case 5:
@@ -185,11 +188,5 @@ public class EmpleadosController {
         }while (opt!=6);
     }
 
-    public static void main(String[] args) {
-        EmpleadosRepository empleadosRepository1 = new EmpleadosRepository();
-        EmpleadosView empleadosView1 = new EmpleadosView();
-        EmpleadosController empleadosControllerl = new EmpleadosController(empleadosRepository1,empleadosView1);
 
-        empleadosControllerl.crearEmpleado();
-    }
 }
