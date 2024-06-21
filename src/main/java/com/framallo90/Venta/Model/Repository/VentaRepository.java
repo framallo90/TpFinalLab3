@@ -8,65 +8,19 @@ import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
 import com.framallo90.Venta.Model.Entity.Venta;
 import com.framallo90.consola.Consola;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
-import com.google.gson.stream.JsonWriter;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 public class VentaRepository  implements IRepository<Venta,Integer> {
     private Map<Integer, Venta> map;
     private static final String PATH_VENTAS = "src/main/resources/ventas.json";
-    private final Gson gson;
-
+    private final Gson gson = new Gson();
     public VentaRepository() {
-        this.gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
         this.loadVentas();
-        
     }
-
-    // Custom LocalDateAdapter class
-    private static class LocalDateAdapter extends TypeAdapter<LocalDate> {
-        @Override
-        public void write(JsonWriter out, LocalDate value) throws IOException {
-            if (value == null) {
-                out.nullValue();
-                return;
-            }
-            out.value(value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-        }
-        @Override
-        public LocalDate read(JsonReader in) throws IOException {
-            String dateString;
-            try {
-                // Check for null values first
-                if (in.peek() == JsonToken.NULL) {
-                    in.skipValue();
-                    return null;
-                }
-                // Read the date string using the appropriate method
-                dateString = in.nextString();
-
-                // Define a custom DateTimeFormatter for the specific format
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                // Parse the date string using the custom formatter
-                return LocalDate.parse(dateString, formatter);
-            } catch (Exception e) {
-                // Handle potential exceptions during reading
-                e.printStackTrace();
-                return null;
-            }
-        }
-    }
-
     public void loadVentas() {
         try (FileReader fileReader = new FileReader(PATH_VENTAS)) {
             Type listType = new TypeToken<Map<Integer, Venta>>() {}.getType();
@@ -84,8 +38,6 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
             }
         }
     }
-
-
     public void saveVentas() {
         try (Writer fileWriter = new FileWriter(PATH_VENTAS)) {
             gson.toJson(this.map, fileWriter);
@@ -96,13 +48,11 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
     public Map<Integer, Venta> getMap() {
         return map;
     }
-
     @Override
     public void add(Venta object) {
         this.map.put(object.getIdVenta(),object);
         this.saveVentas();
     }
-
     @Override
     public void remove(Integer integer) throws Exception {
         Venta remove = this.map.remove(integer);
@@ -110,7 +60,6 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
         else Consola.soutString("Venta removida correctamente.");
         this.saveVentas();
     }
-
     @Override
     public void update(Integer integer) throws Exception {
         Venta update = this.find(integer);
@@ -119,12 +68,16 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
         }
         else throw new InvalidIdNotFound("No se ha encontrado una venta de id " + integer + ".");
     }
-
     @Override
-    public Venta find(Integer integer) {
-        return this.map.get(integer);
+    public Venta find(Integer id) {
+        Optional<Venta> devol = this.map.values().stream().filter(c ->c.getIdVenta().equals(id)).findFirst();
+        if(devol.isEmpty()){
+            System.out.println("El comprador con id:"+id+", no existe, intentelo nuevamente.");
+            return null;
+        }else{
+            return  devol.get();
+        }
     }
-
     public void cambioEmpleados(Integer idVenta, Empleados nuevo){
         Venta buscar = this.find(idVenta);
         if (buscar != null) {
@@ -132,7 +85,6 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
             this.saveVentas();
         }
     }
-
     public void cambioComprador(Integer idVenta, Comprador nuevo){
         Venta buscar = this.find(idVenta);
         if (buscar != null) {
@@ -140,18 +92,10 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
             this.saveVentas();
         }
     }
-
     public void cambioAutomovil(Integer idVenta, Automovil nuevo){
         Venta buscar = this.find(idVenta);
         if (buscar != null )
             buscar.setAutomovil(nuevo);
-        this.saveVentas();
-    }
-
-    public void cambioFecha(Integer idVenta, LocalDate nueva){
-        Venta buscar = this.find(idVenta);
-        if (buscar != null )
-            buscar.setFecha(nueva);
         this.saveVentas();
     }
     public void cambioMetodoDePago(Integer idVenta, MetodoDePago nuevo){
@@ -160,5 +104,4 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
             buscar.setMetodoDePago(nuevo);
         this.saveVentas();
     }
-
 }

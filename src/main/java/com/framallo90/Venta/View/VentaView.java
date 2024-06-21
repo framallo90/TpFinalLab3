@@ -56,8 +56,7 @@ public class VentaView {
                 1. Empleado
                 2. Comprador
                 3. Automovil
-                4. Fecha
-                5. Metodo de pago
+                4. Metodo de pago
                 
                 0. Atras
                 """);

@@ -87,10 +87,7 @@ public class VentaController {
                 case 3: //automovil
                     venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
                     break;
-                case 4: //fecha
-                    updateFecha(venta.getFecha());
-                    break;
-                case 5: //mtodo de pago
+                case 4: //mtodo de pago
                     metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
                     break;
                 case 0: //salir
