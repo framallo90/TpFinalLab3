@@ -67,15 +67,20 @@ public class Consola {
      */
     public static Integer ingresarXInteger(String x) {
         System.out.println("Ingresar " + x + ": ");
-        while (!scanner.hasNextInt()) {
-            System.out.println("El dato ingresado no es valido. Por favor, ingrese un número entero:");
-            scanner.next(); // Limpiar la entrada no válida
-        }
-        Integer numero = scanner.nextInt();
-        scanner.nextLine(); // buffer
-        if (numero < 0) {
-            throw new IllegalArgumentException("El numero debe ser mayor o igual a 0.");
-        }
+        Integer numero;
+        do {
+            while (!scanner.hasNextInt()) {
+                System.out.println("El dato ingresado no es valido. Por favor, ingrese un número entero:");
+                scanner.next(); // Limpiar la entrada no válida
+            }
+
+            numero = scanner.nextInt();
+            scanner.nextLine(); // buffer
+            if (numero < 0) {
+                System.out.print("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
+            }
+        }while (numero < 0);
+
         return numero;
     }
 

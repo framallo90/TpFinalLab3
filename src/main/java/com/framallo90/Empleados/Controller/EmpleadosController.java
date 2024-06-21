@@ -55,7 +55,7 @@ public class EmpleadosController {
      * Permite al usuario modificar un empleado existente.
      */
     public void modificarEmpleado() {
-        Integer idEmpleado = Consola.ingresarXInteger("dni del empleado");
+        Integer idEmpleado = Consola.ingresarXInteger("ID del empleado");
         Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
 
         if (empleadoAModificar != null) {

@@ -25,7 +25,7 @@ public class EmpleadosView {
         nombre = Consola.ingresarXString("nombre");
         apellido = Consola.ingresarXString("apellido");
         dni = Consola.ingresarXInteger("dni");
-        Consola.limpiarBuffer();
+//        Consola.limpiarBuffer();
         username = Consola.ingresarXStringSimple("username");
         while (true){
             password = Consola.ingresarXStringSimple("password");

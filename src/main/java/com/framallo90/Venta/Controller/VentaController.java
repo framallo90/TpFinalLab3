@@ -35,18 +35,26 @@ public class VentaController {
 
     //documentar
     public void add() throws InvalidIdNotFound {
-        Empleados empleados = this.empleadosController.find(Consola.ingresarXInteger("id del empleado:"));
+        empleadosController.mostrarHistorial(); /// para facilitar la eleccion
+        Empleados empleados = this.empleadosController.find(Consola.ingresarXInteger("id del empleado vendedor"));
         if (empleados == null) {
             throw new InvalidIdNotFound("empleado no encontrado");
         }
-        Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador:"));
+        compradorController.verHisorial();
+        Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador actual"));
         if (comprador == null) throw new InvalidIdNotFound("comprador no encontrado");
-        Automovil automovil = this.automovilController.find(Consola.ingresarXInteger("id del automovil"));
+
+        automovilController.mostrarAutomovilesEnStock();
+        Integer id = Consola.ingresarXInteger("id del automovil en stock");
+        Automovil automovil = this.automovilController.find(id);
+
         if (automovil == null)throw new InvalidIdNotFound("automovil no encontrado");
         LocalDate fecha = LocalDate.now();
         MetodoDePago metodoDePago = this.metodoController.cargarMDP(automovil.getPrecio());
         Venta venta = this.ventaView.generarVenta(empleados,comprador,automovil,fecha,metodoDePago);
         this.ventaRepository.add(venta);
+        this.automovilController.borrarAutomovilEnStockPorId(id);
+
     }
     public void show() throws InvalidIdNotFound {
         Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));

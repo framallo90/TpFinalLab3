@@ -41,17 +41,22 @@ public class GestionConsecionaria {
         int eleccion = 0;
 
         do {
-            if (empleadoIngresado == null) {
+            do{
                 Consola.printMenuLogin();
                 eleccion = Consola.ingresarXInteger("eleccion");
-                if (eleccion == 0) return;
-                else if (eleccion == 1)
+                if (eleccion == 0)
+                    return;
+
+                else if (eleccion == 1) {
                     empleadoIngresado = login.login();
-                else Consola.soutString("Ingresar una opción válida!");
-            }
-            if (empleadoIngresado==null)
-                Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
-            else{
+                    if (empleadoIngresado == null)
+                        Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
+                }
+                else System.out.println("Ingrese una opción valida (1/0). ");
+
+            }while (empleadoIngresado == null);
+
+
                 if (empleadoIngresado.getTipo().equalsIgnoreCase("admin") || empleadoIngresado.getTipo().equalsIgnoreCase("administrador")){
                     Consola.printMenuAdministrador();
                     eleccion = Consola.ingresarXInteger("elección");
@@ -94,7 +99,7 @@ public class GestionConsecionaria {
                     }
                 }
                 else Consola.soutString("Credenciales incorrectas.");
-            }
+
         } while (true);
     }
 }

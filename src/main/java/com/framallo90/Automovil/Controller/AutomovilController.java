@@ -126,6 +126,14 @@ public class AutomovilController {
             System.out.println(e.getMessage());
         }
     }
+    public void borrarAutomovilEnStockPorId(Integer id){
+        try {
+            automovilRepository.remove(id);
+        }catch (InvalidIdNotFound e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void modificar() {
         try {
