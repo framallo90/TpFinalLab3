@@ -28,6 +28,9 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
             listaCompradores = gson.fromJson(reader, setType);
             if(listaCompradores == null){
                 listaCompradores = new HashSet<>();
+            }else{
+                Integer mayor = listaCompradores.stream().mapToInt(c->c.getId()).max().getAsInt();
+                Comprador.setCont(mayor);
             }
         }catch (IOException e){
             e.printStackTrace();
@@ -37,6 +40,7 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
     public void updateFile(){
         try(Writer writer = new FileWriter(FILE_PATH)){
             gson.toJson(listaCompradores,writer);
+
         }catch (IOException e){
             e.printStackTrace();
         }
