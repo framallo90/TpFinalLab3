@@ -175,6 +175,7 @@ public class AutomovilController {
 
             int cont = 0;
             int opc = -1;
+            mostrarAutomovilesEnStock();
             do{
                 System.out.println("Menu " +
                         "\n1 - Filtrar por marca" +
@@ -356,10 +357,7 @@ public class AutomovilController {
                         Consola.soutString(find.toString());
                     }
                     break;
-                case 5: // ver stock
-                    mostrarAutomovilesEnStock();
-                    break;
-                case 6: // ver lista filtrada
+                case 5: // ver lista filtrada
                     buscarAutomovilesXFiltro();
                     break;
                 default: // Opción no reconocida

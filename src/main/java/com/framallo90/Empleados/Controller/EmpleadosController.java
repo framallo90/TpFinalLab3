@@ -148,11 +148,9 @@ public class EmpleadosController {
         if (buscar == null )Consola.soutString("No se ha encontrado el empleado.");
         else {this.empleadosView.mostrarEmpleado(buscar);}
     }
-
     public void mostrarHistorial(){
         this.empleadosView.muestroEmpleados(this.empleadosRepository.getList());
     }
-
     public void menuControllerEmpleados()
     {
         int opt;
@@ -160,6 +158,9 @@ public class EmpleadosController {
             this.empleadosView.printMenuAdministrador();
             opt = Consola.ingresarXInteger("opcion");
             switch (opt){
+                case 0:
+                    System.out.println("Saliendo....");
+                    break;
                 case 1:
                     crearEmpleado();
                     break;
@@ -178,15 +179,10 @@ public class EmpleadosController {
                 case 5:
                     mostrarHistorial();
                     break;
-                case 6:
-                    System.out.println("Saliendo....");
-                    break;
                 default:
                     System.out.println("Opcion invalida vuelva a intentarlo");
                     break;
             }
-        }while (opt!=6);
+        }while (opt!=0);
     }
-
-
 }

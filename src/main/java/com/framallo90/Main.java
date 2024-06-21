@@ -14,7 +14,6 @@ import com.framallo90.MetodoDePago.View.MetodoView;
 import com.framallo90.Venta.Controller.VentaController;
 import com.framallo90.Venta.Model.Repository.VentaRepository;
 import com.framallo90.Venta.View.VentaView;
-
 public class Main {
     public static void main(String[] args) {
         CompradorView compradorView = new CompradorView();

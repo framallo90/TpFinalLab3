@@ -98,7 +98,6 @@ public class GestionConsecionaria {
                     Consola.soutString("No se reconoce la opción ingresada.");
                     break;
             }
-
         }while (eleccion!=0);
 
     }

@@ -77,12 +77,13 @@ public class EmpleadosView {
 
     //DOCUMENTAR
     public void printMenuAdministrador(){
+        System.out.println("MENU EMPLEADOS (administrador)");
         System.out.println("1. Agregar empleado.");
         System.out.println("2. Modificar empleado.");
         System.out.println("3. Elimniar empleado.");
         System.out.println("4. Buscar un empleado");
         System.out.println("5. Historial de empleado.");
-        System.out.println("6. SALIR.");
+        System.out.println("0. Volver.");
     }
 
     public void mostrarEmpleado(Empleados empleados){
