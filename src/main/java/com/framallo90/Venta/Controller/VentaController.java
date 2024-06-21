@@ -1,5 +1,4 @@
 package com.framallo90.Venta.Controller;
-
 import com.framallo90.Automovil.Controller.AutomovilController;
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Comprador.Controller.CompradorController;
@@ -14,8 +13,8 @@ import com.framallo90.Venta.Model.Repository.VentaRepository;
 import com.framallo90.Venta.View.VentaView;
 import com.framallo90.consola.Consola;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
-
 public class VentaController {
     private EmpleadosController empleadosController;
     private CompradorController compradorController;
@@ -23,7 +22,6 @@ public class VentaController {
     private MetodoController metodoController;
     private VentaView ventaView;
     private VentaRepository ventaRepository;
-
     public VentaController(EmpleadosController empleadosController, CompradorController compradorController, AutomovilController automovilController, MetodoController metodoController, VentaView ventaView, VentaRepository ventaRepository) {
         this.empleadosController = empleadosController;
         this.compradorController = compradorController;
@@ -110,13 +108,25 @@ public class VentaController {
             Integer choice = Consola.ingresarXInteger("eleccion");
             switch (choice) {
                 case 1:
-                    fecha = cambiarDia(fecha);
+                    try{
+                        fecha = cambiarDia(fecha);
+                    }catch(DateTimeException e){
+                        Consola.soutString(e.getMessage());
+                    }
                     break;
                 case 2:
-                    fecha = cambiarMes(fecha);
+                    try{
+                        fecha = cambiarMes(fecha);
+                    }catch(DateTimeException e){
+                        Consola.soutString(e.getMessage());
+                    }
                     break;
                 case 3:
-                    fecha = cambiarAnio(fecha);
+                    try{
+                        fecha = cambiarAnio(fecha);
+                    }catch(DateTimeException e){
+                        Consola.soutString(e.getMessage());
+                    }
                     break;
                 case 0:
                     System.out.println("Saliendo del menú de modificación.");
@@ -133,6 +143,8 @@ public class VentaController {
         } catch (IllegalArgumentException e) {
             System.out.println("Día inválido para el mes actual. Intente nuevamente.");
             return localDate;
+        } catch (DateTimeException e ){
+            throw new DateTimeException(day + " no es un día válido.");
         }
     }
 
@@ -143,11 +155,15 @@ public class VentaController {
         } catch (IllegalArgumentException e) {
             System.out.println("Mes inválido. Intente nuevamente.");
             return localDate;
+        } catch (DateTimeException e){
+            throw new DateTimeException(month + " no es un mes válido.");
         }
     }
 
     private static LocalDate cambiarAnio(LocalDate localDate) {
         Integer year = Consola.ingresarXInteger("nuevo año");
+        if (year < 1950||year > LocalDate.now().getYear())
+            throw new DateTimeException(year + " no es válido. Ingresar un número entre 1950 y " + LocalDate.now().getYear()+".");
         return localDate.withYear(year);
     }
 

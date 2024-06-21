@@ -1,5 +1,4 @@
 package com.framallo90.Venta.Model.Repository;
-
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
@@ -15,14 +14,12 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-
 public class VentaRepository  implements IRepository<Venta,Integer> {
     private Map<Integer, Venta> map;
     private static final String PATH_VENTAS = "src/main/resources/ventas.json";
@@ -38,17 +35,14 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
 
     // Custom LocalDateAdapter class
     private static class LocalDateAdapter extends TypeAdapter<LocalDate> {
-
         @Override
         public void write(JsonWriter out, LocalDate value) throws IOException {
             if (value == null) {
                 out.nullValue();
                 return;
             }
-            // You can customize the format here (e.g., "yyyy-MM-dd")
             out.value(value.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         }
-
         @Override
         public LocalDate read(JsonReader in) throws IOException {
             String dateString;
@@ -71,7 +65,6 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
                 return null;
             }
         }
-
     }
 
     public void loadVentas() {
