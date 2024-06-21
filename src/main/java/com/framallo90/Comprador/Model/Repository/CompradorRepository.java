@@ -77,6 +77,7 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
     public Comprador find(Integer id) {
         Optional<Comprador> devol = this.listaCompradores.stream().filter(c ->c.getId().equals(id)).findFirst();
         if(devol.isEmpty()){
+            System.out.println("El comprador con id:"+id+", no existe, intentelo nuevamente.");
             return null;
         }else{
             return  devol.get();
