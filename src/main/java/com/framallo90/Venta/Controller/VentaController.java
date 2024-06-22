@@ -51,7 +51,7 @@ public class VentaController {
         MetodoDePago metodoDePago = this.metodoController.cargarMDP(automovil.getPrecio());
         Venta venta = this.ventaView.generarVenta(empleados,comprador,automovil,fecha,metodoDePago);
         this.ventaRepository.add(venta);
-        this.automovilController.borrarAutomovilEnStockPorId(id);
+        this.automovilController.borrarAutomovilEnStock();
 
     }
     public void show()  {
@@ -84,12 +84,15 @@ public class VentaController {
                     compradorController.update(venta.getComprador());
                     break;
                 case 3: //automovil
+                    /*
                     try {
                         venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
                     } catch (InvalidIdNotFound e) {
                         Consola.soutString(e.getMessage());
                     }
                     break;
+                    */
+
                 case 4: //mtodo de pago
                     metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
                     break;
@@ -122,6 +125,7 @@ public class VentaController {
                     this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                     if (!this.ventaRepository.isEmpty())
                         this.show();
+
                     break;
                 case 3: //modificar una vnta
                     try {

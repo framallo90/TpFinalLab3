@@ -5,6 +5,7 @@ import com.framallo90.Empleados.Model.Repository.EmpleadosRepository;
 import com.framallo90.consola.Consola;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Clase que gestiona el proceso de inicio de sesión para los empleados.
@@ -49,7 +50,7 @@ public class Login {
         String password = Consola.ingresarXStringSimple("contraseña");
 
         // Carga la lista de empleados desde el repositorio.
-        List<Empleados> empleados = empleadosRepository.getList();
+        Set<Empleados> empleados = empleadosRepository.getEmpleados();
 
         if (empleados == null || empleados.isEmpty()) {
             System.err.println("La lista está vacía o inexistente.");

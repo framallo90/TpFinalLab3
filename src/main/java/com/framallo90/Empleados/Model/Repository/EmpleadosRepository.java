@@ -19,46 +19,45 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class EmpleadosRepository implements IRepository<Empleados, Integer> {
-    private List<Empleados> list;
+    private Set<Empleados> empleados;
     private static final String PATH_EMPLEADOS = "src/main/resources/empleados.json";
     private final Gson gson = new Gson();
 
     /**
      * Constructor de la clase `EmpleadosRepository`.
-     * Carga la lista de empleados desde el archivo JSON y establece el contador de empleados.
+     * Carga la empleadosa de empleados desde el archivo JSON y establece el contador de empleados.
      */
     public EmpleadosRepository() {
         this.loadEmpleados();
-        if (!this.list.isEmpty())
-            Empleados.setCont(this.list.get(this.list.size() - 1).getId());
     }
 
     /**
-     * Obtiene la lista de empleados.
+     * Obtiene la empleadosa de empleados.
      *
-     * @return La lista de empleados.
+     * @return La empleadosa de empleados.
      */
-    public List<Empleados> getList() {
-        return list;
+    public Set<Empleados> getEmpleados() {
+        return empleados;
     }
 
     /**
      * Carga los empleados desde el archivo JSON.
-     * Si el archivo no se encuentra, inicializa la lista como vacía.
+     * Si el archivo no se encuentra, inicializa la empleadosa como vacía.
      */
     public void loadEmpleados() {
         try (FileReader fileReader = new FileReader(PATH_EMPLEADOS)) {
-            Type type = new TypeToken<List<Empleados>>(){}.getType();
-            this.list = gson.fromJson(fileReader, type);
-            if (this.list == null)
-                this.list = new ArrayList<>();
+            Type type = new TypeToken<Set<Empleados>>(){}.getType();
+            this.empleados = gson.fromJson(fileReader, type);
+            if (this.empleados == null)
+                this.empleados = new HashSet<>();
+            else
+                Empleados.setCont(this.empleados.stream().map(e->e.getId()).max((a,b) -> a.compareTo(b)).get());
+
         } catch (FileNotFoundException e) {
-            this.list = new ArrayList<>();
+            this.empleados = new HashSet<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,25 +68,25 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void saveEmpleados() {
         try (FileWriter fileWriter = new FileWriter(PATH_EMPLEADOS)) {
-            gson.toJson(this.list, fileWriter);
+            gson.toJson(this.empleados, fileWriter);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Agrega un empleado a la lista y guarda los cambios en el archivo JSON.
+     * Agrega un empleado a la empleadosa y guarda los cambios en el archivo JSON.
      *
      * @param object El empleado a agregar.
      */
     @Override
     public void add(Empleados object) {
-        this.list.add(object);
+        this.empleados.add(object);
         this.saveEmpleados();
     }
 
     /**
-     * Elimina un empleado de la lista por su ID y guarda los cambios en el archivo JSON.
+     * Elimina un empleado de la empleadosa por su ID y guarda los cambios en el archivo JSON.
      *
      * @param id El ID del empleado a eliminar.
      */
@@ -95,12 +94,13 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     public void remove(Integer id) {
         Empleados remover = this.find(id);
         if (remover == null) return;
-        this.list.remove(remover);
+        this.empleados.remove(remover);
         this.saveEmpleados();
+       
     }
 
     /**
-     * Actualiza un empleado existente en la lista.
+     * Actualiza un empleado existente en la empleadosa.
      *
      * **Nota:** Este método no está implementado actualmente. Se necesita un mecanismo para identificar el empleado a actualizar y proporcionar los nuevos datos.
      *
@@ -120,7 +120,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     @Override
     public Empleados find(Integer id) {
-        Optional<Empleados> devol = this.list.stream().filter(e -> e.getId().equals(id)).findFirst();
+        Optional<Empleados> devol = this.empleados.stream().filter(e -> e.getId().equals(id)).findFirst();
         return devol.orElse(null);
     }
 
@@ -165,7 +165,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @throws IllegalArgumentException Si el nuevo DNI ya pertenece a otro empleado.
      */
     public void cambioDni(Empleados empleados, Integer nuevoDni) {
-        for (Empleados value : this.list) {
+        for (Empleados value : this.empleados) {
             if (value.getDni().equals(nuevoDni))
                 throw new IllegalArgumentException("El DNI ya pertenece a otro empleado");
         }
