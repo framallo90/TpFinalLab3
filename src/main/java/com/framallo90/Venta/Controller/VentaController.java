@@ -54,10 +54,9 @@ public class VentaController {
         this.automovilController.borrarAutomovilEnStockPorId(id);
 
     }
-    public void show() throws InvalidIdNotFound {
+    public void show()  {
         Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
-        if (buscar != null ) this.ventaView.mostrarVenta(buscar);
-        else throw new InvalidIdNotFound("No se ha encontrado una venta");
+        this.ventaView.mostrarVenta(buscar);
     }
     public void update() throws InvalidIdNotFound{
         Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
@@ -85,7 +84,11 @@ public class VentaController {
                     compradorController.update(venta.getComprador());
                     break;
                 case 3: //automovil
-                    venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
+                    try {
+                        venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutString(e.getMessage());
+                    }
                     break;
                 case 4: //mtodo de pago
                     metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
@@ -116,20 +119,15 @@ public class VentaController {
                     }
                     break;
                 case 2://mostrar
-                    while(true){
-                        try {
-                            this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                            this.show();
-                            break;
-                        } catch (InvalidIdNotFound e) {
-                            Consola.soutString(e.getMessage());
-                        }
-                    }
+                    this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                    if (!this.ventaRepository.isEmpty())
+                        this.show();
                     break;
                 case 3: //modificar una vnta
                     try {
                         this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                        this.update();
+                        if (!this.ventaRepository.isEmpty())
+                            this.update();
                         break;
                     } catch (InvalidIdNotFound e) {
                         Consola.soutString(e.getMessage());
@@ -138,7 +136,8 @@ public class VentaController {
                 case 4://remover
                     try {
                         this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                        this.remover();
+                        if (!this.ventaRepository.isEmpty())
+                            this.remover();
                         break;
                     } catch (InvalidIdNotFound e) {
                         Consola.soutString(e.getMessage());

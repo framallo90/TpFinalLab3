@@ -37,27 +37,14 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
     @Override
     public void remove(Integer id) throws InvalidIdNotFound {
         Automovil auto = find(id);
-        if (auto != null) { /// Solo se ejecutará si existe el vehiculo
+        if (auto != null) {
             this.automovilList.remove(auto);
-            /**
-             * Porción de código de alta importancia para el correcto
-             * funcionamiento del ID statico, evita que los ID no esten
-             * concatenados de manera ascendiente.
-             */
-            for (int i = id-1; i<automovilList.size();i++){
-                automovilList.get(i).setId(automovilList.get(i).getId()-1);
-            }
-            Automovil.setCont(getCont()-1);
-            /**
-             *
-             */
-
-            updateFile(); /// actualizamos el archivo
+            Consola.soutString("El vehiculo de id: "+id+" se ha removido correctamente.");
+            updateFile();
         }
         else
-            throw new InvalidIdNotFound("El id ingresado no existe.");
+            throw new InvalidIdNotFound("El automovil de id: "+ id +" ingresado no existe.");
     }
-
     @Override
     public void update(Integer id) throws InvalidIdNotFound{
         Automovil automovil = find(id);
@@ -126,7 +113,10 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
             else {
                 if (!automovilList.isEmpty())
                 {
-                    Automovil.setCont(automovilList.getLast().getId()); // size-1
+                    int id = 0;
+                    for (Automovil automovil : this.automovilList)
+                        if (id<automovil.getId()) id = automovil.getId();
+                    Automovil.setCont(id); // size-1
                 }else
                     Automovil.setCont(0);
 
@@ -165,5 +155,9 @@ public class AutomovilRepository implements IRepository<Automovil,Integer> {
     }
     public List<Automovil> getAutomovilList() {
         return automovilList;
+    }
+
+    public boolean isEmpty(){
+        return this.automovilList.isEmpty();
     }
 }

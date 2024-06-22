@@ -4,6 +4,7 @@ import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
+import com.framallo90.consola.Consola;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -54,13 +55,12 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
     }
 
     @Override
-    public void remove(Integer id) throws InvalidIdNotFound{
+    public void remove(Integer id) {
         Comprador remove = find(id);
         if (remove != null) {
             listaCompradores.remove(remove);
             updateFile();
-        }else
-            throw new InvalidIdNotFound("El id ingresado no existe.");
+        }
     }
 
     @Override
@@ -75,6 +75,10 @@ public class CompradorRepository implements IRepository<Comprador,Integer> {
 
     @Override
     public Comprador find(Integer id) {
+        if (this.listaCompradores.isEmpty()) {
+            Consola.soutString("Aún no hay clientes registrados.");
+            return null;
+        }
         Optional<Comprador> devol = this.listaCompradores.stream().filter(c ->c.getId().equals(id)).findFirst();
         if(devol.isEmpty()){
             System.out.println("El comprador con id:"+id+", no existe, intentelo nuevamente.");

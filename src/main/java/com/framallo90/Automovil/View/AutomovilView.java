@@ -46,9 +46,8 @@ public class AutomovilView {
                 MENU AUTOMOVIL (administrador)
                 1. Agregar 
                 2. Borrar 
-                3. Modificar
-                4. Buscar automovil
-                5. Lista automoviles (con filtro)
+                3. Buscar automovil
+                4. Lista automoviles (con filtro)
                 0. Volver""");
     }
     public void printMenuAutomovilVendedor(){

@@ -127,12 +127,14 @@ public class AutomovilController {
         }
     }
     public void borrarAutomovilEnStockPorId(Integer id){
-        try {
-            automovilRepository.remove(id);
-        }catch (InvalidIdNotFound e)
-        {
-            System.out.println(e.getMessage());
-        }
+        if (!this.isRepoEmpty())
+            try {
+                automovilRepository.remove(id);
+            }catch (InvalidIdNotFound e)
+            {
+                System.out.println(e.getMessage());
+            }
+        else Consola.soutString("Aún no se han cargado automoviles.");
     }
 
     public void modificar() {
@@ -143,12 +145,15 @@ public class AutomovilController {
         }
     }
 
-    public Automovil cambiarCoche(Automovil automovil) {
+    public Automovil cambiarCoche(Automovil automovil) throws InvalidIdNotFound {
+        mostrarAutomovilesEnStock();
         Automovil retorno = automovilRepository.find(Consola.ingresarXInteger("ID del automovil"));
         if (retorno == null) {
-            Consola.soutString("No se ha encontrado un automovil con el id ingresado");
+            Consola.soutString("No se ha encontrado un automovil con el id ingresado.");
             return automovil;
         }
+        this.automovilRepository.remove(retorno.getId());
+        this.automovilRepository.add(automovil);
         return retorno;
     }
 
@@ -177,17 +182,17 @@ public class AutomovilController {
             int opc = -1;
             mostrarAutomovilesEnStock();
             do{
-                System.out.println("Menu " +
-                        "\n1 - Filtrar por marca" +
-                        "\n2 - Filtrar por modelo" +
-                        "\n3 - Filtrar por anio" +
-                        "\n4 - Establecer precio maximo" +
-                        "\n5 - Establecer precio minimo"
+                System.out.println("LISTA DE AUTOMOVILES " +
+                        "\n1. Filtrar por marca" +
+                        "\n2. Filtrar por modelo" +
+                        "\n3. Filtrar por año" +
+                        "\n4. Establecer precio máximo" +
+                        "\n5. Establecer precio mínimo"
                 );
-                if(cont>0){System.out.println("6 - quitar filtro");}
-                System.out.println("0 - atras");
+                if(cont>0){System.out.println("6. Quitar filtro");}
+                System.out.println("0. Volver");
 
-                opc = Consola.ingresarXInteger("opcion");
+                opc = Consola.ingresarXInteger("opción");
 
                 //se agrega/cambia/saca uno de los filtros
                 switch (opc){
@@ -207,12 +212,12 @@ public class AutomovilController {
                         arrayTagsMostrar[2] = "Anio " + anio.toString() + " | ";
                         break;
                     case 4:
-                        Double max = Consola.ingresarXdouble("maximo");
+                        Double max = Consola.ingresarXdouble("máximo");
                         arrayCondiciones[3] = p-> p.getPrecio() <= max;
                         arrayTagsMostrar[3] = "Precio hasta $" + max + " | ";
                         break;
                     case 5:
-                        Double min = Consola.ingresarXdouble("minimo");
+                        Double min = Consola.ingresarXdouble("mínimo");
                         arrayCondiciones[4] = p -> p.getPrecio() >= min;
                         arrayTagsMostrar[4] = "Precio desde $" + min + " | ";
                         break;
@@ -221,9 +226,9 @@ public class AutomovilController {
                             System.out.println(
                                     "\n1 - Filtro marca" +
                                     "\n2 - Filtro modelo" +
-                                    "\n3 - Filtro anio" +
-                                    "\n4 - Filtro precio maximo" +
-                                    "\n5 - Filtro precio minimo" +
+                                    "\n3 - Filtro año" +
+                                    "\n4 - Filtro precio máximo" +
+                                    "\n5 - Filtro precio mínimo" +
                                     "\n0 - Atras"
                             );
                             Integer sacar = Consola.ingresarXInteger("opcion");
@@ -231,7 +236,7 @@ public class AutomovilController {
                                 arrayCondiciones[sacar-1] = null;
                             }
                         }else{
-                            System.out.println("Opcion no reconocida");
+                            System.out.println("Opción no reconocida");
                         }
                         break;
                     case 0:
@@ -239,7 +244,7 @@ public class AutomovilController {
                         break;
                     default:
                         opc = -1;
-                        System.out.println("Opcion no reconocida");
+                        System.out.println("Opción no reconocida");
                         break;
                 }
 
@@ -318,7 +323,7 @@ public class AutomovilController {
 
                     }else{
                         ///muestra la lista resultante sin filtros
-                        if(this.automovilRepository.getAutomovilList().size() == 0){
+                        if(this.automovilRepository.isEmpty()){
                             System.out.println("No hay automoviles");
                         }else{
                             this.automovilRepository.getAutomovilList().forEach(System.out::println);
@@ -344,11 +349,13 @@ public class AutomovilController {
                     mostrarAutomovilesEnStock();
                     borrarAutomovilEnStock();
                     break;
+                    /*
                 case 3: // modificar
                     mostrarAutomovilesEnStock();
                     modificar();
                     break;
-                case 4: // mostrar
+                     */
+                case 3: // mostrar
                     mostrarAutomovilesEnStock();
                     Automovil find = find(Consola.ingresarXInteger("id del automovil"));
                     if (find == null) {
@@ -357,7 +364,7 @@ public class AutomovilController {
                         Consola.soutString(find.toString());
                     }
                     break;
-                case 5: // ver lista filtrada
+                case 4: // ver lista filtrada
                     buscarAutomovilesXFiltro();
                     break;
                 default: // Opción no reconocida
@@ -378,10 +385,7 @@ public class AutomovilController {
                 case 1: // mostrar
                     mostrarAutomovilesEnStock();
                     Automovil find = find(Consola.ingresarXInteger("id del automovil"));
-                    if (find == null) {
-                    } else {
-                        Consola.soutString(find.toString());
-                    }
+                    if (find != null) Consola.soutString(find.toString());
                     break;
                 case 2: // ver stock
                     mostrarAutomovilesEnStock();
@@ -390,9 +394,13 @@ public class AutomovilController {
                     buscarAutomovilesXFiltro();
                     break;
                 default: // Opción no reconocida
-                    Consola.soutString("El dato ingresado no es válido. Reintentar");
+                    Consola.soutString("El dato ingresado no es válido. Reintentar.");
                     break;
             }
         }
+    }
+
+    public boolean isRepoEmpty(){
+        return this.automovilRepository.isEmpty();
     }
 }

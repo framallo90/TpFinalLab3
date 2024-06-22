@@ -104,4 +104,8 @@ public class VentaRepository  implements IRepository<Venta,Integer> {
             buscar.setMetodoDePago(nuevo);
         this.saveVentas();
     }
+
+    public boolean isEmpty(){
+        return this.map.isEmpty();
+    }
 }

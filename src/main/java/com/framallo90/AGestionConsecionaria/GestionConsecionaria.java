@@ -48,6 +48,16 @@ public class GestionConsecionaria {
         this.ventaController = ventaController;
     }
     public void iniciar(){
+        Consola.soutString("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" +
+                "@@@@@@@@@@@@@@@@&&&&&@@&&&&&@@@@@@@@@@@@@@@@\n" +
+                "@@@@@@@@@@@@@@&PB&&BGGGG#&&BG&@@@@@@@@@@@@@@\n" +
+                "@@@@@@@@@@@&#&###&&&&##&&&&&&&&&&@@@@@@@@@@@\n" +
+                "@@@@@@@@@#P5YYYP#####BB###&&GPPPGG&@@@@@@@@@\n" +
+                "@@@@@@@@@GY5PP5G@&&&&&&&&&&@#PGPGP#@@@@@@@@@\n" +
+                "@@@@@@@@@&GBGBBG@&&&&&&&&&@@B##B#B&@@@@@@@@@\n" +
+                "@@@@@@@@@&&##BBB@@@@@@@@@@@@####&&&@@@@@@@@@\n" +
+                "@@@@@@@@@&&@&&&&@@@@@@@@@@@@&@@@@@@@@@@@@@@@\n" +
+                "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         Login login = new Login();
         Empleados  empleadoIngresado = null;
         //---------------------
@@ -117,7 +127,7 @@ public class GestionConsecionaria {
                     ventaController.menuVentas();
                     break;
                 case 3: // gestion carros
-                    automovilController.menuAutomovilAdmin();
+                    automovilController.menuAutomovilVendedor();
             }
 
         }while (eleccion!=0);

@@ -78,19 +78,16 @@ public class EmpleadosController {
     private void modificacion(Empleados empleado) {
         while (true) {
             Consola.soutString("""
-                         opción para modifación:
-                         1) nombre
-                         2) apellido
-                         3) cantidad de autos vendidos
-                         4) username
-                         5) password
-                         6) tipo de empleado
-                         0) salir
+                         MODIFICACIÓN EMPLEADO
+                         1. Nombre
+                         2. Apellido
+                         3. Cantidad de autos vendidos
+                         4. Username
+                         5. Password
+                         6. Tipo del empleado
+                         0. Volver
                          """);
-
             String opcion = String.valueOf(Consola.ingresarXInteger("opcion"));
-            Consola.limpiarBuffer();
-
             switch (opcion) {
                 case "0":
                     // Salir del menú de modificación.

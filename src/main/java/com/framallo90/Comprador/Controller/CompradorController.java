@@ -26,12 +26,10 @@ public class CompradorController {
                 case 1:
                     add();
                     break;
-
                 case 2:
                     this.verHisorial();
                     update();
                     break;
-
                 case 3:
                     this.verHisorial();
                     remove();
@@ -65,50 +63,43 @@ public class CompradorController {
         this.compradorRepository.add(comprador);
     }
     public void remove(){
-        try {
-            compradorRepository.remove(Consola.ingresarXInteger("id"));
-        }catch (InvalidIdNotFound e) {
-            System.out.println(e.getMessage());
-        }
+        compradorRepository.remove(Consola.ingresarXInteger("id"));
     }
     public void update()
     {
         int opt;
         Comprador comprador = compradorRepository.find(Consola.ingresarXInteger("id"));
-        do{
-            System.out.println("1. Nombre");
-            System.out.println("2. Apellido");
-            System.out.println("3. DNI");
-            System.out.println("4. E-Mail");
-            System.out.println("5. SALIR.");
-            System.out.println("Ingrese el id del cliente a modificar: ");
-            opt = Consola.ingresarXInteger("elemento a modificar");
-            switch (opt){
-                case 1:
-                    compradorRepository.cambioNombre(comprador,Consola.ingresarXString("nuevo nombre"));
-                    break;
-
-                case 2:
-                    compradorRepository.cambioApellido(comprador,Consola.ingresarXString("nuevo apellido"));
-                    break;
-
-                case 3:
-                    compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("nuevo DNI"));
-                    break;
-
-                case 4:
-                    compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
-                    break;
-
-                case 5:
-                    System.out.println("Saliendo....");
-                    break;
-
-                default:
-                    System.out.println("Opcion invalida, vuelva a intentarlo.");
-                    break;
-            }
-        }while (opt != 5);
+        if (comprador != null){
+            do{
+                System.out.println("1. Nombre");
+                System.out.println("2. Apellido");
+                System.out.println("3. DNI");
+                System.out.println("4. E-Mail");
+                System.out.println("5. SALIR.");
+                System.out.println("Ingrese el id del cliente a modificar: ");
+                opt = Consola.ingresarXInteger("elemento a modificar");
+                switch (opt){
+                    case 0:
+                        System.out.println("Saliendo....");
+                        break;
+                    case 1:
+                        compradorRepository.cambioNombre(comprador,Consola.ingresarXString("nuevo nombre"));
+                        break;
+                    case 2:
+                        compradorRepository.cambioApellido(comprador,Consola.ingresarXString("nuevo apellido"));
+                        break;
+                    case 3:
+                        compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("nuevo DNI"));
+                        break;
+                    case 4:
+                        compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
+                        break;
+                    default:
+                        System.out.println("Opcion invalida, vuelva a intentarlo.");
+                        break;
+                }
+            }while (opt != 0);
+        }
     }
     //sobrecarga
     public void update(Comprador comprador)
