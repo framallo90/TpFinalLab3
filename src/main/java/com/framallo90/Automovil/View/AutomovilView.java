@@ -1,47 +1,89 @@
 package com.framallo90.Automovil.View;
+
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Excepciones.EmptyAStockException;
 import com.framallo90.consola.Consola;
+
 import java.util.List;
+
+/**
+ * Vista para la interacción con la gestión de Automoviles en el sistema.
+ * Proporciona métodos para mostrar información, ingresar datos y mostrar menús.
+ */
 public class AutomovilView {
+
+    /**
+     * Constructor por defecto de la clase AutomovilView.
+     */
     public AutomovilView() {
     }
-    public void mostrarAutomoviles(List<Automovil> automovilList) throws EmptyAStockException
-    {
-        /**
-         * Metodo que muestra el stock actual de vehiculos, recibiendo por parametro la lista cargada (o no)
-         * Si esta vacia evitaremos iterar sobre ella para avisar al usuario que la lista esta vacia
-         * Cuando tenga elementos se iterará con un for-each mostrando cada automovil, finalmente se informa
-         * acerca del contador de automoviles.
-         */
-        if (automovilList==null)
-            throw new EmptyAStockException("La lista esta vacia.");
 
-        for (Automovil automovil : automovilList)
-        {
+    /**
+     * Muestra el stock actual de vehículos.
+     * @param automovilList Lista de Automovil que se desea mostrar.
+     * @throws EmptyAStockException Si la lista de automóviles está vacía.
+     */
+    public void mostrarAutomoviles(List<Automovil> automovilList) throws EmptyAStockException {
+        /**
+         * Método que muestra el stock actual de vehículos, recibiendo por parámetro la lista cargada (o no).
+         * Si la lista está vacía, se lanza una excepción EmptyAStockException.
+         * Cuando la lista tiene elementos, se itera con un bucle for-each mostrando cada automóvil.
+         * Finalmente, se informa acerca del contador de automóviles en stock.
+         */
+        if (automovilList == null || automovilList.isEmpty()) {
+            throw new EmptyAStockException("La lista está vacía.");
+        }
+
+        for (Automovil automovil : automovilList) {
             System.out.println(automovil.toString());
         }
-        System.out.println("Total de vehiculos en stock -> " + Automovil.getCont());
+        System.out.println("Total de vehículos en stock -> " + Automovil.getCont());
     }
 
-    public String ingresoMarca(){
+    /**
+     * Método para ingresar la marca de un automóvil.
+     * @return La marca ingresada por el usuario.
+     */
+    public String ingresoMarca() {
         return Consola.ingresarXString("marca");
     }
-    public String ingresoModelo(){
+
+    /**
+     * Método para ingresar el modelo de un automóvil.
+     * @return El modelo ingresado por el usuario.
+     */
+    public String ingresoModelo() {
         return Consola.ingresarXStringSimple("modelo");
     }
 
-    public Double ingresoPrecio(){
+    /**
+     * Método para ingresar el precio de un automóvil.
+     * @return El precio ingresado por el usuario.
+     */
+    public Double ingresoPrecio() {
         return Consola.ingresarXdouble("precio");
     }
-    public String ingresoPatente()
-    {
+
+    /**
+     * Método para ingresar la patente de un automóvil.
+     * @return La patente ingresada por el usuario.
+     */
+    public String ingresoPatente() {
         return Consola.patente("patente");
     }
-    public Integer ingresoAnio() {return Consola.ingresarXInteger("anio");
+
+    /**
+     * Método para ingresar el año de un automóvil.
+     * @return El año ingresado por el usuario.
+     */
+    public Integer ingresoAnio() {
+        return Consola.ingresarXInteger("anio");
     }
 
-    public void printMenuAutomovilAdmin(){
+    /**
+     * Imprime el menú de opciones para administradores relacionado con los automóviles.
+     */
+    public void printMenuAutomovilAdmin() {
         System.out.println("""
                 MENU AUTOMOVIL (administrador)
                 1. Agregar 
@@ -50,7 +92,11 @@ public class AutomovilView {
                 4. Lista automoviles (con filtro)
                 0. Volver""");
     }
-    public void printMenuAutomovilVendedor(){
+
+    /**
+     * Imprime el menú de opciones para vendedores relacionado con los automóviles.
+     */
+    public void printMenuAutomovilVendedor() {
         System.out.println("""
                 MENU AUTOMOVIL (vendedor)
                 1. Buscar automovil

@@ -1,5 +1,6 @@
 /**
  * Clase que proporciona métodos para la interacción con el usuario para la gestión de empleados.
+ * Permite generar, mostrar y manejar objetos Empleados a través de la consola.
  *
  * @author Framballo90
  * @since v1.0
@@ -25,7 +26,7 @@ public class EmpleadosView {
         nombre = Consola.ingresarXString("nombre");
         apellido = Consola.ingresarXString("apellido");
         dni = Consola.ingresarXInteger("dni");
-//        Consola.limpiarBuffer();
+
         username = Consola.ingresarXStringSimple("username");
         while (true){
             password = Consola.ingresarXStringSimple("password");
@@ -42,8 +43,13 @@ public class EmpleadosView {
         return new Empleados(nombre, apellido, dni, 0, username, password, tipo);
     }
 
+    /**
+     * Valida que la contraseña cumpla con los requisitos mínimos.
+     *
+     * @param password Contraseña a validar.
+     * @return true si la contraseña es válida, false en caso contrario.
+     */
     private boolean validarPassword(String password) {
-
         // Patrón de expresión regular para la validación
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).*$";
 
@@ -69,14 +75,15 @@ public class EmpleadosView {
                     tipo.equalsIgnoreCase("vendedor")) {
                 return tipo;
             } else {
-                System.out.println("ingresar un dato válido");
+                System.out.println("Ingresar un dato válido");
             }
         }
     }
 
-
-    //DOCUMENTAR
-    public void printMenuAdministrador(){
+    /**
+     * Imprime el menú de opciones disponible para un administrador de empleados.
+     */
+    public void printMenuAdministrador() {
         System.out.println("MENU EMPLEADOS (administrador)");
         System.out.println("1. Agregar empleado.");
         System.out.println("2. Modificar empleado.");
@@ -86,20 +93,30 @@ public class EmpleadosView {
         System.out.println("0. Volver.");
     }
 
-    public void mostrarEmpleado(Empleados empleados){
-
+    /**
+     * Muestra por consola la información detallada de un empleado.
+     *
+     * @param empleados El objeto Empleados que se desea mostrar.
+     */
+    public void mostrarEmpleado(Empleados empleados) {
         System.out.println("=========================================");
         System.out.println("ID: " + empleados.getId());
         System.out.println("Nombre: " + empleados.getApellido() + ", " + empleados.getNombre());
-        System.out.println("Dni: "+empleados.getDni());
-        System.out.println("Tipo de usuario: "+empleados.getTipo());
-        System.out.println("Autos vendidos: "+empleados.getAutosvendidos());
-        System.out.println("username: "+empleados.getUsername());
+        System.out.println("DNI: " + empleados.getDni());
+        System.out.println("Tipo de usuario: " + empleados.getTipo());
+        System.out.println("Autos vendidos: " + empleados.getAutosvendidos());
+        System.out.println("Username: " + empleados.getUsername());
         System.out.println("=========================================");
     }
-    public void muestroEmpleados(List<Empleados> empleados){
-        for (Empleados empleados1 : empleados){
-            mostrarEmpleado(empleados1);
+
+    /**
+     * Muestra por consola la información detallada de varios empleados.
+     *
+     * @param empleados La lista de objetos Empleados que se desea mostrar.
+     */
+    public void muestroEmpleados(List<Empleados> empleados) {
+        for (Empleados empleado : empleados) {
+            mostrarEmpleado(empleado);
         }
     }
 }

@@ -15,15 +15,27 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase que proporciona métodos para interactuar con una API de automóviles.
+ * Permite obtener marcas, modelos, años y precios de automóviles utilizando la API de FIPE.
+ */
 public class ApiAutomovilService {
+
     private static final String BASE_URL = "https://parallelum.com.br/fipe/api/v1/carros/";
 
+    /**
+     * Realiza una solicitud HTTP GET a la URL especificada y devuelve la respuesta como String.
+     * @param url URL a la cual se realizará la solicitud GET.
+     * @return String con el cuerpo de la respuesta recibida desde la URL.
+     * @throws IOException si ocurre un error al realizar la solicitud HTTP o si la respuesta no es JSON.
+     */
     private String getStringFromUrl(String url) throws IOException {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpGet request = new HttpGet(url);
             HttpResponse response = httpClient.execute(request);
             String responseBody = EntityUtils.toString(response.getEntity());
 
+            // Verifica si la respuesta es un HTML en lugar de JSON
             if (responseBody.startsWith("<!DOCTYPE") || responseBody.startsWith("<html")) {
                 throw new IOException("Respuesta HTML recibida en lugar de JSON. URL: " + url);
             }
@@ -32,6 +44,11 @@ public class ApiAutomovilService {
         }
     }
 
+    /**
+     * Obtiene un mapa de marcas de automóviles disponibles.
+     * @return Mapa donde las claves son los códigos de las marcas y los valores son los nombres de las marcas.
+     * @throws IOException si hay un error al realizar la solicitud HTTP o al procesar la respuesta JSON.
+     */
     public Map<Integer, String> obtenerMarcas() throws IOException {
         String url = BASE_URL + "marcas";
         String response = getStringFromUrl(url);
@@ -51,6 +68,12 @@ public class ApiAutomovilService {
         return marcas;
     }
 
+    /**
+     * Obtiene un mapa de modelos de automóviles para una marca específica.
+     * @param marcaId ID de la marca para la cual se desean obtener los modelos.
+     * @return Mapa donde las claves son los códigos de los modelos y los valores son los nombres de los modelos.
+     * @throws IOException si hay un error al realizar la solicitud HTTP o al procesar la respuesta JSON.
+     */
     public Map<Integer, String> obtenerModelos(int marcaId) throws IOException {
         String url = BASE_URL + "marcas/" + marcaId + "/modelos";
         String response = getStringFromUrl(url);
@@ -71,6 +94,13 @@ public class ApiAutomovilService {
         return modelos;
     }
 
+    /**
+     * Obtiene un mapa de años de un modelo de automóvil específico para una marca.
+     * @param marcaId ID de la marca del automóvil.
+     * @param modeloId ID del modelo del automóvil.
+     * @return Mapa donde las claves son los códigos de los años y los valores son los nombres de los años.
+     * @throws IOException si hay un error al realizar la solicitud HTTP o al procesar la respuesta JSON.
+     */
     public Map<String, String> obtenerAnos(int marcaId, int modeloId) throws IOException {
         String url = BASE_URL + "marcas/" + marcaId + "/modelos/" + modeloId + "/anos";
         String response = getStringFromUrl(url);
@@ -90,6 +120,14 @@ public class ApiAutomovilService {
         return anos;
     }
 
+    /**
+     * Obtiene el precio de un automóvil específico para una marca, modelo y año dados.
+     * @param marcaId ID de la marca del automóvil.
+     * @param modeloId ID del modelo del automóvil.
+     * @param anoId ID del año del automóvil.
+     * @return Precio del automóvil como un valor Double, o null si no se encuentra el precio.
+     * @throws IOException si hay un error al realizar la solicitud HTTP o al procesar la respuesta JSON.
+     */
     public Double obtenerPrecio(int marcaId, int modeloId, String anoId) throws IOException {
         String url = BASE_URL + "marcas/" + marcaId + "/modelos/" + modeloId + "/anos/" + anoId;
         String response = getStringFromUrl(url);
