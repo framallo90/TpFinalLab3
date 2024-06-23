@@ -29,7 +29,7 @@ public class CompradorController {
     public void compradorMenu() {
         int opt;
         do {
-            System.out.println("MENU CLIENTES");
+            System.out.println("--- MENU CLIENTES ---");
             System.out.println("1. Agregar cliente.");
             System.out.println("2. Modificar cliente.");
             System.out.println("3. Eliminar cliente.");
@@ -103,7 +103,7 @@ public class CompradorController {
                 System.out.println("2. Apellido");
                 System.out.println("3. DNI");
                 System.out.println("4. E-Mail");
-                System.out.println("5. SALIR.");
+                System.out.println("0. Volver");
                 opt = Consola.ingresarXInteger("elemento a modificar");
 
                 switch (opt) {
@@ -119,14 +119,14 @@ public class CompradorController {
                     case 4:
                         compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
                         break;
-                    case 5:
+                    case 0:
                         System.out.println("Saliendo....");
                         break;
                     default:
                         Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
                         break;
                 }
-            } while (opt != 5);
+            } while (opt != 0);
         }
     }
 
@@ -141,7 +141,7 @@ public class CompradorController {
             System.out.println("2. Apellido");
             System.out.println("3. DNI");
             System.out.println("4. E-Mail");
-            System.out.println("5. SALIR.");
+            System.out.println("0. Volver");
             opt = Consola.ingresarXInteger("elemento a modificar");
 
             switch (opt) {
@@ -157,14 +157,14 @@ public class CompradorController {
                 case 4:
                     compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
                     break;
-                case 5:
+                case 0:
                     System.out.println("Saliendo....");
                     break;
                 default:
                     Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
                     break;
             }
-        } while (opt != 5);
+        } while (opt != 0);
     }
 
     /**
