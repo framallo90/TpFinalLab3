@@ -19,10 +19,18 @@ public class AutomovilView {
 
         for (Automovil automovil : automovilList)
         {
-            System.out.println(automovil.toString());
+            System.out.println("===============================================");
+            System.out.println("Patente: "+automovil.getPatente());
+            System.out.println("Marca: "+automovil.getMarca());
+            System.out.println("Modelo: "+automovil.getModelo());
+            System.out.println("Anio: "+automovil.getAnio());
+            System.out.println("Precio: $"+automovil.getPrecio());
+            System.out.println("===============================================");
+
         }
         System.out.println("Total de vehiculos en stock -> " + Automovil.getCont());
     }
+
 
     public String ingresoMarca(){
         return Consola.ingresarXString("marca");
