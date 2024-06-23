@@ -10,6 +10,7 @@
 package com.framallo90.Empleados.Model.Repository;
 
 import com.framallo90.Empleados.Model.Entity.Empleados;
+import com.framallo90.Excepciones.CeroAdminsException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.google.gson.Gson;
@@ -89,10 +90,18 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
 
 
     @Override
-    public void remove(Integer id) throws InvalidIdNotFound {
+    public void remove(Integer id) throws CeroAdminsException {
         Empleados remover = this.find(id);
+
         if (remover == null) return;
+
+        if ("admin".equalsIgnoreCase(remover.getTipo())||
+        "administrador".equalsIgnoreCase(remover.getTipo()))
+            if (this.contAdmins()==1)
+                throw new CeroAdminsException();
+
         this.list.remove(remover);
+
         this.saveEmpleados();
     }
 
@@ -104,20 +113,18 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param id El ID del empleado a actualizar.
      */
     @Override
-    public void update(Integer id,Empleados empleado) throws InvalidIdNotFound {
+    public void update(Integer id,Empleados empleados) throws InvalidIdNotFound {
         int i;
         for(i = 0;i<list.size();i++){
             if(list.get(i).getId().equals(id)){
-                list.set(i,empleado);
+                list.set(i,empleados);
                 saveEmpleados();
                 break;
             }
-
         }
         if(i == list.size()){
             throw new InvalidIdNotFound("No se encontro id");
         }
-
     }
 
     /**
@@ -127,10 +134,9 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @return El objeto Empleado encontrado o null si no se encuentra.
      */
     @Override
-    public Empleados find(Integer id) throws InvalidIdNotFound{
+    public Empleados find(Integer id) {
         Optional<Empleados> devol = this.list.stream().filter(e -> e.getId().equals(id)).findFirst();
-        if(devol.isEmpty())throw  new InvalidIdNotFound("No existe un empleado con el id " + id);
-        else return devol.get();
+        return devol.orElse(null);
     }
 
     /**
@@ -143,9 +149,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         empleados.setAutosvendidos(autosVendidos);
         this.saveEmpleados();
     }
-    public boolean verificarDni(int dni){
-        return list.stream().map(e->e.getDni()).anyMatch(d->d.equals(dni));
-    }
+
     /**
      * Actualiza el nombre de un empleado.
      *
@@ -175,7 +179,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param nuevoDni El nuevo DNI del empleado.
      * @throws IllegalArgumentException Si el nuevo DNI ya pertenece a otro empleado.
      */
-    public void cambioDni(Empleados empleados, Integer nuevoDni) throws IllegalStateException{
+    public void cambioDni(Empleados empleados, Integer nuevoDni) {
         for (Empleados value : this.list) {
             if (value.getDni().equals(nuevoDni))
                 throw new IllegalArgumentException("El DNI ya pertenece a otro empleado");
@@ -223,8 +227,8 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      *
      * @return La cantidad de empleados que son administradores o admins.
      */
-    public long contAdmins() {
-        return list.stream()
+    public long contAdmins()  {
+        return  list.stream()
                 .filter(e -> "administrador".equalsIgnoreCase(e.getTipo()) || "admin".equalsIgnoreCase(e.getTipo()))
                 .count();
     }

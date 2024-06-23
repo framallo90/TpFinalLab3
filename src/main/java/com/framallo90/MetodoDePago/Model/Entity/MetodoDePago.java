@@ -1,5 +1,4 @@
 package com.framallo90.MetodoDePago.Model.Entity;
-
 /**
  * Clase que representa un método de pago para transacciones comerciales.
  * Permite definir y gestionar los detalles del método de pago, incluyendo el tipo (crédito o contado),

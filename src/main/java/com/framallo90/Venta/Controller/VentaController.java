@@ -68,7 +68,7 @@ public class VentaController {
             throw new InvalidIdNotFound("empleado no encontrado");
         }
         // Selección del comprador
-        compradorController.verHisorial();
+        this.compradorController.verHisorial();
         Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador actual"));
         if (comprador == null) {
             throw new InvalidIdNotFound("comprador no encontrado");
@@ -92,9 +92,6 @@ public class VentaController {
         // Generación y registro de la venta
         venta = this.ventaView.generarVenta(empleados, comprador, automovil, fecha, metodoDePago);
         this.ventaRepository.add(venta);
-
-        // Eliminación del automóvil del stock
-        this.automovilController.borrarAutomovilEnStockPorId(id);
     }
     /**
      * Muestra los detalles de una venta específica seleccionada por su ID.
@@ -135,7 +132,6 @@ public class VentaController {
             Consola.soutAlertString(e.getMessage());
         }
     }
-
     /**
      * Permite modificar diferentes aspectos de una venta específica, como el empleado vendedor,
      * el comprador, el automóvil o el método de pago asociado.
@@ -161,7 +157,6 @@ public class VentaController {
                     }
                     break;
                     */
-
                 case 4: //mtodo de pago
                     metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
                     break;
@@ -190,7 +185,6 @@ public class VentaController {
                 case 1: // Agregar venta
                     try {
                         this.add();
-                        break;
                     } catch (InvalidIdNotFound e) {
                         Consola.soutAlertString(e.getMessage());
                     }

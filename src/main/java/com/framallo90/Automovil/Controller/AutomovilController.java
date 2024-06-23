@@ -152,7 +152,7 @@ public class AutomovilController {
         try {
             automovilRepository.remove(Consola.ingresarXInteger("ID"));
         } catch (InvalidIdNotFound e) {
-            System.out.println(e.getMessage());
+            Consola.soutAlertString(e.getMessage());
         }
     }
 
@@ -165,7 +165,7 @@ public class AutomovilController {
         try {
             automovilRepository.remove(id);
         } catch (InvalidIdNotFound e) {
-            System.out.println(e.getMessage());
+            Consola.soutAlertString(e.getMessage());
         }
     }
     /**
@@ -200,6 +200,7 @@ public class AutomovilController {
             }
         } catch (InvalidIdNotFound e) {
             System.out.println(e.getMessage());
+>>>>>>> 23c7a5851b176c720894338cef356d5c07f0485d
         }
     }
     */
@@ -228,7 +229,7 @@ public class AutomovilController {
             try {
                 this.automovilRepository.remove(retorno.getId());
             } catch (InvalidIdNotFound e) {
-                Consola.soutString(e.getMessage());
+                Consola.soutAlertString(e.getMessage());
             }
             return retorno;
         } else {

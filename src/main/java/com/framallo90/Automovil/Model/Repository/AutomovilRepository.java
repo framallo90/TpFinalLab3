@@ -1,18 +1,15 @@
 package com.framallo90.Automovil.Model.Repository;
-
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.framallo90.consola.Consola;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 /**
  * Repositorio para la gestión de objetos Automovil, implementando la interfaz IRepository.
  */
@@ -20,14 +17,12 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
     private List<Automovil> automovilList;
     private Gson gson = new Gson();
     private static final String PATH = "src/main/resources/stockAutomoviles.json";
-
     /**
      * Constructor que inicializa el repositorio de Automovil cargando los datos desde el archivo JSON.
      */
     public AutomovilRepository() {
         loadAutomoviles();
     }
-
     /**
      * Añade un automóvil al repositorio y actualiza el archivo JSON.
      * @param object Automóvil a añadir.
@@ -37,7 +32,6 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
         this.automovilList.add(object);
         updateFile();
     }
-
     /**
      * Elimina un automóvil del repositorio por su ID y actualiza el archivo JSON.
      * @param id ID del automóvil a eliminar.
@@ -48,15 +42,11 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
         Automovil auto = find(id);
         if (auto != null) {
             this.automovilList.remove(auto);
-            Consola.soutString("El vehiculo de id: "+id+" se ha removido correctamente.");
             updateFile();
         } else {
             throw new InvalidIdNotFound("El automovil de id: "+ id +" ingresado no existe.");
         }
     }
-
-
-
     /**
      * Actualiza los atributos de un automóvil en el repositorio por su ID y actualiza el archivo JSON.
      * @param id ID del automóvil a actualizar.
@@ -85,7 +75,7 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
                     automovil.setAnio(Consola.ingresarXInteger("anio"));
                     break;
                 default:
-                    System.out.println("Opcion no valida");
+                    Consola.soutAlertString("Opcion no valida");
                     break;
             }
             updateFile();
@@ -93,7 +83,6 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
             throw new InvalidIdNotFound("El id ingresado no existe.");
         }
     }
-
     /**
      * Busca un automóvil por su ID en el repositorio.
      * @param integer ID del automóvil a buscar.
@@ -104,7 +93,6 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
         Optional<Automovil> devol = this.automovilList.stream().filter(a -> a.getId().equals(integer)).findFirst();
         return devol.orElse(null);
     }
-
     /**
      * Carga los automóviles desde el archivo JSON al iniciar el repositorio.
      */
@@ -125,12 +113,11 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            Consola.soutAlertString(e.getMessage());
         } catch (IOException io) {
-            System.out.println(io.getMessage());
+            Consola.soutAlertString(io.getMessage());
         }
     }
-
     /**
      * Actualiza el archivo JSON con los cambios realizados en el repositorio.
      */
@@ -138,10 +125,9 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
         try (Writer writer = new FileWriter(PATH)) {
             gson.toJson(automovilList, writer);
         } catch (IOException io) {
-            System.out.println(io.getMessage());
+            Consola.soutAlertString(io.getMessage());
         }
     }
-
     /**
      * Obtiene la lista de automóviles actualmente en el repositorio.
      * @return Lista de automóviles.
@@ -149,7 +135,6 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
     public List<Automovil> getAutomovilList() {
         return automovilList;
     }
-
     /**
      * Verifica si el repositorio de automóviles está vacío.
      * @return true si la lista de automóviles está vacía, false si contiene elementos.

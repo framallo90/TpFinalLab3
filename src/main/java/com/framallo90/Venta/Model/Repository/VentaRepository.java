@@ -113,7 +113,6 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             throw new InvalidIdNotFound("No se ha encontrado una venta de id " + id + ".");
         }
     }
-
     /**
      * Actualiza una venta en el repositorio (pendiente de implementación).
      *
@@ -138,7 +137,6 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             return devol.get();
         }
     }
-
     /**
      * Actualiza el empleado de una venta específica.
      *
@@ -152,7 +150,6 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             this.saveVentas();
         }
     }
-
     /**
      * Actualiza el comprador de una venta específica.
      *
@@ -166,7 +163,6 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             this.saveVentas();
         }
     }
-
     /**
      * Actualiza el automóvil de una venta específica.
      *
@@ -180,7 +176,6 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             this.saveVentas();
         }
     }
-
     /**
      * Actualiza el método de pago de una venta específica.
      *

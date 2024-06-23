@@ -7,7 +7,6 @@ import com.framallo90.Login.Login;
 import com.framallo90.MetodoDePago.Controller.MetodoController;
 import com.framallo90.Venta.Controller.VentaController;
 import com.framallo90.consola.Consola;
-
 /**
  * Clase principal que gestiona la aplicación de una concesionaria.
  * Permite la gestión de compradores, empleados, automóviles, ventas y métodos de pago.
@@ -18,7 +17,6 @@ public class GestionConsecionaria {
     private MetodoController metodoController;
     private AutomovilController automovilController;
     private VentaController ventaController;
-
     /**
      * Constructor de la clase GestionConsecionaria.
      * @param compradorController Controlador para la gestión de compradores.
@@ -50,27 +48,31 @@ public class GestionConsecionaria {
             do {
                 Consola.printMenuLogin();
                 eleccion = Consola.ingresarXInteger("eleccion");
-                if (eleccion == 0)
+                if (eleccion == 0) {
                     return;
+                }
                 else if (eleccion == 1) {
                     empleadoIngresado = login.login();
                     if (empleadoIngresado == null)
                         Consola.soutAlertString("Las credenciales son inválidas. Vuelve a intentarlo");
-                } else
+                }
+                else
                     Consola.soutAlertString("Ingrese una opción válida (1/0). ");
+
             } while (empleadoIngresado == null);
-            if (empleadoIngresado.getTipo().equalsIgnoreCase("admin")
-                    || empleadoIngresado.getTipo().equalsIgnoreCase("administrador"))
+
+
+            if (empleadoIngresado.getTipo().equalsIgnoreCase("admin") || empleadoIngresado.getTipo().equalsIgnoreCase("administrador")) {
                 this.menuAdmin(empleadoIngresado);
-            else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor"))
+            } else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor")) {
                 this.menuVendedor(empleadoIngresado);
-            else
-                Consola.soutAlertString("Credenciales incorrectas.");
-        } while (eleccion != 0);
+            }
+
+        } while (true);
     }
 
     /**
-     * Método privado para mostrar y manejar el menú de administrador.
+     * Método privado para manejar el menú de administrador.
      * @param empleadoIngresado Objeto Empleados que representa al usuario administrador.
      */
     private void menuAdmin(Empleados empleadoIngresado) {
@@ -103,7 +105,7 @@ public class GestionConsecionaria {
     }
 
     /**
-     * Método privado para mostrar y manejar el menú de vendedor.
+     * Método privado para manejar el menú de vendedor.
      * @param empleadoIngresado Objeto Empleados que representa al usuario vendedor.
      */
     private void menuVendedor(Empleados empleadoIngresado) {
