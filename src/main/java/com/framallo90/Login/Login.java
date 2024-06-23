@@ -31,17 +31,13 @@ import java.util.Set;
  * @version 1.0
  */
 public class Login {
-    private static EmpleadosRepository empleadosRepository;
+    private EmpleadosRepository empleadosRepository;
 
     /**
      * Constructor que inicializa el repositorio de empleados utilizado para la autenticación.
      */
     public Login() {
         empleadosRepository = new EmpleadosRepository();
-    }
-
-    public static void setEmpleadosRepository(EmpleadosRepository empleadosRepository) {
-        Login.empleadosRepository = empleadosRepository;
     }
 
     /**

@@ -1,20 +1,11 @@
 package com.framallo90.AGestionConsecionaria;
 import com.framallo90.Automovil.Controller.AutomovilController;
-import com.framallo90.Automovil.Model.Repository.AutomovilRepository;
-import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Comprador.Controller.CompradorController;
-import com.framallo90.Comprador.Model.Repository.CompradorRepository;
-import com.framallo90.Comprador.View.CompradorView;
 import com.framallo90.Empleados.Controller.EmpleadosController;
 import com.framallo90.Empleados.Model.Entity.Empleados;
-import com.framallo90.Empleados.Model.Repository.EmpleadosRepository;
-import com.framallo90.Empleados.View.EmpleadosView;
 import com.framallo90.Login.Login;
 import com.framallo90.MetodoDePago.Controller.MetodoController;
-import com.framallo90.MetodoDePago.View.MetodoView;
 import com.framallo90.Venta.Controller.VentaController;
-import com.framallo90.Venta.Model.Repository.VentaRepository;
-import com.framallo90.Venta.View.VentaView;
 import com.framallo90.consola.Consola;
 
 /**
@@ -30,28 +21,15 @@ public class GestionConsecionaria {
 
     /**
      * Constructor de la clase GestionConsecionaria.
-     * @param compradorView Vista para la gestión de compradores.
-     * @param compradorRepository Repositorio para la gestión de compradores.
      * @param compradorController Controlador para la gestión de compradores.
-     * @param empleadosView Vista para la gestión de empleados.
-     * @param empleadosRepository Repositorio para la gestión de empleados.
      * @param empleadosController Controlador para la gestión de empleados.
-     * @param metodoView Vista para la gestión de métodos de pago.
      * @param metodoController Controlador para la gestión de métodos de pago.
-     * @param automovilView Vista para la gestión de automóviles.
-     * @param automovilRepository Repositorio para la gestión de automóviles.
      * @param automovilController Controlador para la gestión de automóviles.
-     * @param ventaView Vista para la gestión de ventas.
-     * @param ventaRepository Repositorio para la gestión de ventas.
      * @param ventaController Controlador para la gestión de ventas.
      */
-    public GestionConsecionaria(CompradorView compradorView, CompradorRepository compradorRepository,
-                                CompradorController compradorController, EmpleadosView empleadosView,
-                                EmpleadosRepository empleadosRepository, EmpleadosController empleadosController,
-                                MetodoView metodoView, MetodoController metodoController,
-                                AutomovilView automovilView, AutomovilRepository automovilRepository,
-                                AutomovilController automovilController, VentaView ventaView,
-                                VentaRepository ventaRepository, VentaController ventaController) {
+    public GestionConsecionaria(CompradorController compradorController, EmpleadosController empleadosController,
+                                MetodoController metodoController, AutomovilController automovilController,
+                                VentaController ventaController) {
         this.compradorController = compradorController;
         this.empleadosController = empleadosController;
         this.metodoController = metodoController;
@@ -77,9 +55,9 @@ public class GestionConsecionaria {
                 else if (eleccion == 1) {
                     empleadoIngresado = login.login();
                     if (empleadoIngresado == null)
-                        Consola.soutString("Las credenciales son inválidas. Vuelve a intentarlo");
+                        Consola.soutAlertString("Las credenciales son inválidas. Vuelve a intentarlo");
                 } else
-                    System.out.println("Ingrese una opción válida (1/0). ");
+                    Consola.soutAlertString("Ingrese una opción válida (1/0). ");
             } while (empleadoIngresado == null);
             if (empleadoIngresado.getTipo().equalsIgnoreCase("admin")
                     || empleadoIngresado.getTipo().equalsIgnoreCase("administrador"))
@@ -87,7 +65,7 @@ public class GestionConsecionaria {
             else if (empleadoIngresado.getTipo().equalsIgnoreCase("vendedor"))
                 this.menuVendedor(empleadoIngresado);
             else
-                Consola.soutString("Credenciales incorrectas.");
+                Consola.soutAlertString("Credenciales incorrectas.");
         } while (eleccion != 0);
     }
 
@@ -117,7 +95,7 @@ public class GestionConsecionaria {
                     empleadosController.menuControllerEmpleados();
                     break;
                 default: // opcion no reconocida
-                    Consola.soutString("No se reconoce la opción ingresada.");
+                    Consola.soutAlertString("No se reconoce la opción ingresada.");
                     break;
             }
         } while (eleccion != 0);

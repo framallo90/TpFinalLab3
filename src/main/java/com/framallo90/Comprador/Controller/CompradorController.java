@@ -9,9 +9,8 @@ import com.framallo90.consola.Consola;
  * Controlador para la gestión de operaciones relacionadas con los compradores en el sistema.
  */
 public class CompradorController {
-
-    private CompradorView compradorView;
-    private CompradorRepository compradorRepository;
+    private final CompradorView compradorView;
+    private final CompradorRepository compradorRepository;
 
     /**
      * Constructor de la clase CompradorController.
@@ -62,7 +61,7 @@ public class CompradorController {
                     System.out.println("Saliendo....");
                     break;
                 default:
-                    System.out.println("Opción inválida, vuelva a intentarlo.");
+                    Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
                     break;
             }
         } while (opt != 0);
@@ -124,7 +123,7 @@ public class CompradorController {
                         System.out.println("Saliendo....");
                         break;
                     default:
-                        System.out.println("Opción inválida, vuelva a intentarlo.");
+                        Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
                         break;
                 }
             } while (opt != 5);
@@ -162,7 +161,7 @@ public class CompradorController {
                     System.out.println("Saliendo....");
                     break;
                 default:
-                    System.out.println("Opción inválida, vuelva a intentarlo.");
+                    Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
                     break;
             }
         } while (opt != 5);

@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 public class Consola {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
     /**
      * Objeto Scanner estático para la lectura de la entrada del usuario.
      */
@@ -22,6 +24,10 @@ public class Consola {
      */
     public static void soutString(String string) {
         System.out.println(string);
+    }
+
+    public static void soutAlertString(String string){
+        System.err.println(ANSI_RED + string + ANSI_RESET);
     }
 
     /**

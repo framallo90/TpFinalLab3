@@ -1,18 +1,15 @@
 package com.framallo90.Automovil.Controller;
-
 import com.framallo90.Automovil.API.ApiAutomovilService;
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Automovil.Model.Repository.AutomovilRepository;
 import com.framallo90.Automovil.View.AutomovilView;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-
 /**
  * Controlador que maneja las operaciones relacionadas con los automóviles, interactuando con la API y la vista.
  */
@@ -45,13 +42,13 @@ public class AutomovilController {
             }
             int marcaId = Consola.ingresarXInteger("ID de la marca");
             if (!marcas.containsKey(marcaId)) {
-                System.out.println("ID de marca no válido. Intente nuevamente.");
+                Consola.soutAlertString("ID de marca no válido. Intente nuevamente.");
                 return seleccionarMarca();
             }
             String marcaNombre = marcas.get(marcaId);
             return Map.entry(marcaId, marcaNombre);
         } catch (IOException e) {
-            System.out.println("Error al obtener las marcas: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener las marcas: " + e.getMessage());
             return null;
         }
     }
@@ -70,13 +67,13 @@ public class AutomovilController {
             }
             int modeloId = Consola.ingresarXInteger("ID del modelo");
             if (!modelos.containsKey(modeloId)) {
-                System.out.println("ID de modelo no válido. Intente nuevamente.");
+                Consola.soutAlertString("ID de modelo no válido. Intente nuevamente.");
                 return seleccionarModelo(marcaId);
             }
             String modeloNombre = modelos.get(modeloId);
             return Map.entry(modeloId, modeloNombre);
         } catch (IOException e) {
-            System.out.println("Error al obtener los modelos: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener los modelos: " + e.getMessage());
             return null;
         }
     }
@@ -99,11 +96,11 @@ public class AutomovilController {
                 if (anos.containsKey(anoId)) {
                     return anoId;
                 } else {
-                    System.out.println("Ingresar un dato válido.");
+                    Consola.soutAlertString("Ingresar un dato válido.");
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error al obtener los años: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener los años: " + e.getMessage());
             return null;
         }
     }
@@ -119,7 +116,7 @@ public class AutomovilController {
         try {
             return apiAutomovilService.obtenerPrecio(marcaId, modeloId, anoId);
         } catch (IOException e) {
-            System.out.println("Error al obtener el precio: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener el precio: " + e.getMessage());
             return null;
         }
     }
@@ -159,6 +156,18 @@ public class AutomovilController {
     }
 
     /**
+     * Elimina un automóvil del stock basado en su ID.
+     *
+     * @param id El ID del automóvil que se desea eliminar del stock.
+     */
+    public void borrarAutomovilEnStockPorId(Integer id) {
+        try {
+            automovilRepository.remove(id);
+        } catch (InvalidIdNotFound e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    /**
      * Método público para modificar un automóvil en el stock utilizando su ID.
      */
     public void modificar() {
@@ -168,7 +177,6 @@ public class AutomovilController {
             System.out.println(e.getMessage());
         }
     }
-
     /**
      * Método público para buscar un automóvil en el stock utilizando su ID.
      * @param id ID del automóvil a buscar.
@@ -176,6 +184,30 @@ public class AutomovilController {
      */
     public Automovil find(Integer id) {
         return automovilRepository.find(id);
+    }
+    /**
+     * Reemplaza un automóvil en el stock con otro nuevo identificado por su ID.
+     *
+     * @param automovil El automóvil que se desea reemplazar.
+     * @return El automóvil nuevo que reemplaza al anterior si se encuentra y se realiza el reemplazo correctamente,
+     *         de lo contrario, devuelve el mismo automóvil pasado como parámetro.
+     */
+    public Automovil cambiarCoche(Automovil automovil) {
+        Automovil retorno = null;
+        retorno = this.find(Consola.ingresarXInteger("id del nuevo coche"));
+        if (retorno != null) {
+            Consola.soutString("Vehículo reemplazado correctamente.");
+            this.automovilRepository.add(automovil);
+            try {
+                this.automovilRepository.remove(retorno.getId());
+            } catch (InvalidIdNotFound e) {
+                Consola.soutString(e.getMessage());
+            }
+            return retorno;
+        } else {
+            Consola.soutAlertString("Ha ocurrido un error en el reemplazo del automóvil.");
+            return automovil;
+        }
     }
 
     /**
@@ -188,7 +220,6 @@ public class AutomovilController {
             System.out.println(e.getMessage());
         }
     }
-
     /**
      * Método público para buscar automóviles en el stock utilizando filtros.
      */
@@ -198,7 +229,6 @@ public class AutomovilController {
         int cont = 0;
         int opc = -1;
         mostrarAutomovilesEnStock();
-
         do {
             System.out.println("LISTA DE AUTOMÓVILES " +
                     "\n1. Filtrar por marca" +
@@ -207,15 +237,11 @@ public class AutomovilController {
                     "\n4. Establecer precio máximo" +
                     "\n5. Establecer precio mínimo"
             );
-
             if (cont > 0) {
                 System.out.println("6. Quitar filtro");
             }
-
             System.out.println("0. Volver");
-
             opc = Consola.ingresarXInteger("opción");
-
             switch (opc) {
                 case 1:
                     String marca = automovilView.ingresoMarca();
@@ -252,14 +278,12 @@ public class AutomovilController {
                                         "\n5 - Filtro precio mínimo" +
                                         "\n0 - Atrás"
                         );
-
                         Integer sacar = Consola.ingresarXInteger("opción");
-
                         if (6 > sacar && sacar > 0) {
                             arrayCondiciones[sacar - 1] = null;
                         }
                     } else {
-                        System.out.println("Opción no reconocida");
+                        Consola.soutAlertString("Opción no reconocida");
                     }
                     break;
                 case 0:
@@ -267,37 +291,29 @@ public class AutomovilController {
                     break;
                 default:
                     opc = -1;
-                    System.out.println("Opción no reconocida");
+                    Consola.soutAlertString("Opción no reconocida");
                     break;
             }
-
             List<Predicate<Automovil>> listaFiltros = new ArrayList<>();
-
             for (Predicate<Automovil> p : arrayCondiciones) {
                 if (p != null) {
                     listaFiltros.add(p);
                 }
             }
-
             cont = listaFiltros.size();
-
             if (opc != 0) {
                 if (cont > 0) {
                     // Muestra los filtros aplicados
                     System.out.println("Filtros:");
                     System.out.printf("\033[36m | ");
-
                     for (int i = 0; i < 5; i++) {
                         if (arrayCondiciones[i] != null) {
                             System.out.printf(arrayTagsMostrar[i]);
                         }
                     }
-
                     System.out.println("\u001B[0m");
-
                     // Procesa los datos y muestra las coincidencias
                     Integer coincidencias = 0;
-
                     if (cont == 1) {
                         coincidencias = (int) this.automovilRepository.getAutomovilList().stream()
                                 .filter(listaFiltros.get(0))
@@ -334,15 +350,14 @@ public class AutomovilController {
                                 .peek(System.out::println)
                                 .count();
                     }
-
                     // Avisa si no hay coincidencias
                     if (coincidencias == 0) {
-                        System.out.println("No hay automóviles que coincidan con los filtros.");
+                        Consola.soutAlertString("No hay automóviles que coincidan con los filtros.");
                     }
                 } else {
                     // Muestra la lista sin filtros
                     if (this.automovilRepository.isEmpty()) {
-                        System.out.println("No hay automóviles.");
+                        Consola.soutAlertString("No hay automóviles.");
                     } else {
                         this.automovilRepository.getAutomovilList().forEach(System.out::println);
                     }
@@ -375,7 +390,7 @@ public class AutomovilController {
                     mostrarAutomovilesEnStock();
                     Automovil find = find(Consola.ingresarXInteger("ID del automóvil"));
                     if (find == null) {
-                        Consola.soutString("No se ha encontrado un automóvil con el ID ingresado.");
+                        Consola.soutAlertString("No se ha encontrado un automóvil con el ID ingresado.");
                     } else {
                         Consola.soutString(find.toString());
                     }
@@ -384,7 +399,7 @@ public class AutomovilController {
                     buscarAutomovilesXFiltro();
                     break;
                 default: // Opción no reconocida
-                    Consola.soutString("El dato ingresado no es válido. Reintentar.");
+                    Consola.soutAlertString("El dato ingresado no es válido. Reintentar.");
                     break;
             }
         }
@@ -417,7 +432,7 @@ public class AutomovilController {
                     buscarAutomovilesXFiltro();
                     break;
                 default: // Opción no reconocida
-                    Consola.soutString("El dato ingresado no es válido. Reintentar.");
+                    Consola.soutAlertString("El dato ingresado no es válido. Reintentar.");
                     break;
             }
         }
