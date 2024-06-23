@@ -61,8 +61,4 @@ public class Main {
         // Inicia la aplicación llamando al método iniciar de GestionConsecionaria
         gestionConsecionaria.iniciar();
     }
-    static {
-        EmpleadosRepository empleadosRepository = new EmpleadosRepository();
-        empleadosRepository.add(new Empleados("A","A",0,0,"A","A","administrador"));
-    }
 }

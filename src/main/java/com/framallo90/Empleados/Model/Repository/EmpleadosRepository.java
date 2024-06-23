@@ -36,8 +36,14 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public EmpleadosRepository() {
         this.loadEmpleados();
-        if (!this.list.isEmpty())
+        if (this.list.isEmpty()) {
+            Empleados admin = new Empleados("A", "A", 0, 0, "A", "A", "administrador");
+            this.list.add(admin);
+            this.saveEmpleados();
+            Empleados.setCont(admin.getId());
+        } else {
             Empleados.setCont(this.list.get(this.list.size() - 1).getId());
+        }
     }
 
     /**
