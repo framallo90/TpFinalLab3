@@ -11,6 +11,7 @@ package com.framallo90.Empleados.Model.Repository;
 
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Interfaces.IRepository;
+import com.framallo90.Login.Login;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -67,6 +68,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * Guarda los empleados en el archivo JSON.
      */
     public void saveEmpleados() {
+        Login.setEmpleadosRepository(this);
         try (FileWriter fileWriter = new FileWriter(PATH_EMPLEADOS)) {
             gson.toJson(this.empleados, fileWriter);
         } catch (IOException e) {
@@ -96,7 +98,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         if (remover == null) return;
         this.empleados.remove(remover);
         this.saveEmpleados();
-       
+
     }
 
     /**
