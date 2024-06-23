@@ -44,9 +44,11 @@ public class EmpleadosController {
         Empleados nuevoEmpleado = empleadosView.generarEmpleado();
 
         if (nuevoEmpleado != null) {
-            if (empleadosRepository.find(nuevoEmpleado.getDni()) != null) {
+
+            if (empleadosRepository.verificarDni(nuevoEmpleado.getDni())) {
                 // El empleado ya existe. Se disminuye el contador de empleados en 1.
                 Empleados.setCont(Empleados.getCont() - 1);
+                Consola.soutAlertString("Ya hay un usuario con ese DNI");
             } else {
                 // El empleado no existe. Se agrega al repositorio.
                 empleadosRepository.add(nuevoEmpleado);
@@ -131,8 +133,13 @@ public class EmpleadosController {
      * Permite al usuario eliminar un empleado existente.
      */
     public void removeEmpleado() {
-        Integer id = Consola.ingresarXInteger("id del empleado");
-        empleadosRepository.remove(id);
+        try{
+            Integer id = Consola.ingresarXInteger("id del empleado");
+            empleadosRepository.remove(id);
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
     }
 
     /**
@@ -142,7 +149,16 @@ public class EmpleadosController {
      * @return El empleado encontrado, o null si no se encuentra.
      */
     public Empleados find(Integer id) {
-        Empleados buscar = this.empleadosRepository.find(id);
+
+        Empleados buscar = null;
+        try{
+            buscar = this.empleadosRepository.find(id);
+            return buscar;
+        }catch (InvalidIdNotFound ex){
+            Consola.soutAlertString(ex.getMessage());
+        }
+
+
         return buscar;
     }
 
@@ -150,11 +166,11 @@ public class EmpleadosController {
      * Muestra los detalles de un empleado.
      */
     public void mostrar() {
-        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("id del empleado"));
-        if (buscar == null) {
-            Consola.soutString("No se ha encontrado el empleado.");
-        } else {
+        try{
+            Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("id del empleado"));
             this.empleadosView.mostrarEmpleado(buscar);
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
         }
     }
 

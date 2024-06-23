@@ -89,7 +89,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
 
 
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws InvalidIdNotFound {
         Empleados remover = this.find(id);
         if (remover == null) return;
         this.list.remove(remover);
@@ -104,11 +104,11 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param id El ID del empleado a actualizar.
      */
     @Override
-    public void update(Integer id,Empleados empleados) throws InvalidIdNotFound {
+    public void update(Integer id,Empleados empleado) throws InvalidIdNotFound {
         int i;
         for(i = 0;i<list.size();i++){
             if(list.get(i).getId().equals(id)){
-                list.set(i,empleados);
+                list.set(i,empleado);
                 saveEmpleados();
                 break;
             }
@@ -127,9 +127,10 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @return El objeto Empleado encontrado o null si no se encuentra.
      */
     @Override
-    public Empleados find(Integer id) {
+    public Empleados find(Integer id) throws InvalidIdNotFound{
         Optional<Empleados> devol = this.list.stream().filter(e -> e.getId().equals(id)).findFirst();
-        return devol.orElse(null);
+        if(devol.isEmpty())throw  new InvalidIdNotFound("No existe un empleado con el id " + id);
+        else return devol.get();
     }
 
     /**
@@ -142,7 +143,9 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         empleados.setAutosvendidos(autosVendidos);
         this.saveEmpleados();
     }
-
+    public boolean verificarDni(int dni){
+        return list.stream().map(e->e.getDni()).anyMatch(d->d.equals(dni));
+    }
     /**
      * Actualiza el nombre de un empleado.
      *
@@ -172,7 +175,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param nuevoDni El nuevo DNI del empleado.
      * @throws IllegalArgumentException Si el nuevo DNI ya pertenece a otro empleado.
      */
-    public void cambioDni(Empleados empleados, Integer nuevoDni) {
+    public void cambioDni(Empleados empleados, Integer nuevoDni) throws IllegalStateException{
         for (Empleados value : this.list) {
             if (value.getDni().equals(nuevoDni))
                 throw new IllegalArgumentException("El DNI ya pertenece a otro empleado");
