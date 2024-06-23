@@ -1,12 +1,17 @@
 /**
  * Esta clase proporciona métodos estáticos para la interacción con el usuario a través de la consola.
  *
- * @author Framballo90
+ * @autor Framballo90
  * @since v1.0
  */
 package com.framallo90.consola;
+
 import java.util.Scanner;
+
 public class Consola {
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
     /**
      * Objeto Scanner estático para la lectura de la entrada del usuario.
      */
@@ -21,6 +26,10 @@ public class Consola {
         System.out.println(string);
     }
 
+    public static void soutAlertString(String string){
+        System.err.println(ANSI_RED + string + ANSI_RESET);
+    }
+
     /**
      * Limpia el buffer del Scanner si hay datos pendientes de lectura.
      *
@@ -31,8 +40,6 @@ public class Consola {
             scanner.nextLine(); // Consume la línea restante en el buffer
         }
     }
-
-
 
     /**
      * Solicita al usuario que ingrese un String y lo valida para que solo contenga letras y espacios.
@@ -48,16 +55,24 @@ public class Consola {
             if (s.matches("[a-zA-Z\\s]+")) {
                 return s;
             } else {
-                System.out.println("Ingresar un dato valido.");
+                soutAlertString("Ingresar un dato valido.");
             }
         }
     }
+
+    /**
+     * Solicita al usuario que ingrese un String.
+     *
+     * @param x Un mensaje a mostrar al usuario para indicar qué dato debe ingresar.
+     * @return El String ingresado por el usuario.
+     */
     public static String ingresarXStringSimple(String x) {
         while (true) {
             System.out.println("Ingresar " + x + ": ");
             return scanner.nextLine();
         }
     }
+
     /**
      * Solicita al usuario que ingrese un número entero y lo valida para que sea mayor o igual a cero.
      *
@@ -70,16 +85,16 @@ public class Consola {
         Integer numero;
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("El dato ingresado no es valido. Por favor, ingrese un número entero:");
+                soutAlertString("El dato ingresado no es valido. Por favor, ingrese un número entero:");
                 scanner.next(); // Limpiar la entrada no válida
             }
 
             numero = scanner.nextInt();
             scanner.nextLine(); // buffer
             if (numero < 0) {
-                System.out.print("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
+                soutAlertString("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
             }
-        }while (numero < 0);
+        } while (numero < 0);
 
         return numero;
     }
@@ -93,7 +108,7 @@ public class Consola {
     public static Double ingresarXdouble(String x) {
         System.out.println("Ingresar " + x + ": ");
         while (!scanner.hasNextDouble()) {
-            System.out.println("El dato ingresado no es valido. Por favor, ingrese un double");
+            soutAlertString("El dato ingresado no es valido. Por favor, ingrese un double");
             scanner.next(); // Limpiar la entrada no válida
         }
         Double numero = scanner.nextDouble();
@@ -108,7 +123,6 @@ public class Consola {
      * @return La patente del vehículo ingresada por el usuario en mayúsculas.
      * @throws IllegalArgumentException Si el usuario ingresa una patente en un formato inválido.
      */
-
     public static String patente(String x) {
         StringBuilder patente = new StringBuilder();
         while (true) {
@@ -118,7 +132,7 @@ public class Consola {
                 patente.append(s.toUpperCase());
                 break;
             } else {
-                System.out.println("Ingresar un dato válido (3 letras).");
+                soutAlertString("Ingresar un dato válido (3 letras).");
             }
         }
 
@@ -129,12 +143,13 @@ public class Consola {
                 patente.append(num);
                 break;
             } else {
-                System.out.println("Ingrese solamente 3 números.");
+                soutAlertString("Ingrese solamente 3 números.");
             }
         }
 
         return patente.toString().toUpperCase();
     }
+
     /* Metodo viejo patente, no permitia ingresar los numeros empezando con '0'
     public static String patente(String x) {
         StringBuilder patente = new StringBuilder();
@@ -163,74 +178,43 @@ public class Consola {
 
         return patente.toString().toUpperCase();
     }
-    // Consola estática que nos servira con todas las clases del programa
-*/
+    */
 
-    public static void printMenuVendedor(){
+    /**
+     * Imprime el menú para el vendedor en la consola.
+     */
+    public static void printMenuVendedor() {
         System.out.println("""
-                MENÚ VENDEDOR
+                --- MENÚ VENDEDOR ---
                 1. Gestión clientes
                 2. Gestión ventas
                 3. Stock carros
                 0. Cerrar sesión
                 """);
     }
-
-    public static void printMenuAdministrador(){
+    /**
+     * Imprime el menú para el administrador en la consola.
+     */
+    public static void printMenuAdministrador() {
         System.out.println("""
-                MENÚ ADMINISTRADOR
+                --- MENÚ ADMINISTRADOR ---
                 1. Gestión clientes
                 2. Gestión ventas
                 3. Gestión carros
                 4. Gestión usuarios
-                0. Cerrar sesión""");
-    }
-    public static void gestionClientes(){
-        System.out.println("""
-                GESTIÓN CLIENTES
-                1. agregar cliente
-                2. modificar cliente
-                3. remover cliente
-                4. ver lista de clientes
-                0. salir
-                """);
-    }
-    public static void gestionVentas(){
-        System.out.println("""
-                GESTIÓN VENTAS
-                1. iniciar venta
-                2. ver historial de ventas
-                0. salir
+                0. Cerrar sesión
                 """);
     }
 
-
-    public static void gestionCarros(){
+    /**
+     * Imprime el menú de inicio de sesión en la consola.
+     */
+    public static void printMenuLogin() {
         System.out.println("""
-                GESTIóN CARROS
-                1. agregar 
-                2. modificar 
-                3. remover
-                4. búsqueda
-                5. mostrar lista
-                0. salir
+                <<<<<<<<<<¡BIENVENIDO!>>>>>>>>>
+                1. Iniciar sesión
+                          0. Salir del programa
+                < < < < < < < < > > > > > > > >
                 """);
-    }
-    public static void gestionUsuarios(){
-        System.out.println("""
-                GESTIÓN USUARIOS
-                1. agregar usuario
-                2. modificar usuario
-                3. remover usuario
-                0. salir
-                """);
-    }
-
-    public static void printMenuLogin(){
-        System.out.println("""
-        <<<<<<<<<<¡BIENVENIDO!>>>>>>>>>>
-         1. Iniciar sesión
-                  0. Salir del programa
-        <<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>""");
     }
 }

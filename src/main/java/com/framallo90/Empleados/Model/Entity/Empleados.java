@@ -42,13 +42,13 @@ public class Empleados extends Usuario {
     /**
      * Constructor para la clase `Empleados`.
      *
-     * @param nombre   Primer nombre del empleado.
-     * @param apellido Apellido del empleado.
-     * @param dni       Número de identificación del empleado (DNI en este caso).
+     * @param nombre        Primer nombre del empleado.
+     * @param apellido      Apellido del empleado.
+     * @param dni           Número de identificación del empleado (DNI en este caso).
      * @param autosvendidos Número de autos vendidos por el empleado.
-     * @param username  Nombre de usuario para las credenciales de inicio de sesión del empleado.
-     * @param password  Contraseña para las credenciales de inicio de sesión del empleado.
-     * @param tipo      Tipo de empleado dentro de la empresa (por ejemplo, "Vendedor", "Gerente").
+     * @param username      Nombre de usuario para las credenciales de inicio de sesión del empleado.
+     * @param password      Contraseña para las credenciales de inicio de sesión del empleado.
+     * @param tipo          Tipo de empleado dentro de la empresa (por ejemplo, "Vendedor", "Gerente").
      */
     public Empleados(String nombre, String apellido, Integer dni, Integer autosvendidos, String username, String password, String tipo) {
         super(nombre, apellido, dni);
@@ -58,8 +58,6 @@ public class Empleados extends Usuario {
         this.password = password;
         this.tipo = tipo;
     }
-
-
 
     /**
      * Método getter para obtener el ID único del empleado.
@@ -123,6 +121,16 @@ public class Empleados extends Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * Método getter para obtener el tipo de empleado dentro de la empresa.
+     *
+     * @return El tipo de empleado.
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
     /**
      * Método setter para actualizar el tipo de empleado dentro de la empresa.
      *
@@ -151,10 +159,4 @@ public class Empleados extends Usuario {
     public static void setCont(Integer cont) {
         Empleados.cont = cont;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-
 }
