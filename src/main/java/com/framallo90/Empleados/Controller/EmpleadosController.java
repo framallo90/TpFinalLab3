@@ -48,7 +48,7 @@ public class EmpleadosController {
     public void crearEmpleado() {
         Empleados nuevoEmpleado = empleadosView.generarEmpleado();
         if (nuevoEmpleado != null) {
-            if (!this.compruebaDni(nuevoEmpleado.getDni())) {
+            if (this.compruebaDni(nuevoEmpleado.getDni())) {
                 // El empleado ya existe. Se disminuye el contador de empleados en 1.
                 Empleados.setCont(Empleados.getCont() - 1);
             } else {
@@ -66,8 +66,11 @@ public class EmpleadosController {
      */
     private boolean compruebaDni(Integer dni){
         List<Empleados> list = new ArrayList<>(this.empleadosRepository.getList());
+
         for (Empleados empleados : list){
-            if (Objects.equals(dni, empleados.getDni())) return true;
+            if(empleados.getDni().equals(dni)){
+                return true;
+            }
         }
         return false;
     }
