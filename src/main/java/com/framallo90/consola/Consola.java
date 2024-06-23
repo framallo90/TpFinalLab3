@@ -55,7 +55,7 @@ public class Consola {
             if (s.matches("[a-zA-Z\\s]+")) {
                 return s;
             } else {
-                System.out.println("Ingresar un dato valido.");
+                soutAlertString("Ingresar un dato valido.");
             }
         }
     }
@@ -85,14 +85,14 @@ public class Consola {
         Integer numero;
         do {
             while (!scanner.hasNextInt()) {
-                System.out.println("El dato ingresado no es valido. Por favor, ingrese un número entero:");
+                soutAlertString("El dato ingresado no es valido. Por favor, ingrese un número entero:");
                 scanner.next(); // Limpiar la entrada no válida
             }
 
             numero = scanner.nextInt();
             scanner.nextLine(); // buffer
             if (numero < 0) {
-                System.out.print("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
+                soutAlertString("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
             }
         } while (numero < 0);
 
@@ -108,7 +108,7 @@ public class Consola {
     public static Double ingresarXdouble(String x) {
         System.out.println("Ingresar " + x + ": ");
         while (!scanner.hasNextDouble()) {
-            System.out.println("El dato ingresado no es valido. Por favor, ingrese un double");
+            soutAlertString("El dato ingresado no es valido. Por favor, ingrese un double");
             scanner.next(); // Limpiar la entrada no válida
         }
         Double numero = scanner.nextDouble();
@@ -132,7 +132,7 @@ public class Consola {
                 patente.append(s.toUpperCase());
                 break;
             } else {
-                System.out.println("Ingresar un dato válido (3 letras).");
+                soutAlertString("Ingresar un dato válido (3 letras).");
             }
         }
 
@@ -143,7 +143,7 @@ public class Consola {
                 patente.append(num);
                 break;
             } else {
-                System.out.println("Ingrese solamente 3 números.");
+                soutAlertString("Ingrese solamente 3 números.");
             }
         }
 
