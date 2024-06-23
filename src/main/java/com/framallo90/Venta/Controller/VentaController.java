@@ -1,4 +1,5 @@
 package com.framallo90.Venta.Controller;
+
 import com.framallo90.Automovil.Controller.AutomovilController;
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Comprador.Controller.CompradorController;
@@ -12,7 +13,9 @@ import com.framallo90.Venta.Model.Entity.Venta;
 import com.framallo90.Venta.Model.Repository.VentaRepository;
 import com.framallo90.Venta.View.VentaView;
 import com.framallo90.consola.Consola;
+
 import java.time.LocalDate;
+
 /**
  * Controlador que gestiona las operaciones relacionadas con las ventas de automóviles.
  * Permite agregar, mostrar, actualizar y eliminar ventas, además de proporcionar un menú
@@ -34,6 +37,7 @@ public class VentaController {
     private final MetodoController metodoController;
     private final VentaView ventaView;
     private final VentaRepository ventaRepository;
+
     /**
      * Constructor que inicializa el controlador de ventas con los controladores y repositorios necesarios.
      *
@@ -54,6 +58,7 @@ public class VentaController {
         this.ventaView = ventaView;
         this.ventaRepository = ventaRepository;
     }
+
     /**
      * Agrega una nueva venta al sistema. Permite seleccionar un empleado vendedor, un comprador,
      * un automóvil en stock, generar el método de pago y registrar la venta en el repositorio.
@@ -67,6 +72,7 @@ public class VentaController {
         if (empleados == null) {
             throw new InvalidIdNotFound("empleado no encontrado");
         }
+
         // Selección del comprador
         compradorController.verHisorial();
         Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador actual"));
@@ -96,15 +102,15 @@ public class VentaController {
         // Eliminación del automóvil del stock
         this.automovilController.borrarAutomovilEnStockPorId(id);
     }
+
     /**
      * Muestra los detalles de una venta específica seleccionada por su ID.
      */
     public void show() {
         Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
-        if (buscar != null)
-            this.ventaView.mostrarVenta(buscar);
-        else Consola.soutAlertString("No existe una venta con el id ingresado.");
+        this.ventaView.mostrarVenta(buscar);
     }
+
     /**
      * Actualiza una venta existente seleccionada por su ID, permitiendo modificar el empleado vendedor,
      * el comprador, el automóvil o el método de pago asociado.

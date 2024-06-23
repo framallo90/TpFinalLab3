@@ -138,7 +138,6 @@ public class AutomovilController {
         if (precio == null) return;
 
         String patente = automovilView.ingresoPatente();
-
         int anio = Integer.parseInt(anoId.split("-")[0]);
 
         Automovil nuevo = new Automovil(marca.getValue(), modelo.getValue(), precio, patente, anio);

@@ -85,7 +85,7 @@ public class AutomovilView {
      */
     public void printMenuAutomovilAdmin() {
         System.out.println("""
-                --- MENU AUTOMOVIL (administrador) ---
+                MENU AUTOMOVIL (administrador)
                 1. Agregar 
                 2. Borrar 
                 3. Buscar automovil
@@ -98,7 +98,7 @@ public class AutomovilView {
      */
     public void printMenuAutomovilVendedor() {
         System.out.println("""
-                --- MENU AUTOMOVIL (vendedor) ---
+                MENU AUTOMOVIL (vendedor)
                 1. Buscar automovil
                 2. Lista automoviles
                 3. Lista automoviles (con filtro)
