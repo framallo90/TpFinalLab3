@@ -185,79 +185,24 @@ public class Consola {
      */
     public static void printMenuVendedor() {
         System.out.println("""
-                MENÚ VENDEDOR
+                --- MENÚ VENDEDOR ---
                 1. Gestión clientes
                 2. Gestión ventas
                 3. Stock carros
                 0. Cerrar sesión
                 """);
     }
-
     /**
      * Imprime el menú para el administrador en la consola.
      */
     public static void printMenuAdministrador() {
         System.out.println("""
-                MENÚ ADMINISTRADOR
+                --- MENÚ ADMINISTRADOR ---
                 1. Gestión clientes
                 2. Gestión ventas
                 3. Gestión carros
                 4. Gestión usuarios
                 0. Cerrar sesión
-                """);
-    }
-
-    /**
-     * Imprime el menú de gestión de clientes en la consola.
-     */
-    public static void gestionClientes() {
-        System.out.println("""
-                GESTIÓN CLIENTES
-                1. agregar cliente
-                2. modificar cliente
-                3. remover cliente
-                4. ver lista de clientes
-                0. salir
-                """);
-    }
-
-    /**
-     * Imprime el menú de gestión de ventas en la consola.
-     */
-    public static void gestionVentas() {
-        System.out.println("""
-                GESTIÓN VENTAS
-                1. iniciar venta
-                2. ver historial de ventas
-                0. salir
-                """);
-    }
-
-    /**
-     * Imprime el menú de gestión de carros en la consola.
-     */
-    public static void gestionCarros() {
-        System.out.println("""
-                GESTIÓN CARROS
-                1. agregar
-                2. modificar
-                3. remover
-                4. búsqueda
-                5. mostrar lista
-                0. salir
-                """);
-    }
-
-    /**
-     * Imprime el menú de gestión de usuarios en la consola.
-     */
-    public static void gestionUsuarios() {
-        System.out.println("""
-                GESTIÓN USUARIOS
-                1. agregar usuario
-                2. modificar usuario
-                3. remover usuario
-                0. salir
                 """);
     }
 

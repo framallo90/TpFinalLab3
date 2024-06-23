@@ -207,4 +207,16 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         empleados.setTipo(nuevoTipo);
         this.saveEmpleados();
     }
+
+    /**
+     * Cuenta la cantidad de empleados que tienen el tipo "administrador" o "admin".
+     *
+     * @return La cantidad de empleados que son administradores o admins.
+     */
+    public long contAdmins() {
+        return empleados.stream()
+                .filter(e -> "administrador".equalsIgnoreCase(e.getTipo()) || "admin".equalsIgnoreCase(e.getTipo()))
+                .count();
+    }
+
 }

@@ -87,16 +87,7 @@ public class EmpleadosController {
      */
     private void modificacion(Empleados empleado) {
         while (true) {
-            Consola.soutString("""
-                    MODIFICACIÓN EMPLEADO
-                    1. Nombre
-                    2. Apellido
-                    3. Cantidad de autos vendidos
-                    4. Username
-                    5. Password
-                    6. Tipo del empleado
-                    0. Volver
-                    """);
+            this.empleadosView.printMenuModifEmpleado();
             String opcion = String.valueOf(Consola.ingresarXInteger("opcion"));
             switch (opcion) {
                 case "0":
@@ -129,7 +120,7 @@ public class EmpleadosController {
                     break;
                 default:
                     // Dato ingresado no válido.
-                    Consola.soutString("Ingrese un dato válido.");
+                    Consola.soutAlertString("Ingrese un dato válido.");
                     break;
             }
         }
@@ -193,8 +184,12 @@ public class EmpleadosController {
                     modificarEmpleado();
                     break;
                 case 3:
-                    mostrarHistorial();
-                    removeEmpleado();
+                    if (this.empleadosRepository.contAdmins() > 1) {
+                        mostrarHistorial();
+                        removeEmpleado();
+                    }
+                    else if (this.empleadosRepository.contAdmins()==1)
+                        Consola.soutAlertString("Tiene que haber al menos 1 administrador en el sisetma.");
                     break;
                 case 4:
                     mostrarHistorial();
