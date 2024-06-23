@@ -8,6 +8,7 @@ import com.framallo90.Comprador.Controller.CompradorController;
 import com.framallo90.Comprador.Model.Repository.CompradorRepository;
 import com.framallo90.Comprador.View.CompradorView;
 import com.framallo90.Empleados.Controller.EmpleadosController;
+import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Empleados.Model.Repository.EmpleadosRepository;
 import com.framallo90.Empleados.View.EmpleadosView;
 import com.framallo90.MetodoDePago.Controller.MetodoController;
@@ -15,6 +16,7 @@ import com.framallo90.MetodoDePago.View.MetodoView;
 import com.framallo90.Venta.Controller.VentaController;
 import com.framallo90.Venta.Model.Repository.VentaRepository;
 import com.framallo90.Venta.View.VentaView;
+
 
 /**
  * Clase principal que inicializa y configura los componentes del sistema de gestión de concesionaria.
@@ -58,5 +60,9 @@ public class Main {
 
         // Inicia la aplicación llamando al método iniciar de GestionConsecionaria
         gestionConsecionaria.iniciar();
+    }
+    static {
+        EmpleadosRepository empleadosRepository = new EmpleadosRepository();
+        empleadosRepository.add(new Empleados("A","A",0,0,"A","A","administrador"));
     }
 }
