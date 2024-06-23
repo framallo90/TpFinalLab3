@@ -55,14 +55,16 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
         }
     }
 
+
+
     /**
      * Actualiza los atributos de un automóvil en el repositorio por su ID y actualiza el archivo JSON.
      * @param id ID del automóvil a actualizar.
      * @throws InvalidIdNotFound Si el ID del automóvil no existe en la lista.
      */
     @Override
-    public void update(Integer id) throws InvalidIdNotFound {
-        Automovil automovil = find(id);
+    public void update(Integer id,Automovil automovil) throws InvalidIdNotFound {
+
         if (automovil != null) {
             System.out.println("1. Marca\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
             Integer IDMod = Consola.ingresarXInteger("numero");

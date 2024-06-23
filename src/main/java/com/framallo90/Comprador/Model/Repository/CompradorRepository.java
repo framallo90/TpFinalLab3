@@ -77,11 +77,13 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      * @param id el identificador del comprador a eliminar
      */
     @Override
-    public void remove(Integer id) {
+    public void remove(Integer id) throws InvalidIdNotFound{
         Comprador remove = find(id);
         if (remove != null) {
             listaCompradores.remove(remove);
             updateFile();
+        }else{
+            throw new InvalidIdNotFound("Id no encontrado");
         }
     }
 
@@ -93,8 +95,8 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      * @throws InvalidIdNotFound si el comprador con el id especificado no existe
      */
     @Override
-    public void update(Integer id) throws InvalidIdNotFound {
-        Comprador comprador = find(id);
+    public void update(Integer id,Comprador comprador) throws InvalidIdNotFound {
+
         if (comprador != null) {
             // Método incompleto, necesita implementación
         } else {
@@ -109,15 +111,14 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      * @return el comprador encontrado o {@code null} si no existe
      */
     @Override
-    public Comprador find(Integer id) {
+    public Comprador find(Integer id) throws InvalidIdNotFound{
         if (this.listaCompradores.isEmpty()) {
             Consola.soutString("Aún no hay clientes registrados.");
             return null;
         }
         Optional<Comprador> devol = this.listaCompradores.stream().filter(c -> c.getId().equals(id)).findFirst();
         if (devol.isEmpty()) {
-            System.out.println("El comprador con id: " + id + ", no existe, intentelo nuevamente.");
-            return null;
+            throw new InvalidIdNotFound("El comprador con id: " + id + ", no existe, intentelo nuevamente.");
         } else {
             return devol.get();
         }

@@ -171,13 +171,39 @@ public class AutomovilController {
     /**
      * Método público para modificar un automóvil en el stock utilizando su ID.
      */
+    /*
     public void modificar() {
         try {
-            automovilRepository.update(Consola.ingresarXInteger("ID"));
+            Automovil automovil
+            automovilRepository.update();
+            System.out.println("1. Marca\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
+            Integer IDMod = Consola.ingresarXInteger("numero");
+            switch (IDMod) {
+                case 1:
+                    automovil.setMarca(Consola.ingresarXString("marca"));
+                    break;
+                case 2:
+                    automovil.setModelo(Consola.ingresarXStringSimple("modelo"));
+                    break;
+                case 3:
+                    automovil.setPrecio(Consola.ingresarXdouble("precio"));
+                    break;
+                case 4:
+                    automovil.setPatente(Consola.patente("patente"));
+                    break;
+                case 5:
+                    automovil.setAnio(Consola.ingresarXInteger("anio"));
+                    break;
+                default:
+                    System.out.println("Opcion no valida");
+                    break;
+            }
         } catch (InvalidIdNotFound e) {
             System.out.println(e.getMessage());
         }
     }
+    */
+
     /**
      * Método público para buscar un automóvil en el stock utilizando su ID.
      * @param id ID del automóvil a buscar.

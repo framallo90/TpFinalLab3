@@ -12,6 +12,7 @@ package com.framallo90.Empleados.Controller;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Empleados.Model.Repository.EmpleadosRepository;
 import com.framallo90.Empleados.View.EmpleadosView;
+import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
 public class EmpleadosController {
@@ -60,14 +61,16 @@ public class EmpleadosController {
      */
     public void modificarEmpleado() {
         Integer idEmpleado = Consola.ingresarXInteger("ID del empleado");
-        Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
+        try{
+            Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
 
-        if (empleadoAModificar != null) {
-            // El empleado se encuentra. Se procede a la modificación.
-            modificacion(empleadoAModificar);
-        } else {
-            // El empleado no se encuentra. Se informa al usuario.
-            Consola.soutString("No se ha encontrado al empleado de id: " + idEmpleado);
+            if (empleadoAModificar != null) {
+                // El empleado se encuentra. Se procede a la modificación.
+                modificacion(empleadoAModificar);
+                empleadosRepository.update(idEmpleado,empleadoAModificar);
+            }
+        }catch (InvalidIdNotFound ex){
+            Consola.soutAlertString(ex.getMessage());
         }
     }
 
@@ -76,16 +79,14 @@ public class EmpleadosController {
      *
      * @param empleadoAModificar El empleado a modificar.
      */
-    public void modificarEmpleado(Empleados empleadoAModificar) {
-        modificacion(empleadoAModificar);
-    }
+
 
     /**
      * Permite al usuario modificar los datos de un empleado existente.
      *
      * @param empleado El empleado a modificar.
      */
-    private void modificacion(Empleados empleado) {
+    public void modificacion(Empleados empleado) {
         while (true) {
             this.empleadosView.printMenuModifEmpleado();
             String opcion = String.valueOf(Consola.ingresarXInteger("opcion"));

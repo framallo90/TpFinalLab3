@@ -104,14 +104,8 @@ public class VentaRepository implements IRepository<Venta, Integer> {
         this.saveVentas();
     }
 
-    /**
-     * Actualiza una venta en el repositorio (pendiente de implementación).
-     *
-     * @param id El ID de la venta a ser actualizada.
-     * @throws InvalidIdNotFound Si no se encuentra ninguna venta con el ID especificado.
-     */
     @Override
-    public void update(Integer id) throws InvalidIdNotFound {
+    public void update(Integer id, Venta object) throws Exception {
         Venta update = this.find(id);
         if (update != null) {
             // Implementación pendiente de actualización
@@ -119,6 +113,14 @@ public class VentaRepository implements IRepository<Venta, Integer> {
             throw new InvalidIdNotFound("No se ha encontrado una venta de id " + id + ".");
         }
     }
+
+    /**
+     * Actualiza una venta en el repositorio (pendiente de implementación).
+     *
+     * @param id El ID de la venta a ser actualizada.
+     * @throws InvalidIdNotFound Si no se encuentra ninguna venta con el ID especificado.
+     */
+
 
     /**
      * Busca una venta en el repositorio por su ID.

@@ -10,6 +10,7 @@
 package com.framallo90.Empleados.Model.Repository;
 
 import com.framallo90.Empleados.Model.Entity.Empleados;
+import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -103,9 +104,20 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param id El ID del empleado a actualizar.
      */
     @Override
-    public void update(Integer id) {
-        // TODO: Implementar la funcionalidad de actualización de un empleado.
-        throw new UnsupportedOperationException("La actualización de empleados aún no está implementada");
+    public void update(Integer id,Empleados empleados) throws InvalidIdNotFound {
+        int i;
+        for(i = 0;i<list.size();i++){
+            if(list.get(i).getId().equals(id)){
+                list.set(i,empleados);
+                saveEmpleados();
+                break;
+            }
+
+        }
+        if(i == list.size()){
+            throw new InvalidIdNotFound("No se encontro id");
+        }
+
     }
 
     /**

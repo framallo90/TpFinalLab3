@@ -147,18 +147,21 @@ public class VentaController {
             this.ventaView.printMenuModifVenta();
             switch (Consola.ingresarXInteger("eleccion")) {
                 case 1: // Modificar empleado
-                    empleadosController.modificarEmpleado(venta.getEmpleados());
+                    empleadosController.modificacion(venta.getEmpleados());
                     break;
                 case 2: // Modificar comprador
                     compradorController.update(venta.getComprador());
                     break;
                 case 3: //automovil
+                    /*
                     try {
                         venta.setAutomovil(automovilController.cambiarCoche(venta.getAutomovil()));
                     } catch (InvalidIdNotFound e) {
                         Consola.soutString(e.getMessage());
                     }
                     break;
+                    */
+
                 case 4: //mtodo de pago
                     metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
                     break;
