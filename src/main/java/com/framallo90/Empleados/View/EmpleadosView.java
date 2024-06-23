@@ -43,8 +43,10 @@ public class EmpleadosView {
                         "\n 1 caracter especial (!#$%&);");
         }
         tipo = this.generarTipo();
-
-        return new Empleados(nombre, apellido, dni, 0, username, password, tipo);
+        Empleados devol = new Empleados(nombre, apellido, dni, 0, username, password, tipo);
+        System.out.println("Empleado creado:");
+        this.mostrarEmpleado(devol);
+        return devol;
     }
 
     /**
@@ -83,7 +85,6 @@ public class EmpleadosView {
         if (!dniStr.matches("[0-9]{7,8}")) {
             return false;
         }
-
         return (dniStr.length()==8);
     }
 

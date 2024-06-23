@@ -142,4 +142,45 @@ public class ApiAutomovilService {
         }
         return null;
     }
+    public Integer buscarKeyMarca(String marcaBuscar) throws IOException {
+        String url = BASE_URL + "marcas";
+        String response = getStringFromUrl(url);
+
+
+        JsonReader jsonReader = new JsonReader(new StringReader(response));
+        jsonReader.setLenient(true);
+
+        JsonArray jsonArray = JsonParser.parseReader(jsonReader).getAsJsonArray();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject modelObject = jsonArray.get(i).getAsJsonObject();
+            int id = modelObject.get("codigo").getAsInt();
+            String nombre = modelObject.get("nome").getAsString();
+            if(nombre.equals(marcaBuscar)){
+                return id;
+            }
+        }
+        return null;
+    }
+    public Integer buscarKeyModelo(Integer marcaKey,String modelo) throws IOException {
+        String url = BASE_URL + "marcas/" + marcaKey + "/modelos";
+        String response = getStringFromUrl(url);
+
+        JsonReader jsonReader = new JsonReader(new StringReader(response));
+        jsonReader.setLenient(true);
+
+        JsonObject jsonObject = JsonParser.parseReader(jsonReader).getAsJsonObject();
+        JsonArray jsonArray = jsonObject.getAsJsonArray("modelos");
+
+
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JsonObject modelObject = jsonArray.get(i).getAsJsonObject();
+            int id = modelObject.get("codigo").getAsInt();
+            String nombre = modelObject.get("nome").getAsString();
+            if(nombre.equals(modelo)){
+                return id;
+            }
+        }
+        return null;
+    }
+
 }

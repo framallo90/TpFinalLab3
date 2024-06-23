@@ -56,28 +56,7 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
     public void update(Integer id,Automovil automovil) throws InvalidIdNotFound {
 
         if (automovil != null) {
-            System.out.println("1. Marca\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
-            Integer IDMod = Consola.ingresarXInteger("numero");
-            switch (IDMod) {
-                case 1:
-                    automovil.setMarca(Consola.ingresarXString("marca"));
-                    break;
-                case 2:
-                    automovil.setModelo(Consola.ingresarXStringSimple("modelo"));
-                    break;
-                case 3:
-                    automovil.setPrecio(Consola.ingresarXdouble("precio"));
-                    break;
-                case 4:
-                    automovil.setPatente(Consola.patente("patente"));
-                    break;
-                case 5:
-                    automovil.setAnio(Consola.ingresarXInteger("anio"));
-                    break;
-                default:
-                    Consola.soutAlertString("Opcion no valida");
-                    break;
-            }
+
             updateFile();
         } else {
             throw new InvalidIdNotFound("El id ingresado no existe.");
