@@ -97,7 +97,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         if (remover == null) return;
         this.empleados.remove(remover);
         this.saveEmpleados();
-
+       
     }
 
     /**
