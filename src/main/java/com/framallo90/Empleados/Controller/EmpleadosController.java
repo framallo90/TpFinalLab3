@@ -16,6 +16,10 @@ import com.framallo90.Excepciones.CeroAdminsException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class EmpleadosController {
     /**
      * Repositorio de datos para la gestión de empleados.
@@ -43,18 +47,29 @@ public class EmpleadosController {
      */
     public void crearEmpleado() {
         Empleados nuevoEmpleado = empleadosView.generarEmpleado();
-
         if (nuevoEmpleado != null) {
-            if (empleadosRepository.find(nuevoEmpleado.getDni()) != null) {
+            if (!this.compruebaDni(nuevoEmpleado.getDni())) {
                 // El empleado ya existe. Se disminuye el contador de empleados en 1.
                 Empleados.setCont(Empleados.getCont() - 1);
             } else {
                 // El empleado no existe. Se agrega al repositorio.
                 empleadosRepository.add(nuevoEmpleado);
             }
-        } else {
-            Consola.soutString("Error al crear un empleado. Volviendo...");
         }
+    }
+
+    /**
+     * Comprueba si el dni recibido existe entre los empleados existentes.
+     *
+     * @param dni El dni a verificar.
+     * @return true si se encuentra un empleado con el mismo dni o false en caso de no haberlo encontrado.
+     */
+    private boolean compruebaDni(Integer dni){
+        List<Empleados> list = new ArrayList<>(this.empleadosRepository.getList());
+        for (Empleados empleados : list){
+            if (Objects.equals(dni, empleados.getDni())) return true;
+        }
+        return false;
     }
 
     /**
@@ -157,7 +172,7 @@ public class EmpleadosController {
     public void mostrar() {
         Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("id del empleado"));
         if (buscar == null) {
-            Consola.soutString("No se ha encontrado el empleado.");
+            Consola.soutAlertString("No se ha encontrado el empleado.");
         } else {
             this.empleadosView.mostrarEmpleado(buscar);
         }
@@ -204,4 +219,5 @@ public class EmpleadosController {
             }
         } while (opt != 0);
     }
+
 }
