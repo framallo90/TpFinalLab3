@@ -1,5 +1,7 @@
 package com.framallo90.Interfaces;
 
+import com.framallo90.Excepciones.InvalidIdNotFound;
+
 /**
  * Interfaz que define operaciones básicas para la manipulación de objetos en un repositorio.
  *
@@ -29,7 +31,7 @@ public interface IRepository<T, ID> {
      * @param id Identificador único del objeto a actualizar.
      * @throws Exception Cuando ocurre un error durante la actualización del objeto.
      */
-    void update(ID id) throws Exception;
+    void update(ID id,T object) throws Exception;
 
     /**
      * Busca y devuelve un objeto del repositorio dado su identificador único.
@@ -37,5 +39,5 @@ public interface IRepository<T, ID> {
      * @param id Identificador único del objeto a buscar.
      * @return El objeto encontrado o null si no se encuentra ningún objeto con el ID especificado.
      */
-    T find(ID id);
+    T find(ID id) throws InvalidIdNotFound;
 }
