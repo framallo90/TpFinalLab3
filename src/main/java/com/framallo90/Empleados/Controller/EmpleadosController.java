@@ -161,7 +161,7 @@ public class EmpleadosController {
      * Muestra el historial de todos los empleados.
      */
     public void mostrarHistorial() {
-        this.empleadosView.muestroEmpleados(this.empleadosRepository.getEmpleados());
+        this.empleadosView.muestroEmpleados(this.empleadosRepository.getList());
     }
 
     /**

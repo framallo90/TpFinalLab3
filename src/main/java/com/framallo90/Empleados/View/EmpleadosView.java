@@ -10,8 +10,7 @@ package com.framallo90.Empleados.View;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.consola.Consola;
 
-
-import java.util.Set;
+import java.util.List;
 
 public class EmpleadosView {
 
@@ -207,7 +206,9 @@ public class EmpleadosView {
      *
      * @param empleados La lista de objetos Empleados que se desea mostrar.
      */
-    public void muestroEmpleados(Set<Empleados> empleados) {
-        empleados.forEach(e -> mostrarEmpleado(e));
+    public void muestroEmpleados(List<Empleados> empleados) {
+        for (Empleados empleado : empleados) {
+            mostrarEmpleado(empleado);
+        }
     }
 }
