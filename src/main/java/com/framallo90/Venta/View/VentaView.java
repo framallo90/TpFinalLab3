@@ -62,10 +62,9 @@ public class VentaView {
      * @param map El mapa que contiene las ventas indexadas por su ID.
      */
     public void mostrarHistorial(Map<Integer, Venta> map) {
-        if (map.isEmpty()) {
+        if (map.isEmpty())
             System.out.println("Aún no hay ventas registradas...");
-            return;
-        }
+        else
         map.values().forEach(v->mostrarVenta(v));
     }
 

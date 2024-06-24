@@ -63,25 +63,30 @@ public class VentaController {
      *
      * @throws InvalidIdNotFound Si no se encuentra el empleado, comprador o automóvil correspondiente.
      */
-    public void add() {
+    public void add() throws InvalidIdNotFound {
 
         // Selección del empleado vendedor
         empleadosController.mostrarHistorial();
         Empleados empleados = this.empleadosController.find(Consola.ingresarXInteger("id del empleado vendedor"));
-
-
+        if(empleados == null){
+            throw new InvalidIdNotFound("no se ha encontrado empleado con ese id");
+        }
 
 
         // Selección del comprador
         this.compradorController.verHisorial();
         Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador actual"));
-
+        if(comprador == null){
+            throw new InvalidIdNotFound("no se ha encontrado comprador con ese id");
+        }
 
         // Selección del automóvil en stock
         automovilController.mostrarAutomovilesEnStock();
         Integer id = Consola.ingresarXInteger("id del automovil en stock");
         Automovil automovil = this.automovilController.find(id);
-
+        if(automovil == null){
+            throw new InvalidIdNotFound("no se ha encontrado automovil con ese id");
+        }
 
         // Generación del método de pago
         LocalDate fecha = LocalDate.now();
@@ -90,6 +95,7 @@ public class VentaController {
         Venta venta = this.ventaView.generarVenta(empleados,comprador,automovil,fecha,metodoDePago);
 
         this.ventaRepository.add(venta);
+        empleados.setAutosvendidos(empleados.getAutosvendidos()+1);
         this.automovilController.borrarAutomovilEnStockPorId(id);
 
 
@@ -106,9 +112,6 @@ public class VentaController {
         } catch (InvalidIdNotFound e) {
             Consola.soutAlertString(e.getMessage());
         }
-
-
-
     }
 
 
@@ -161,51 +164,60 @@ public class VentaController {
      * Permite agregar, mostrar, actualizar y eliminar ventas, además de visualizar el historial completo.
      */
     public void menuVentas() {
-        int eleccion;
+        int eleccion = 0;
         do {
-            this.ventaView.printMenuVentas();
-            eleccion = Consola.ingresarXInteger("eleccion");
-            switch (eleccion) {
-                case 0: // Salir
-                    Consola.soutString("saliendo...");
-                    break;
-                case 1: // Agregar venta
-                    this.add();
+            try {
+                this.ventaView.printMenuVentas();
+                eleccion = Consola.ingresarXInteger("eleccion");
+                switch (eleccion) {
+                    case 0: // Salir
 
-                    break;
-                case 2: // Mostrar venta
-                    this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                    if (!this.ventaRepository.isEmpty())
-                        this.show();
-                    break;
-                case 3: // Modificar venta
-                    try{
-                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                        Venta ven = this.ventaRepository.find(Consola.ingresarXInteger("Ingrese id de la venta"));
-                        modifVenta(ven);
+                        break;
+                    case 1: // Agregar venta
 
-                    }catch (InvalidIdNotFound e){
-                        Consola.soutAlertString(e.getMessage());
-                    }
+                        this.add();
 
-                    break;
-                case 4: // Eliminar venta
-                    try {
+
+                        break;
+                    case 2: // Mostrar venta
                         this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                         if (!this.ventaRepository.isEmpty())
-                            this.remover();
+                            this.show();
                         break;
-                    } catch (InvalidIdNotFound e) {
-                        Consola.soutAlertString(e.getMessage());
-                    }
-                    break;
-                case 5: // Mostrar todas las ventas
-                    this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
-                    break;
-                default:
-                    Consola.soutAlertString("Ingresar un dato válido.");
-                    break;
+                    case 3: // Modificar venta
+                        try {
+                            this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                            Venta ven = this.ventaRepository.find(Consola.ingresarXInteger("Ingrese id de la venta"));
+                            modifVenta(ven);
+
+                        } catch (InvalidIdNotFound e) {
+                            Consola.soutAlertString(e.getMessage());
+                        }
+
+                        break;
+                    case 4: // Eliminar venta
+                        try {
+                            this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                            if (!this.ventaRepository.isEmpty())
+                                this.remover();
+                            break;
+                        } catch (InvalidIdNotFound e) {
+                            Consola.soutAlertString(e.getMessage());
+                        }
+                        break;
+                    case 5: // Mostrar todas las ventas
+                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                        break;
+                    default:
+                        Consola.soutAlertString("Ingresar un dato válido.");
+                        break;
+                }
+
+            } catch (InvalidIdNotFound e) {
+                Consola.soutAlertString(e.getMessage());
             }
+
         } while (eleccion != 0);
+
     }
 }

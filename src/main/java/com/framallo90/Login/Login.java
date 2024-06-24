@@ -45,6 +45,9 @@ public class Login {
      * @return El objeto Empleados correspondiente al usuario autenticado, o null si las credenciales son incorrectas.
      */
     public Empleados login() {
+        //cada vez que se llame a iniciar secion se va a actualizar con los cambios en usuario como nuevos usuarios, usuarios que ya no tienen acceso al sistema o ascendidos/degrdados
+
+
         String username = Consola.ingresarXStringSimple("nombre de usuario");
         String password = Consola.ingresarXStringSimple("contraseña");
 

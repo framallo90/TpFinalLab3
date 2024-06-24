@@ -228,10 +228,6 @@ public class AutomovilController {
             System.out.println(e.getMessage());
         }
     }
-    /**
-     * Método público para buscar automóviles en el stock utilizando filtros.
-     */
-
 
     /**
      * Método público que muestra el menú de administración de automóviles.
@@ -270,7 +266,9 @@ public class AutomovilController {
                     }
 
                     break;
+                    /*
                 case 5:
+
                     Automovil aModificar;
                     mostrarAutomovilesEnStock();
                     aModificar = automovilRepository.find(Consola.ingresarXInteger("ID del automóvil"));
@@ -284,7 +282,11 @@ public class AutomovilController {
                             Consola.soutAlertString(e.getMessage());
                         }
                     }
+
+
                     break;
+                    */
+
                 default: // Opción no reconocida
                     Consola.soutAlertString("El dato ingresado no es válido. Reintentar.");
                     break;

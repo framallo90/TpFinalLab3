@@ -52,7 +52,7 @@ import java.util.function.Predicate;
             }
 
             automovilList.forEach(a->mostrarAuto(a));
-            System.out.println("Total de vehículos en stock -> " + Automovil.getCont());
+
         }
 
     public void buscarAutomovilesXFiltro(List<Automovil> lista) throws EmptyAStockException {
