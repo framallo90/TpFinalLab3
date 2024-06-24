@@ -111,14 +111,13 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      * @return el comprador encontrado o {@code null} si no existe
      */
     @Override
-    public Comprador find(Integer id) {
-        if (this.listaCompradores.isEmpty()) {
-            Consola.soutString("Aún no hay clientes registrados.");
-            return null;
-        }
+    public Comprador find(Integer id) throws InvalidIdNotFound{
+
         Optional<Comprador> devol = this.listaCompradores.stream().filter(c -> c.getId().equals(id)).findFirst();
         if (!devol.isEmpty()) {
             return devol.get();
+        }else{
+            throw new InvalidIdNotFound("No se han encontrado compradores con ese id");
         }
     }
 
