@@ -16,7 +16,12 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+/*
+*
+* Ingresar dni:
+El dni NO es válido, reintentar.
+45567123
+* */
 /**
  * Repositorio que gestiona la persistencia y manipulación de las ventas de automóviles.
  * Implementa la interfaz IRepository para operaciones CRUD específicas de Venta.
@@ -48,6 +53,9 @@ public class VentaRepository implements IRepository<Venta, Integer> {
         try (FileReader fileReader = new FileReader(PATH_VENTAS)) {
             Type listType = new TypeToken<Map<Integer, Venta>>() {}.getType();
             this.map = gson.fromJson(fileReader, listType);
+            if (!map.isEmpty()){
+                Venta.setCont(map.keySet().stream().max((a,b)-> a.compareTo(b)).get());
+            }
         } catch (FileNotFoundException e) {
             // File not found, initialize empty map
             this.map = new HashMap<>();
@@ -89,8 +97,13 @@ public class VentaRepository implements IRepository<Venta, Integer> {
      */
     @Override
     public void add(Venta object) {
-        this.map.put(object.getIdVenta(), object);
-        this.saveVentas();
+        if(map.containsKey(object.getIdVenta())){
+            Consola.soutAlertString("IdExistente");
+        }else{
+            this.map.put(object.getIdVenta(), object);
+            this.saveVentas();
+        }
+
     }
 
     /**
@@ -105,18 +118,19 @@ public class VentaRepository implements IRepository<Venta, Integer> {
         if (remove == null) {
             throw new InvalidIdNotFound("No se ha encontrado una venta con id " + id + ".");
         } else {
-            Consola.soutString("Venta removida correctamente.");
+            Consola.soutString("Venta Eliminada Correctamente.");
         }
         this.saveVentas();
     }
 
     @Override
-    public void update(Integer id, Venta object) throws Exception {
+    public void update(Integer id, Venta object) throws InvalidIdNotFound {
         Venta update = this.find(id);
         if (update != null) {
-            // Implementación pendiente de actualización
+            map.replace(id,object);
+            this.saveVentas();
         } else {
-            throw new InvalidIdNotFound("No se ha encontrado una venta de id " + id + ".");
+            throw new InvalidIdNotFound("NO se encontro la  Venta con ID: " + id + ".");
         }
     }
     /**
@@ -134,11 +148,11 @@ public class VentaRepository implements IRepository<Venta, Integer> {
      * @return La venta encontrada, o null si no se encuentra ninguna venta con ese ID.
      */
     @Override
-    public Venta find(Integer id) {
+    public Venta find(Integer id) throws InvalidIdNotFound {
         Optional<Venta> devol = this.map.values().stream().filter(c -> c.getIdVenta().equals(id)).findFirst();
         if (devol.isEmpty()) {
-            System.out.println("El comprador con id:" + id + ", no existe, intentelo nuevamente.");
-            return null;
+            throw new InvalidIdNotFound("No se ha encontrado una venta con ese ID");
+
         } else {
             return devol.get();
         }
@@ -150,38 +164,32 @@ public class VentaRepository implements IRepository<Venta, Integer> {
      * @param nuevo   El nuevo empleado asignado a la venta.
      */
     public void cambioEmpleados(Integer idVenta, Empleados nuevo) {
-        Venta buscar = this.find(idVenta);
-        if (buscar != null) {
+        try{
+            Venta buscar = this.find(idVenta);
             buscar.setEmpleados(nuevo);
             this.saveVentas();
+        }catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
         }
+
     }
     /**
      * Actualiza el comprador de una venta específica.
      *
      * @param idVenta El ID de la venta a actualizar.
-     * @param nuevo   El nuevo comprador asignado a la venta.
+     * @param comp  El nuevo comprador asignado a la venta.
      */
-    public void cambioComprador(Integer idVenta, Comprador nuevo) {
-        Venta buscar = this.find(idVenta);
-        if (buscar != null) {
-            buscar.setComprador(nuevo);
+    public void cambioComprador(Integer idVenta, Comprador comp) {
+
+        try{
+            Venta nuevo = this.find(idVenta);
+            nuevo.setComprador(comp);
             this.saveVentas();
+        }catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
         }
     }
-    /**
-     * Actualiza el automóvil de una venta específica.
-     *
-     * @param idVenta El ID de la venta a actualizar.
-     * @param nuevo   El nuevo automóvil asignado a la venta.
-     */
-    public void cambioAutomovil(Integer idVenta, Automovil nuevo) {
-        Venta buscar = this.find(idVenta);
-        if (buscar != null) {
-            buscar.setAutomovil(nuevo);
-            this.saveVentas();
-        }
-    }
+
     /**
      * Actualiza el método de pago de una venta específica.
      *
@@ -189,10 +197,13 @@ public class VentaRepository implements IRepository<Venta, Integer> {
      * @param nuevo   El nuevo método de pago asignado a la venta.
      */
     public void cambioMetodoDePago(Integer idVenta, MetodoDePago nuevo) {
-        Venta buscar = this.find(idVenta);
-        if (buscar != null) {
+
+        try{
+            Venta buscar = this.find(idVenta);
             buscar.setMetodoDePago(nuevo);
             this.saveVentas();
+        }catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
         }
     }
 

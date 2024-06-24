@@ -5,6 +5,9 @@ import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
 import com.framallo90.Venta.Model.Entity.Venta;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -12,6 +15,7 @@ import java.util.Map;
  * Vista que maneja la presentación de las ventas de automóviles y operaciones relacionadas.
  */
 public class VentaView {
+    private static DecimalFormat df = new DecimalFormat("#,##0.00");
 
     /**
      * Genera una nueva venta con los parámetros proporcionados.
@@ -37,16 +41,18 @@ public class VentaView {
      * @param venta La venta cuyos detalles se van a mostrar.
      */
     public void mostrarVenta(Venta venta) {
+
         System.out.println("======================================");
         System.out.println("VentaID: " + venta.getIdVenta());
         System.out.println("Fecha: " + venta.getFecha());
         System.out.println("Vendedor: " + venta.getEmpleados().getApellido() + ", " + venta.getEmpleados().getNombre());
         System.out.println("Cliente: " + venta.getComprador().getApellido() + ", " + venta.getComprador().getNombre());
         System.out.println("Detalle de la venta: " + venta.getAutomovil().getMarca() + ", " + venta.getAutomovil().getModelo() + ", " + venta.getAutomovil().getAnio());
-        System.out.println("Precio: " + venta.getAutomovil().getPrecio());
+
+        System.out.println("Precio: $" + df.format(venta.getAutomovil().getPrecio()));
         System.out.println("Metodo de pago: " + venta.getTransaccion().getTipo());
         System.out.println("Cantidad de cuotas: " + venta.getTransaccion().getCuotas());
-        System.out.println("Precio Financiado: " + venta.getTransaccion().getPrecioFinanciado());
+        System.out.println("Precio Financiado: $" + df.format(venta.getTransaccion().getPrecioFinanciado()));
         System.out.println("======================================");
     }
 
@@ -56,13 +62,10 @@ public class VentaView {
      * @param map El mapa que contiene las ventas indexadas por su ID.
      */
     public void mostrarHistorial(Map<Integer, Venta> map) {
-        if (map.isEmpty()) {
+        if (map.isEmpty())
             System.out.println("Aún no hay ventas registradas...");
-            return;
-        }
-        for (Map.Entry<Integer, Venta> entry : map.entrySet()) {
-            mostrarVenta(entry.getValue());
-        }
+        else
+        map.values().forEach(v->mostrarVenta(v));
     }
 
     /**
@@ -70,12 +73,12 @@ public class VentaView {
      */
     public void printMenuModifVenta() {
         System.out.println("""
-                MODIFICAR VENTA
+                -> MODIFICAR VENTA:
                 1. Empleado
                 2. Comprador
-                3. Automovil
-                4. Metodo de pago
-                0. Atras
+                3. Metodo de Pago
+                
+                0. Volver
                 """);
     }
 
@@ -84,13 +87,15 @@ public class VentaView {
      */
     public void printMenuVentas() {
         System.out.println("""
-                MENU VENTAS
-                1. Registrar una venta
-                2. Buscar venta
-                3. Modificar venta
-                4. Remover venta
-                5. Mostrar todas
+                 --- MENU VENTAS ---
+                1. Registrar una Venta
+                2. Buscar una Venta
+                3. Modificar Venta
+                4. Eliminar Venta
+                5. Mostrar Listado de Ventas
+                
                 0. Volver
+                -------------------
                 """);
     }
 }

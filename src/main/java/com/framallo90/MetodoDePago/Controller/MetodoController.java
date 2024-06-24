@@ -62,7 +62,7 @@ public class MetodoController {
         this.metodoView.printMenuModifMDP();
 
         // Solicita al usuario que ingrese la elección (opción del menú).
-        eleccion = Consola.ingresarXInteger("eleccion");
+        eleccion = Consola.ingresarXInteger("una opcion");
 
         // Si la elección es 2, sale del método sin hacer cambios.
         if (eleccion == 2) return;

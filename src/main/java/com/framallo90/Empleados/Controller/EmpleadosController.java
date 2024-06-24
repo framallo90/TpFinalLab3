@@ -79,7 +79,7 @@ public class EmpleadosController {
      * Permite al usuario modificar un empleado existente.
      */
     public void modificarEmpleado() {
-        Integer idEmpleado = Consola.ingresarXInteger("ID del empleado");
+        Integer idEmpleado = Consola.ingresarXInteger("el ID del Empleado");
         try{
             Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
 
@@ -108,39 +108,39 @@ public class EmpleadosController {
     public void modificacion(Empleados empleado) {
         while (true) {
             this.empleadosView.printMenuModifEmpleado();
-            String opcion = String.valueOf(Consola.ingresarXInteger("opcion"));
+            String opcion = String.valueOf(Consola.ingresarXInteger("un campo para modificar Empleado"));
             switch (opcion) {
                 case "0":
                     // Salir del menú de modificación.
                     return;
                 case "1":
                     // Modificar el nombre del empleado.
-                    empleadosRepository.cambioNombre(empleado, Consola.ingresarXString("nuevo nombre"));
+                    empleadosRepository.cambioNombre(empleado, Consola.ingresarXString("el Nuevo Nombre"));
                     break;
                 case "2":
                     // Modificar el apellido del empleado.
-                    empleadosRepository.cambioApellido(empleado, Consola.ingresarXString("nuevo apellido"));
+                    empleadosRepository.cambioApellido(empleado, Consola.ingresarXString("el Nuevo Apellido"));
                     break;
                 case "3":
                     // Modificar la cantidad de autos vendidos del empleado.
-                    empleadosRepository.cambioAutosVendidos(empleado, Consola.ingresarXInteger("cantidad de autos vendidos"));
+                    empleadosRepository.cambioAutosVendidos(empleado, Consola.ingresarXInteger("la nueva Cantidad de Autos vendidos"));
                     Consola.limpiarBuffer();
                     break;
                 case "4":
                     // Modificar el username del empleado.
-                    empleadosRepository.cambioUsername(empleado, Consola.ingresarXStringSimple("nuevo username"));
+                    empleadosRepository.cambioUsername(empleado, Consola.ingresarXStringSimple("el Nuevo Username"));
                     break;
                 case "5":
                     // Modificar la contraseña del empleado.
-                    empleadosRepository.cambioPassword(empleado, Consola.ingresarXStringSimple("nueva password"));
+                    empleadosRepository.cambioPassword(empleado, Consola.ingresarXStringSimple("la Nueva Password"));
                     break;
                 case "6":
                     // Modificar el tipo de empleado.
-                    empleadosRepository.cambioTipo(empleado, Consola.ingresarXString("nuevo tipo"));
+                    empleadosRepository.cambioTipo(empleado, Consola.ingresarXString("el Nuevo Tipo"));
                     break;
                 default:
                     // Dato ingresado no válido.
-                    Consola.soutAlertString("Ingrese un dato válido.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         }
@@ -150,7 +150,7 @@ public class EmpleadosController {
      * Permite al usuario eliminar un empleado existente.
      */
     public void removeEmpleado()  {
-        Integer id = Consola.ingresarXInteger("id del empleado");
+        Integer id = Consola.ingresarXInteger("el ID del Empleado");
         try {
             empleadosRepository.remove(id);
         } catch (CeroAdminsException e) {
@@ -173,9 +173,9 @@ public class EmpleadosController {
      * Muestra los detalles de un empleado.
      */
     public void mostrar() {
-        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("id del empleado"));
+        Empleados buscar = this.empleadosRepository.find(Consola.ingresarXInteger("el ID del Empleado"));
         if (buscar == null) {
-            Consola.soutAlertString("No se ha encontrado el empleado.");
+            Consola.soutAlertString("NO se ha encontrado el Empleado.");
         } else {
             this.empleadosView.mostrarEmpleado(buscar);
         }
@@ -195,10 +195,10 @@ public class EmpleadosController {
         int opt;
         do {
             this.empleadosView.printMenuAdministrador();
-            opt = Consola.ingresarXInteger("opcion");
+            opt = Consola.ingresarXInteger("una opcion del Menu Administrador");
             switch (opt) {
                 case 0:
-                    System.out.println("Saliendo....");
+                    System.out.println("Saliste del Menu Administrador.");
                     break;
                 case 1:
                     crearEmpleado();
@@ -217,7 +217,7 @@ public class EmpleadosController {
                     mostrarHistorial();
                     break;
                 default:
-                    System.out.println("Opcion invalida vuelva a intentarlo");
+                    System.out.println("Opción Inválida. Reintentar!.");
                     break;
             }
         } while (opt != 0);

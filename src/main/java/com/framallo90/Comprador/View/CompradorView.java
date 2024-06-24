@@ -18,7 +18,7 @@ public class CompradorView {
      */
     public String ingresoEmail() {
         while (true) {
-            String email = Consola.ingresarXStringSimple("Ingrese su correo electrónico: ");
+            String email = Consola.ingresarXStringSimple("su Correo Electrónico");
 
             // Patrón de expresión regular para validar email
             String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$";
@@ -27,7 +27,7 @@ public class CompradorView {
             if (email.matches(regex)) {
                 return email;
             } else {
-                System.out.println("Correo electrónico no válido. Intente nuevamente.");
+                System.out.println("Correo Electrónico Invalido. Intente nuevamente.");
             }
         }
     }
@@ -38,12 +38,12 @@ public class CompradorView {
      * @param comprador el comprador cuya información se va a mostrar
      */
     public void muestroUnComprador(Comprador comprador) {
-        System.out.println("=========================================");
-        System.out.println("ID: " + comprador.getId());
-        System.out.println("Nombre: " + comprador.getApellido() + ", " + comprador.getNombre());
-        System.out.println("Dni: " + comprador.getDni());
-        System.out.println("E-Mail: " + comprador.getEmail());
-        System.out.println("=========================================");
+        System.out.println("----------");
+        System.out.println("- ID.........: " + comprador.getId());
+        System.out.println("- Nombre.....: " + comprador.getApellido() + ", " + comprador.getNombre());
+        System.out.println("- DNI........: " + comprador.getDni());
+        System.out.println("- E-Mail.....: " + comprador.getEmail());
+        System.out.println("----------");
     }
     /**
      * Muestra la información de un conjunto de compradores en la consola.

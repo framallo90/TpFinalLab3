@@ -47,17 +47,17 @@ public class GestionConsecionaria {
             // LOGIN
             do {
                 Consola.printMenuLogin();
-                eleccion = Consola.ingresarXInteger("eleccion");
+                eleccion = Consola.ingresarXInteger("una opcion del Menu");
                 if (eleccion == 0) {
                     return;
                 }
                 else if (eleccion == 1) {
                     empleadoIngresado = login.login();
                     if (empleadoIngresado == null)
-                        Consola.soutAlertString("Las credenciales son inválidas. Vuelve a intentarlo");
+                        Consola.soutAlertString("Las Credenciales son Inválidas!. Vuelve a Intentarlo");
                 }
                 else
-                    Consola.soutAlertString("Ingrese una opción válida (1/0). ");
+                    Consola.soutAlertString("Porfavor ingrese una opción válida (1/0). ");
 
             } while (empleadoIngresado == null);
 
@@ -79,7 +79,7 @@ public class GestionConsecionaria {
         Integer eleccion;
         do {
             Consola.printMenuAdministrador();
-            eleccion = Consola.ingresarXInteger("elección");
+            eleccion = Consola.ingresarXInteger("una opcion del Menu Administrador");
             switch (eleccion) {
                 case 0: // salir
                     empleadoIngresado = null;
@@ -97,7 +97,7 @@ public class GestionConsecionaria {
                     empleadosController.menuControllerEmpleados();
                     break;
                 default: // opcion no reconocida
-                    Consola.soutAlertString("No se reconoce la opción ingresada.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         } while (eleccion != 0);
@@ -112,7 +112,7 @@ public class GestionConsecionaria {
         Integer eleccion;
         do {
             Consola.printMenuVendedor();
-            eleccion = Consola.ingresarXInteger("elección");
+            eleccion = Consola.ingresarXInteger("una opcion del Menu Vendedor");
             switch (eleccion) {
                 case 0: // salir
                     empleadoIngresado = null;

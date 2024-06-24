@@ -23,20 +23,20 @@ public class EmpleadosView {
         String nombre, apellido, username, password, tipo;
         Integer dni;
 
-        nombre = Consola.ingresarXString("nombre");
-        apellido = Consola.ingresarXString("apellido");
-        dni = Consola.ingresarXInteger("dni");
+        nombre = Consola.ingresarXString("el Nombre");
+        apellido = Consola.ingresarXString("el Apellido");
+        dni = Consola.ingresarXInteger("el DNI");
         while (!validarDNI(dni))
         {
-            Consola.soutAlertString("El dni NO es válido, reintentar.");
-            dni = Consola.ingresarXInteger("dni");
+            Consola.soutAlertString("ERROR! El documento NO es válido. Reintentar.");
+            dni = Consola.ingresarXInteger("nuevamente el DNI");
         }
-        username = Consola.ingresarXStringSimple("username");
+        username = Consola.ingresarXStringSimple("el Username");
         while (true){
-            password = Consola.ingresarXStringSimple("password");
+            password = Consola.ingresarXStringSimple("la Password");
             if (validarPassword(password)) break;
             else if (password.equals("0")) return null;
-            else Consola.soutString("Contraseña inválida. Debe tener al menos:" +
+            else Consola.soutString("ERROR! Contraseña Inválida. Debe tener al menos:" +
                         "\n 1 letra minúscula" +
                         "\n 1 letra mayúscula" +
                         "\n 1 número" +
@@ -44,7 +44,7 @@ public class EmpleadosView {
         }
         tipo = this.generarTipo();
         Empleados devol = new Empleados(nombre, apellido, dni, 0, username, password, tipo);
-        System.out.println("Empleado creado:");
+        System.out.println("Empleado Creado:");
         this.mostrarEmpleado(devol);
         return devol;
     }
@@ -100,9 +100,9 @@ public class EmpleadosView {
 
         while (true) {
             tipo = Consola.ingresarXString("""
-                    \n  tipo de usuario:
-                    vendedor
-                    administrador\n""");
+                    \n-> Tipos de Usuarios:
+                    - Vendedor
+                    - Administrador\n""");
 
             if (tipo.equalsIgnoreCase("administrador") ||
                     tipo.equalsIgnoreCase("vendedor")) {
@@ -118,25 +118,28 @@ public class EmpleadosView {
      */
     public void printMenuAdministrador() {
         System.out.println("--- MENU EMPLEADOS (administrador) ---");
-        System.out.println("1. Agregar empleado");
-        System.out.println("2. Modificar empleado");
-        System.out.println("3. Eliminar empleado");
-        System.out.println("4. Buscar un empleado");
-        System.out.println("5. Historial de empleado.");
+        System.out.println("1. Agregar Empleado");
+        System.out.println("2. Modificar Empleado");
+        System.out.println("3. Eliminar Empleado");
+        System.out.println("4. Buscar un Empleado");
+        System.out.println("5. Historial de Empleados");
+
         System.out.println("0. Volver");
+        System.out.println("--------------------------------------");
     }
 
     public void printMenuModifEmpleado(){
         Consola.soutString("""
-                    --- MODIFICACIÓN EMPLEADO ---
+                   -> MODIFICACIÓN EMPLEADO:
                     1. Nombre
                     2. Apellido
-                    3. Cantidad de autos vendidos
+                    3. Cantidad de Autos vendidos
                     4. Username
                     5. Password
-                    6. Tipo del empleado
+                    6. Tipo de Empleado
+                   
                     0. Volver
-                    """);
+                   """);
     }
 
     /**
@@ -145,14 +148,14 @@ public class EmpleadosView {
      * @param empleados El objeto Empleados que se desea mostrar.
      */
     public void mostrarEmpleado(Empleados empleados) {
-        System.out.println("=========================================");
-        System.out.println("ID: " + empleados.getId());
-        System.out.println("Nombre: " + empleados.getApellido() + ", " + empleados.getNombre());
-        System.out.println("DNI: " + empleados.getDni());
-        System.out.println("Tipo de usuario: " + empleados.getTipo());
-        System.out.println("Autos vendidos: " + empleados.getAutosvendidos());
-        System.out.println("Username: " + empleados.getUsername());
-        System.out.println("=========================================");
+        System.out.println("----------");
+        System.out.println("- ID................: " + empleados.getId());
+        System.out.println("- Nombre............: " + empleados.getApellido() + ", " + empleados.getNombre());
+        System.out.println("- DNI...............: " + empleados.getDni());
+        System.out.println("- Tipo de Usuario...: " + empleados.getTipo());
+        System.out.println("- Autos Vendidos....: " + empleados.getAutosvendidos());
+        System.out.println("- Username..........: " + empleados.getUsername());
+        System.out.println("----------");
     }
 
     /**
