@@ -12,7 +12,7 @@ public class Empleados extends Usuario {
     /**
      * Identificador único asignado al empleado al crearse. Este valor se genera automáticamente y se incrementa.
      */
-    private final Integer id;
+    private Integer id;
 
     /**
      * Número de autos vendidos por el empleado.
@@ -158,5 +158,9 @@ public class Empleados extends Usuario {
      */
     public static void setCont(Integer cont) {
         Empleados.cont = cont;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

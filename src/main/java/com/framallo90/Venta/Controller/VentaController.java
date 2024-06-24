@@ -127,6 +127,7 @@ public class VentaController {
             throw new InvalidIdNotFound("No se ha encontrado una venta.");
         }
         try {
+            ventaRepository.restoVenta(buscar);
             this.ventaRepository.remove(buscar.getIdVenta());
         } catch (Exception e) {
             Consola.soutAlertString(e.getMessage());

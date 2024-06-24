@@ -74,6 +74,7 @@ public class EmpleadosView {
         return validarDNI(dniStr);
     }
 
+
     /**
      * Valida un DNI argentino representado como una cadena de caracteres.
      *

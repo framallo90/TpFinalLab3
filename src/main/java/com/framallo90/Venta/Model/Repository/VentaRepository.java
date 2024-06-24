@@ -25,13 +25,19 @@ public class VentaRepository implements IRepository<Venta, Integer> {
     private Map<Integer, Venta> map; // Mapa que almacena las ventas, utilizando el ID de la venta como clave
     private static final String PATH_VENTAS = "src/main/resources/ventas.json"; // Ruta del archivo JSON para almacenar las ventas
     private final Gson gson = new Gson(); // Instancia de Gson para serialización/deserialización JSON
-
+    
     /**
      * Constructor de la clase VentaRepository.
      * Carga las ventas almacenadas desde el archivo JSON al inicializar.
      */
     public VentaRepository() {
         this.loadVentas();
+    }
+
+    public void restoVenta(Venta venta){
+        Integer autosV = venta.getEmpleados().getAutosvendidos();
+        venta.getEmpleados().setAutosvendidos(autosV-1);
+        saveVentas();
     }
 
     /**

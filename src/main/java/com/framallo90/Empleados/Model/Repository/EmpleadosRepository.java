@@ -38,6 +38,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         this.loadEmpleados();
         if (this.list.isEmpty()) {
             Empleados admin = new Empleados("A", "A", 0, 0, "A", "A", "administrador");
+            admin.setId(0);
             this.list.add(admin);
             this.saveEmpleados();
             Empleados.setCont(admin.getId());
@@ -49,7 +50,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     /**
      * Obtiene la lista de empleados.
      *
-     * @return La lista de empleados.
+     * q@return La lista de empleados.
      */
     public List<Empleados> getList() {
         return list;
@@ -82,6 +83,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Agrega un empleado a la lista y guarda los cambios en el archivo JSON.
