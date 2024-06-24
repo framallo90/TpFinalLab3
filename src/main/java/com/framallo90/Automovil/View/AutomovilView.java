@@ -24,15 +24,15 @@ import java.util.function.Predicate;
 
 
         public void mostrarAuto(Automovil automovil){
-            System.out.println("===============================================");
-            System.out.println("ID: " + automovil.getId());
-            System.out.println("Patente: " + automovil.getPatente());
-            System.out.println("Marca: " + automovil.getMarca());
-            System.out.println("Modelo: " + automovil.getModelo());
-            System.out.println("Anio: " + automovil.getAnio());
+            System.out.println("----------");
+            System.out.println("- ID..........: " + automovil.getId());
+            System.out.println("- Patente.....: " + automovil.getPatente());
+            System.out.println("- Marca.......: " + automovil.getMarca());
+            System.out.println("- Modelo......: " + automovil.getModelo());
+            System.out.println("- Anio........: " + automovil.getAnio());
             BigDecimal bigDecimal = new BigDecimal(automovil.getPrecio());
-            System.out.println("Precio: $" + bigDecimal.toPlainString());
-            System.out.println("===============================================");
+            System.out.println("- Precio......: $" + bigDecimal.toPlainString());
+            System.out.println("----------");
 
         }
     /**
@@ -52,7 +52,7 @@ import java.util.function.Predicate;
             }
 
             automovilList.forEach(a->mostrarAuto(a));
-            System.out.println("Total de vehículos en stock -> " + Automovil.getCont());
+            System.out.println("Total de Vehículos en Stock -> " + Automovil.getCont());
         }
 
     public void buscarAutomovilesXFiltro(List<Automovil> lista) throws EmptyAStockException {
@@ -62,18 +62,18 @@ import java.util.function.Predicate;
         int opc = -1;
         mostrarAutomoviles(lista);
         do {
-            System.out.println("LISTA DE AUTOMÓVILES " +
-                    "\n1. Filtrar por marca" +
-                    "\n2. Filtrar por modelo" +
-                    "\n3. Filtrar por año" +
-                    "\n4. Establecer precio máximo" +
-                    "\n5. Establecer precio mínimo"
+            System.out.println("-> LISTA DE AUTOMÓVILES: " +
+                    "\n1. Filtrar por Marca" +
+                    "\n2. Filtrar por Modelo" +
+                    "\n3. Filtrar por Año" +
+                    "\n4. Establecer Precio máximo" +
+                    "\n5. Establecer Precio mínimo"
             );
             if (cont > 0) {
-                System.out.println("6. Quitar filtro");
+                System.out.println("6. Quitar Filtro");
             }
             System.out.println("0. Volver");
-            opc = Consola.ingresarXInteger("opción");
+            opc = Consola.ingresarXInteger("una opción para Filtrar");
             switch (opc) {
                 case 1:
                     String marca = ingresoMarca();
@@ -103,19 +103,19 @@ import java.util.function.Predicate;
                 case 6:
                     if (cont > 0) {
                         System.out.println(
-                                "\n1 - Filtro marca" +
-                                        "\n2 - Filtro modelo" +
-                                        "\n3 - Filtro año" +
-                                        "\n4 - Filtro precio máximo" +
-                                        "\n5 - Filtro precio mínimo" +
-                                        "\n0 - Atrás"
+                                "\n1 - Filtro Marca" +
+                                        "\n2 - Filtro Modelo" +
+                                        "\n3 - Filtro Año" +
+                                        "\n4 - Filtro Precio máximo" +
+                                        "\n5 - Filtro Precio mínimo" +
+                                        "\n0 - Volver"
                         );
-                        Integer sacar = Consola.ingresarXInteger("opción");
+                        Integer sacar = Consola.ingresarXInteger("una opcion");
                         if (6 > sacar && sacar > 0) {
                             arrayCondiciones[sacar - 1] = null;
                         }
                     } else {
-                        Consola.soutAlertString("Opción no reconocida");
+                        Consola.soutAlertString("Opción Invalida!.");
                     }
                     break;
                 case 0:
@@ -123,7 +123,7 @@ import java.util.function.Predicate;
                     break;
                 default:
                     opc = -1;
-                    Consola.soutAlertString("Opción no reconocida");
+                    Consola.soutAlertString("Opción Invalida!.");
                     break;
             }
             List<Predicate<Automovil>> listaFiltros = new ArrayList<>();
@@ -184,12 +184,12 @@ import java.util.function.Predicate;
                     }
                     // Avisa si no hay coincidencias
                     if (coincidencias == 0) {
-                        Consola.soutAlertString("No hay automóviles que coincidan con los filtros.");
+                        Consola.soutAlertString("NO hay Automóviles que coincidan con los Filtros.");
                     }
                 } else {
                     // Muestra la lista sin filtros
                     if (lista.isEmpty()) {
-                        Consola.soutAlertString("No hay automóviles.");
+                        Consola.soutAlertString("NO hay Automóviles registrados.");
                     } else {
                        mostrarAutomoviles(lista);
                     }
@@ -202,7 +202,7 @@ import java.util.function.Predicate;
          * @return La marca ingresada por el usuario.
          */
         public String ingresoMarca() {
-            return Consola.ingresarXString("marca");
+            return Consola.ingresarXString("la Marca");
         }
 
         /**
@@ -210,7 +210,7 @@ import java.util.function.Predicate;
          * @return El modelo ingresado por el usuario.
          */
         public String ingresoModelo() {
-            return Consola.ingresarXStringSimple("modelo");
+            return Consola.ingresarXStringSimple("el Modelo");
         }
 
         /**
@@ -218,7 +218,7 @@ import java.util.function.Predicate;
          * @return El precio ingresado por el usuario.
          */
         public Double ingresoPrecio() {
-            return Consola.ingresarXdouble("precio");
+            return Consola.ingresarXdouble("el Precio");
         }
 
         /**
@@ -226,7 +226,7 @@ import java.util.function.Predicate;
          * @return La patente ingresada por el usuario.
          */
         public String ingresoPatente() {
-            return Consola.patente("patente");
+            return Consola.patente("la Patente");
         }
 
         /**
@@ -234,7 +234,7 @@ import java.util.function.Predicate;
          * @return El año ingresado por el usuario.
          */
         public Integer ingresoAnio() {
-            return Consola.ingresarXInteger("anio");
+            return Consola.ingresarXInteger("el Anio");
         }
 
         /**
@@ -242,13 +242,16 @@ import java.util.function.Predicate;
          */
         public void printMenuAutomovilAdmin() {
             System.out.println("""
-                --- MENU AUTOMOVIL (administrador) ---
-                1. Agregar 
-                2. Borrar 
-                3. Buscar automovil
-                4. Lista automoviles (con filtro)
-                5. Modificar datos automovil
-                0. Volver""");
+                 --- MENU AUTOMOVIL (administrador) ---
+                1. Agregar Automovil
+                2. Eliminar Automovil
+                3. Buscar Automovil
+                4. Listado de Automoviles (con filtro)
+                5. Modificar Datos Automovil
+                
+                0. Volver
+                ---------------------------------------
+                """);
         }
 
         /**
@@ -257,9 +260,11 @@ import java.util.function.Predicate;
         public void printMenuAutomovilVendedor() {
             System.out.println("""
                 --- MENU AUTOMOVIL (vendedor) ---
-                1. Buscar automovil
-                2. Lista automoviles
-                3. Lista automoviles (con filtro)
-                0. Volver""");
+                1. Buscar Automovil
+                2. Lista Automoviles
+                3. Lista Automoviles (con filtro)
+                
+                0. Volver
+                ---------------------------------""");
         }
     }

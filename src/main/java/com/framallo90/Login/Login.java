@@ -45,8 +45,8 @@ public class Login {
      * @return El objeto Empleados correspondiente al usuario autenticado, o null si las credenciales son incorrectas.
      */
     public Empleados login() {
-        String username = Consola.ingresarXStringSimple("nombre de usuario");
-        String password = Consola.ingresarXStringSimple("contraseña");
+        String username = Consola.ingresarXStringSimple("el Nombre de Usuario");
+        String password = Consola.ingresarXStringSimple("la Contraseña");
 
         // Carga la lista de empleados desde el repositorio.
         List<Empleados> empleados = empleadosRepository.getList();

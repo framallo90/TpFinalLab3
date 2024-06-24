@@ -99,7 +99,7 @@ public class VentaRepository implements IRepository<Venta, Integer> {
         if (remove == null) {
             throw new InvalidIdNotFound("No se ha encontrado una venta con id " + id + ".");
         } else {
-            Consola.soutString("Venta removida correctamente.");
+            Consola.soutString("Venta Eliminada Correctamente.");
         }
         this.saveVentas();
     }
@@ -110,7 +110,7 @@ public class VentaRepository implements IRepository<Venta, Integer> {
         if (update != null) {
             // Implementación pendiente de actualización
         } else {
-            throw new InvalidIdNotFound("No se ha encontrado una venta de id " + id + ".");
+            throw new InvalidIdNotFound("NO se encontro la  Venta con ID: " + id + ".");
         }
     }
     /**
@@ -131,7 +131,7 @@ public class VentaRepository implements IRepository<Venta, Integer> {
     public Venta find(Integer id) {
         Optional<Venta> devol = this.map.values().stream().filter(c -> c.getIdVenta().equals(id)).findFirst();
         if (devol.isEmpty()) {
-            System.out.println("El comprador con id:" + id + ", no existe, intentelo nuevamente.");
+            System.out.println("El Comprador con ID:" + id + ", NO existe. Intentelo nuevamente.");
             return null;
         } else {
             return devol.get();

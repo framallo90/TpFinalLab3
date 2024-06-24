@@ -83,7 +83,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
             listaCompradores.remove(remove);
             updateFile();
         }else{
-            throw new InvalidIdNotFound("Id no encontrado");
+            throw new InvalidIdNotFound("EL ID NO se encuentra registrado!.");
         }
     }
 
@@ -100,7 +100,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
         if (comprador != null) {
             // Método incompleto, necesita implementación
         } else {
-            throw new InvalidIdNotFound("El id ingresado no existe.");
+            throw new InvalidIdNotFound("EL ID NO se encuentra registrado!.");
         }
     }
 
@@ -113,12 +113,12 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
     @Override
     public Comprador find(Integer id) throws InvalidIdNotFound{
         if (this.listaCompradores.isEmpty()) {
-            Consola.soutString("Aún no hay clientes registrados.");
+            Consola.soutString("Aún NO hay clientes registrados.");
             return null;
         }
         Optional<Comprador> devol = this.listaCompradores.stream().filter(c -> c.getId().equals(id)).findFirst();
         if (devol.isEmpty()) {
-            throw new InvalidIdNotFound("El comprador con id: " + id + ", no existe, intentelo nuevamente.");
+            throw new InvalidIdNotFound("El Comprador con ID: " + id + ", NO existe. Intentelo Nuevamente.");
         } else {
             return devol.get();
         }

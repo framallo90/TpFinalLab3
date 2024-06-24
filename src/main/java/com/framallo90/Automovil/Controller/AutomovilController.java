@@ -37,19 +37,19 @@ public class AutomovilController {
     private Map.Entry<Integer, String> seleccionarMarca() {
         try {
             Map<Integer, String> marcas = apiAutomovilService.obtenerMarcas();
-            System.out.println("Seleccione una marca:");
+            System.out.println("- Seleccione una Marca:");
             for (Map.Entry<Integer, String> entry : marcas.entrySet()) {
                 System.out.println(entry.getKey() + " - " + entry.getValue());
             }
-            int marcaId = Consola.ingresarXInteger("ID de la marca");
+            int marcaId = Consola.ingresarXInteger("el ID de la Marca");
             if (!marcas.containsKey(marcaId)) {
-                Consola.soutAlertString("ID de marca no válido. Intente nuevamente.");
+                Consola.soutAlertString("ID de Marca Invalido. Intente nuevamente.");
                 return seleccionarMarca();
             }
             String marcaNombre = marcas.get(marcaId);
             return Map.entry(marcaId, marcaNombre);
         } catch (IOException e) {
-            Consola.soutAlertString("Error al obtener las marcas: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener las Marcas: " + e.getMessage());
             return null;
         }
     }
@@ -62,19 +62,19 @@ public class AutomovilController {
     private Map.Entry<Integer, String> seleccionarModelo(int marcaId) {
         try {
             Map<Integer, String> modelos = apiAutomovilService.obtenerModelos(marcaId);
-            System.out.println("Seleccione un modelo:");
+            System.out.println("- Seleccione un Modelo:");
             for (Map.Entry<Integer, String> entry : modelos.entrySet()) {
                 System.out.println(entry.getKey() + " - " + entry.getValue());
             }
-            int modeloId = Consola.ingresarXInteger("ID del modelo");
+            int modeloId = Consola.ingresarXInteger("el ID del Modelo");
             if (!modelos.containsKey(modeloId)) {
-                Consola.soutAlertString("ID de modelo no válido. Intente nuevamente.");
+                Consola.soutAlertString("ID del Modelo Invalido. Intente nuevamente.");
                 return seleccionarModelo(marcaId);
             }
             String modeloNombre = modelos.get(modeloId);
             return Map.entry(modeloId, modeloNombre);
         } catch (IOException e) {
-            Consola.soutAlertString("Error al obtener los modelos: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener los Modelos: " + e.getMessage());
             return null;
         }
     }
@@ -88,20 +88,20 @@ public class AutomovilController {
     private String seleccionarAno(int marcaId, int modeloId) {
         try {
             Map<String, String> anos = apiAutomovilService.obtenerAnos(marcaId, modeloId);
-            System.out.println("Seleccione un año:");
+            System.out.println("- Seleccione un Año:");
             for (Map.Entry<String, String> entry : anos.entrySet()) {
                 System.out.println(entry.getKey() + " - " + entry.getValue());
             }
             while (true) {
-                String anoId = Consola.ingresarXStringSimple("ID del año");
+                String anoId = Consola.ingresarXStringSimple("el ID del Año");
                 if (anos.containsKey(anoId)) {
                     return anoId;
                 } else {
-                    Consola.soutAlertString("Ingresar un dato válido.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                 }
             }
         } catch (IOException e) {
-            Consola.soutAlertString("Error al obtener los años: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener los Años: " + e.getMessage());
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class AutomovilController {
         try {
             return apiAutomovilService.obtenerPrecio(marcaId, modeloId, anoId);
         } catch (IOException e) {
-            Consola.soutAlertString("Error al obtener el precio: " + e.getMessage());
+            Consola.soutAlertString("Error al obtener el Precio: " + e.getMessage());
             return null;
         }
     }
@@ -151,7 +151,7 @@ public class AutomovilController {
      */
     public void borrarAutomovilEnStock() {
         try {
-            automovilRepository.remove(Consola.ingresarXInteger("ID"));
+            automovilRepository.remove(Consola.ingresarXInteger("el ID del Vehiculo"));
         } catch (InvalidIdNotFound e) {
             Consola.soutAlertString(e.getMessage());
         }
@@ -175,7 +175,7 @@ public class AutomovilController {
 
     public void modificar(Automovil automovil) throws IOException {
         System.out.println("1. Marca( y por consecuente modelo)\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
-        Integer IDMod = Consola.ingresarXInteger("numero");
+        Integer IDMod = Consola.ingresarXInteger("un campo para modificar del Automovil");
         switch (IDMod) {
             case 1:
 
@@ -189,10 +189,10 @@ public class AutomovilController {
                 break;
             case 3:
 
-                automovil.setPrecio(Consola.ingresarXdouble("precio"));
+                automovil.setPrecio(Consola.ingresarXdouble("el Precio"));
                 break;
             case 4:
-                automovil.setPatente(Consola.patente("patente"));
+                automovil.setPatente(Consola.patente("la Patente"));
                 break;
             case 5:
                 Integer keyMark = apiAutomovilService.buscarKeyMarca(automovil.getMarca());
@@ -202,7 +202,7 @@ public class AutomovilController {
                 automovil.setAnio(Integer.parseInt(anoId.split("-")[0]));
                 break;
             default:
-                Consola.soutAlertString("Opcion no valida");
+                Consola.soutAlertString("Opcion Invalida!.");
                 break;
 
         }
@@ -241,7 +241,7 @@ public class AutomovilController {
 
         while (true) {
             automovilView.printMenuAutomovilAdmin();
-            eleccion = Consola.ingresarXInteger("elección");
+            eleccion = Consola.ingresarXInteger("una opcion del Menu Automovil");
 
             switch (eleccion) {
                 case 0: // Salir
@@ -255,9 +255,9 @@ public class AutomovilController {
                     break;
                 case 3: // Mostrar detalle de automóvil por ID
                     mostrarAutomovilesEnStock();
-                    Automovil find = find(Consola.ingresarXInteger("ID del automóvil"));
+                    Automovil find = find(Consola.ingresarXInteger("el ID del Automóvil"));
                     if (find == null) {
-                        Consola.soutAlertString("No se ha encontrado un automóvil con el ID ingresado.");
+                        Consola.soutAlertString("NO se encuentra registrado el Automóvil con el ID ingresado.");
                     } else {
                         Consola.soutString(find.toString());
                     }
@@ -273,7 +273,7 @@ public class AutomovilController {
                 case 5:
                     Automovil aModificar;
                     mostrarAutomovilesEnStock();
-                    aModificar = automovilRepository.find(Consola.ingresarXInteger("ID del automóvil"));
+                    aModificar = automovilRepository.find(Consola.ingresarXInteger("el ID del Automóvil"));
                     if(aModificar != null){
                         try {
                             modificar(aModificar);
@@ -286,7 +286,7 @@ public class AutomovilController {
                     }
                     break;
                 default: // Opción no reconocida
-                    Consola.soutAlertString("El dato ingresado no es válido. Reintentar.");
+                    Consola.soutAlertString("El dato es Invalido!. Reintentar.");
                     break;
             }
         }
@@ -300,14 +300,14 @@ public class AutomovilController {
 
         while (true) {
             automovilView.printMenuAutomovilVendedor();
-            eleccion = Consola.ingresarXInteger("elección");
+            eleccion = Consola.ingresarXInteger("una opcion del Menu Automovil");
 
             switch (eleccion) {
                 case 0: // Salir
                     return;
                 case 1: // Mostrar detalle de automóvil por ID
                     mostrarAutomovilesEnStock();
-                    Automovil find = find(Consola.ingresarXInteger("ID del automóvil"));
+                    Automovil find = find(Consola.ingresarXInteger("el ID del Automóvil"));
                     if (find != null) {
                         Consola.soutString(find.toString());
                     }
@@ -323,7 +323,7 @@ public class AutomovilController {
                     }
                     break;
                 default: // Opción no reconocida
-                    Consola.soutAlertString("El dato ingresado no es válido. Reintentar.");
+                    Consola.soutAlertString("El dato es Invalido!. Reintentar.");
                     break;
             }
         }

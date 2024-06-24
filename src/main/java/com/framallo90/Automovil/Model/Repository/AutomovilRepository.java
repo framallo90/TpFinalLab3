@@ -44,7 +44,7 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
             this.automovilList.remove(auto);
             updateFile();
         } else {
-            throw new InvalidIdNotFound("El automovil de id: "+ id +" ingresado no existe.");
+            throw new InvalidIdNotFound("El Automovil con ID: "+ id +", NO se encuentra.");
         }
     }
     /**
@@ -59,7 +59,7 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
 
             updateFile();
         } else {
-            throw new InvalidIdNotFound("El id ingresado no existe.");
+            throw new InvalidIdNotFound("El ID ingresado NO se encuentra registrado.");
         }
     }
     /**

@@ -129,7 +129,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
             }
         }
         if(i == list.size()){
-            throw new InvalidIdNotFound("No se encontro id");
+            throw new InvalidIdNotFound("NO se encontro el ID.");
         }
     }
 
@@ -188,7 +188,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     public void cambioDni(Empleados empleados, Integer nuevoDni) {
         for (Empleados value : this.list) {
             if (value.getDni().equals(nuevoDni))
-                throw new IllegalArgumentException("El DNI ya pertenece a otro empleado");
+                throw new IllegalArgumentException("ERROR! El DNI ya pertenece a un Empleado.");
         }
         empleados.setDni(nuevoDni);
         this.saveEmpleados();

@@ -63,23 +63,23 @@ public class VentaController {
     public void add() throws InvalidIdNotFound {
         // Selección del empleado vendedor
         empleadosController.mostrarHistorial();
-        Empleados empleados = this.empleadosController.find(Consola.ingresarXInteger("id del empleado vendedor"));
+        Empleados empleados = this.empleadosController.find(Consola.ingresarXInteger("el ID del empleado Vendedor"));
         if (empleados == null) {
-            throw new InvalidIdNotFound("empleado no encontrado");
+            throw new InvalidIdNotFound("El Empleado NO se encuentra registrado.");
         }
         // Selección del comprador
         this.compradorController.verHisorial();
-        Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("id del comprador actual"));
+        Comprador comprador = this.compradorController.find(Consola.ingresarXInteger("el ID del Comprador actual"));
         if (comprador == null) {
-            throw new InvalidIdNotFound("comprador no encontrado");
+            throw new InvalidIdNotFound("El Comprador NO se encuentra registrado.");
         }
 
         // Selección del automóvil en stock
         automovilController.mostrarAutomovilesEnStock();
-        Integer id = Consola.ingresarXInteger("id del automovil en stock");
+        Integer id = Consola.ingresarXInteger("el ID del Automovil en Stock");
         Automovil automovil = this.automovilController.find(id);
         if (automovil == null) {
-            throw new InvalidIdNotFound("automovil no encontrado");
+            throw new InvalidIdNotFound("El Automovil NO se encuentra registrado.");
         }
 
         // Generación del método de pago
@@ -97,10 +97,10 @@ public class VentaController {
      * Muestra los detalles de una venta específica seleccionada por su ID.
      */
     public void show() {
-        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
+        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("el ID de la Venta"));
         if (buscar != null)
             this.ventaView.mostrarVenta(buscar);
-        else Consola.soutAlertString("No existe una venta con el id ingresado.");
+        else Consola.soutAlertString("NO hay un registro con el ID ingresado.");
     }
     /**
      * Actualiza una venta existente seleccionada por su ID, permitiendo modificar el empleado vendedor,
@@ -109,9 +109,9 @@ public class VentaController {
      * @throws InvalidIdNotFound Si no se encuentra la venta correspondiente.
      */
     public void update() throws InvalidIdNotFound {
-        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
+        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("el ID de la Venta"));
         if (buscar == null) {
-            throw new InvalidIdNotFound("No se ha encontrado una venta.");
+            throw new InvalidIdNotFound("La Venta NO se encuentra registrada.");
         }
         modifVenta(buscar);
     }
@@ -122,9 +122,9 @@ public class VentaController {
      * @throws InvalidIdNotFound Si no se encuentra la venta correspondiente.
      */
     public void remover() throws InvalidIdNotFound {
-        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("id de la venta"));
+        Venta buscar = this.ventaRepository.find(Consola.ingresarXInteger("el ID de la Venta"));
         if (buscar == null) {
-            throw new InvalidIdNotFound("No se ha encontrado una venta.");
+            throw new InvalidIdNotFound("La Venta NO se encuentra registrada.");
         }
         try {
             this.ventaRepository.remove(buscar.getIdVenta());
@@ -141,7 +141,7 @@ public class VentaController {
     public void modifVenta(Venta venta) {
         while (true) {
             this.ventaView.printMenuModifVenta();
-            switch (Consola.ingresarXInteger("eleccion")) {
+            switch (Consola.ingresarXInteger("\"un campo para modificar en Venta")) {
                 case 1: // Modificar empleado
                     empleadosController.modificacion(venta.getEmpleados());
                     break;
@@ -163,7 +163,7 @@ public class VentaController {
                 case 0: // Salir
                     return;
                 default:
-                    Consola.soutAlertString("Opción inválida, reintentar.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         }
@@ -177,10 +177,10 @@ public class VentaController {
         int eleccion;
         do {
             this.ventaView.printMenuVentas();
-            eleccion = Consola.ingresarXInteger("eleccion");
+            eleccion = Consola.ingresarXInteger("una opcion del Menu Ventas");
             switch (eleccion) {
                 case 0: // Salir
-                    Consola.soutString("saliendo...");
+                    Consola.soutString("Saliste del Menu Ventas.");
                     break;
                 case 1: // Agregar venta
                     try {
@@ -218,7 +218,7 @@ public class VentaController {
                     this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                     break;
                 default:
-                    Consola.soutAlertString("Ingresar un dato válido.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         } while (eleccion != 0);

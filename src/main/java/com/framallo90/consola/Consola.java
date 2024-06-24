@@ -55,7 +55,7 @@ public class Consola {
             if (s.matches("[a-zA-Z\\s]+")) {
                 return s;
             } else {
-                soutAlertString("Ingresar un dato valido.");
+                soutAlertString("Porfavor ingresar un dato valido!.");
             }
         }
     }
@@ -85,14 +85,14 @@ public class Consola {
         Integer numero;
         do {
             while (!scanner.hasNextInt()) {
-                soutAlertString("El dato ingresado no es valido. Por favor, ingrese un número entero:");
+                soutAlertString("El dato ingresado NO es valido. Por favor, ingrese un número entero:");
                 scanner.next(); // Limpiar la entrada no válida
             }
 
             numero = scanner.nextInt();
             scanner.nextLine(); // buffer
             if (numero < 0) {
-                soutAlertString("No se aceptan numeros negativos, ingrese una opcion valida... -> ");
+                soutAlertString("No se aceptan numeros negativos. Ingrese una opcion valida: ");
             }
         } while (numero < 0);
 
@@ -108,7 +108,7 @@ public class Consola {
     public static Double ingresarXdouble(String x) {
         System.out.println("Ingresar " + x + ": ");
         while (!scanner.hasNextDouble()) {
-            soutAlertString("El dato ingresado no es valido. Por favor, ingrese un double");
+            soutAlertString("El dato ingresado NO es valido. Ingrese una opcion valida: ");
             scanner.next(); // Limpiar la entrada no válida
         }
         Double numero = scanner.nextDouble();
@@ -132,7 +132,7 @@ public class Consola {
                 patente.append(s.toUpperCase());
                 break;
             } else {
-                soutAlertString("Ingresar un dato válido (3 letras).");
+                soutAlertString("ERROR! Ingresar un dato válido (3 letras).");
             }
         }
 
@@ -143,7 +143,7 @@ public class Consola {
                 patente.append(num);
                 break;
             } else {
-                soutAlertString("Ingrese solamente 3 números.");
+                soutAlertString("ERROR! Ingrese solamente 3 números.");
             }
         }
 
@@ -186,10 +186,12 @@ public class Consola {
     public static void printMenuVendedor() {
         System.out.println("""
                 --- MENÚ VENDEDOR ---
-                1. Gestión clientes
-                2. Gestión ventas
-                3. Stock carros
-                0. Cerrar sesión
+                1. Gestión Clientes
+                2. Gestión Ventas
+                3. Stock Vehiculos
+                
+                0. SALIR
+                ---------------------
                 """);
     }
     /**
@@ -197,12 +199,14 @@ public class Consola {
      */
     public static void printMenuAdministrador() {
         System.out.println("""
-                --- MENÚ ADMINISTRADOR ---
-                1. Gestión clientes
-                2. Gestión ventas
-                3. Gestión carros
-                4. Gestión usuarios
-                0. Cerrar sesión
+                 --- MENÚ ADMINISTRADOR ---
+                1. Gestión Clientes
+                2. Gestión Ventas
+                3. Gestión Vehiculos
+                4. Gestión Usuarios
+                
+                0. SALIR
+                --------------------------
                 """);
     }
 
@@ -210,11 +214,15 @@ public class Consola {
      * Imprime el menú de inicio de sesión en la consola.
      */
     public static void printMenuLogin() {
+        System.out.println("Iniciando APP Gestion Concesionaria...");
+        System.out.println();
         System.out.println("""
-                <<<<<<<<<<¡BIENVENIDO!>>>>>>>>>
-                1. Iniciar sesión
-                          0. Salir del programa
-                < < < < < < < < > > > > > > > >
+                __________ BIENVENIDO ___________
+                *********************************
+                1. Iniciar Sesión
+                
+                0. Salir del Programa
+                *********************************
                 """);
     }
 }

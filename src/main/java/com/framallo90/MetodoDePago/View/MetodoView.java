@@ -41,8 +41,8 @@ public class MetodoView {
         Integer cuotas;
         Double precioFinanciado;
         while (true) {
-            System.out.println("Como desea abonar?\n1. Crédito\n2. Contado/Debito");
-            Integer pago = Consola.ingresarXInteger("opción");
+            System.out.println("Metodos de Pago:\n1. Crédito\n2. Contado/Debito");
+            Integer pago = Consola.ingresarXInteger("la opcion de Pago");
             switch (pago) {
                 case 1:
                     cuotas = cantidadDeCuotas();
@@ -53,7 +53,7 @@ public class MetodoView {
                     precioFinanciado = precioDelVehiculo;
                     return new MetodoDePago("un pago", cuotas, precioFinanciado);
             }
-            System.out.println("Ingrese una opción válida.");
+            System.out.println("Opción Inválida. Reintentar!.");
         }
     }
 
@@ -76,12 +76,12 @@ public class MetodoView {
     private Integer cantidadDeCuotas() {
         Integer cuotas;
         while (true) {
-            System.out.println("Opciones de cuotas disponibles:\n12\n24\n36\n48");
-            cuotas = Consola.ingresarXInteger("cant. cuotas deseadas:");
+            System.out.println("Cuotas Disponibles:\n12\n24\n36\n48");
+            cuotas = Consola.ingresarXInteger("la cantidad de Cuotas deseadas");
             if (validarCuotas(cuotas)) {
                 return cuotas;
             } else {
-                System.out.println("Ingrese una opción válida.");
+                System.out.println("Opción Inválida. Reintentar!.");
             }
         }
     }
@@ -102,7 +102,7 @@ public class MetodoView {
      */
     public void printMenuModifMDP() {
         System.out.println("""
-                ¿Desea cambiar la forma de pago?
+                ¿Desea modificar el Metodo de Pago?
                 1. Sí
                 2. No""");
     }

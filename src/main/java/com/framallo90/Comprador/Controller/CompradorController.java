@@ -31,13 +31,15 @@ public class CompradorController {
         int opt;
         do {
             System.out.println("--- MENU CLIENTES ---");
-            System.out.println("1. Agregar cliente.");
-            System.out.println("2. Modificar cliente.");
-            System.out.println("3. Eliminar cliente.");
-            System.out.println("4. Buscar un cliente.");
-            System.out.println("5. Historial de clientes.");
+            System.out.println("1. Agregar Cliente");
+            System.out.println("2. Modificar Cliente");
+            System.out.println("3. Eliminar Cliente");
+            System.out.println("4. Buscar un Cliente");
+            System.out.println("5. Historial de Clientes");
+
             System.out.println("0. Volver.");
-            opt = Consola.ingresarXInteger("opcion");
+            System.out.println("----------------------");
+            opt = Consola.ingresarXInteger("una opcion del Menu Cliente");
 
             switch (opt) {
                 case 1:
@@ -59,10 +61,10 @@ public class CompradorController {
                     verHisorial();
                     break;
                 case 0:
-                    System.out.println("Saliendo....");
+                    System.out.println("Saliste del Menu Cliente.");
                     break;
                 default:
-                    Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         } while (opt != 0);
@@ -73,9 +75,9 @@ public class CompradorController {
      * Se solicita al usuario ingresar nombre, apellido, DNI y email del comprador.
      */
     public void add() {
-        String nombre = Consola.ingresarXString("nombre");
-        String apellido = Consola.ingresarXString("apellido");
-        Integer dni = Consola.ingresarXInteger("dni");
+        String nombre = Consola.ingresarXString("el Nombre");
+        String apellido = Consola.ingresarXString("el Apellido");
+        Integer dni = Consola.ingresarXInteger("el DNI");
         String email = compradorView.ingresoEmail();
         Comprador comprador = new Comprador(nombre, apellido, dni, email);
         this.compradorRepository.add(comprador);
@@ -87,7 +89,7 @@ public class CompradorController {
      */
     public void remove() {
         try{
-            compradorRepository.remove(Consola.ingresarXInteger("id"));
+            compradorRepository.remove(Consola.ingresarXInteger("el ID del Comprador"));
         } catch (InvalidIdNotFound e) {
             Consola.soutAlertString(e.getMessage());
         }
@@ -100,7 +102,7 @@ public class CompradorController {
      */
     public void update() {
         int opt;
-        Comprador comprador = find(Consola.ingresarXInteger("id"));
+        Comprador comprador = find(Consola.ingresarXInteger("el ID del Comprador"));
 
         if (comprador != null) {
             do {
@@ -108,27 +110,28 @@ public class CompradorController {
                 System.out.println("2. Apellido");
                 System.out.println("3. DNI");
                 System.out.println("4. E-Mail");
+
                 System.out.println("0. Volver");
-                opt = Consola.ingresarXInteger("opcion");
+                opt = Consola.ingresarXInteger("un campo para modificar del Comprador");
 
                 switch (opt) {
                     case 1:
-                        compradorRepository.cambioNombre(comprador, Consola.ingresarXString("nuevo nombre"));
+                        compradorRepository.cambioNombre(comprador, Consola.ingresarXString("el Nuevo Nombre"));
                         break;
                     case 2:
-                        compradorRepository.cambioApellido(comprador, Consola.ingresarXString("nuevo apellido"));
+                        compradorRepository.cambioApellido(comprador, Consola.ingresarXString("el Nuevo Apellido"));
                         break;
                     case 3:
-                        compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("nuevo DNI"));
+                        compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("el Nuevo DNI"));
                         break;
                     case 4:
                         compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
                         break;
                     case 0:
-                        System.out.println("Saliendo....");
+                        System.out.println("Saliste de modificacion Comprador.");
                         break;
                     default:
-                        Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
+                        Consola.soutAlertString("Opción Inválida. Reintentar!.");
                         break;
                 }
             } while (opt != 0);
@@ -146,27 +149,28 @@ public class CompradorController {
             System.out.println("2. Apellido");
             System.out.println("3. DNI");
             System.out.println("4. E-Mail");
+
             System.out.println("0. Volver");
-            opt = Consola.ingresarXInteger("elemento a modificar");
+            opt = Consola.ingresarXInteger("un campo para modificar de Comprado");
 
             switch (opt) {
                 case 1:
-                    compradorRepository.cambioNombre(comprador, Consola.ingresarXString("nuevo nombre"));
+                    compradorRepository.cambioNombre(comprador, Consola.ingresarXString("el Nuevo Nombre"));
                     break;
                 case 2:
-                    compradorRepository.cambioApellido(comprador, Consola.ingresarXString("nuevo apellido"));
+                    compradorRepository.cambioApellido(comprador, Consola.ingresarXString("el Nuevo Apellido"));
                     break;
                 case 3:
-                    compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("nuevo DNI"));
+                    compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("el Nuevo DNI"));
                     break;
                 case 4:
                     compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
                     break;
                 case 0:
-                    System.out.println("Saliendo....");
+                    System.out.println("Saliste de modificacion Comprador.");
                     break;
                 default:
-                    Consola.soutAlertString("Opción inválida, vuelva a intentarlo.");
+                    Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
         } while (opt != 0);
@@ -177,7 +181,7 @@ public class CompradorController {
      * Se solicita al usuario ingresar el ID del comprador buscado y se muestra su información si existe.
      */
     public void show() {
-        Integer id = Consola.ingresarXInteger("id del comprador buscado");
+        Integer id = Consola.ingresarXInteger("el ID del Comprador buscado");
         try{
             Comprador comprador = compradorRepository.find(id);
             if (comprador != null)
