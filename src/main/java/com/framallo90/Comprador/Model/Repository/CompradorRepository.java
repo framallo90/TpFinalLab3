@@ -20,7 +20,7 @@ import java.util.Set;
 public class CompradorRepository implements IRepository<Comprador, Integer> {
     private static final String FILE_PATH = "src/main/resources/Compradores.json";
     private Gson gson = new Gson();
-    private Set<Comprador> listaCompradores = new HashSet<>();
+    private Set<Comprador> setCompradores = new HashSet<>();
 
     /**
      * Crea una nueva instancia de {@code CompradorRepository} y carga los datos desde el archivo JSON.
@@ -37,11 +37,11 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
     public void loadFile() {
         try (Reader reader = new FileReader(FILE_PATH)) {
             Type setType = new TypeToken<Set<Comprador>>() {}.getType();
-            listaCompradores = gson.fromJson(reader, setType);
-            if (listaCompradores == null) {
-                listaCompradores = new HashSet<>();
+            setCompradores = gson.fromJson(reader, setType);
+            if (setCompradores == null) {
+                setCompradores = new HashSet<>();
             } else {
-                Integer mayor = listaCompradores.stream().mapToInt(Comprador::getId).max().getAsInt();
+                Integer mayor = setCompradores.stream().mapToInt(Comprador::getId).max().getAsInt();
                 Comprador.setCont(mayor);
             }
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     public void updateFile() {
         try (Writer writer = new FileWriter(FILE_PATH)) {
-            gson.toJson(listaCompradores, writer);
+            gson.toJson(setCompradores, writer);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     @Override
     public void add(Comprador object) {
-        listaCompradores.add(object);
+        setCompradores.add(object);
         updateFile();
     }
 
@@ -80,7 +80,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
     public void remove(Integer id) throws InvalidIdNotFound{
         Comprador remove = find(id);
         if (remove != null) {
-            listaCompradores.remove(remove);
+            setCompradores.remove(remove);
             updateFile();
         }else{
             throw new InvalidIdNotFound("Id no encontrado");
@@ -95,15 +95,18 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      * @throws InvalidIdNotFound si el comprador con el id especificado no existe
      */
     @Override
-    public void update(Integer id,Comprador comprador) throws InvalidIdNotFound {
+    public void update(Integer id,Comprador nuevoComprador) throws InvalidIdNotFound {
 
-        if (comprador != null) {
-            // Método incompleto, necesita implementación
+        if (nuevoComprador != null) {
+            Comprador compradorActualizar = find(id);
+            setCompradores.remove(compradorActualizar);
+            setCompradores.add(nuevoComprador);
+            updateFile();
         } else {
-            throw new InvalidIdNotFound("El id ingresado no existe.");
+            throw new InvalidIdNotFound();
         }
     }
-
+/*
     /**
      * Busca un comprador en la colección por su identificador.
      *
@@ -113,7 +116,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
     @Override
     public Comprador find(Integer id) throws InvalidIdNotFound{
 
-        Optional<Comprador> devol = this.listaCompradores.stream().filter(c -> c.getId().equals(id)).findFirst();
+        Optional<Comprador> devol = this.setCompradores.stream().filter(c -> c.getId().equals(id)).findFirst();
         if (!devol.isEmpty()) {
             return devol.get();
         }else{
@@ -129,6 +132,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     public void cambioNombre(Comprador comprador, String nuevoNom) {
         comprador.setNombre(nuevoNom);
+
         updateFile();
     }
 
@@ -170,7 +174,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      *
      * @return un conjunto de todos los compradores
      */
-    public Set<Comprador> getListaCompradores() {
-        return listaCompradores;
+    public Set<Comprador> getsetCompradores() {
+        return setCompradores;
     }
 }
