@@ -56,7 +56,9 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
     public void update(Integer id,Automovil automovil) throws InvalidIdNotFound {
 
         if (automovil != null) {
-
+            Automovil auto = find(id);
+            Integer pos = automovilList.indexOf(auto);
+            automovilList.set(pos,automovil);
             updateFile();
         } else {
             throw new InvalidIdNotFound("El ID ingresado NO se encuentra registrado.");
@@ -68,9 +70,12 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
      * @return El automóvil encontrado o null si no existe.
      */
     @Override
-    public Automovil find(Integer integer) {
+    public Automovil find(Integer integer) throws InvalidIdNotFound{
         Optional<Automovil> devol = this.automovilList.stream().filter(a -> a.getId().equals(integer)).findFirst();
-        return devol.orElse(null);
+        if(devol.isEmpty()){
+            throw new InvalidIdNotFound();
+        }
+        return devol.get();
     }
     /**
      * Carga los automóviles desde el archivo JSON al iniciar el repositorio.
