@@ -133,7 +133,7 @@ public class VentaController {
     public void modifVenta(Venta venta) {
         while (true) {
             this.ventaView.printMenuModifVenta();
-            switch (Consola.ingresarXInteger("\"un campo para modificar en Venta")) {
+            switch (Consola.ingresarXInteger("un campo para modificar en Venta")) {
                 case 1: // Modificar empleado
                     empleadosController.modificacion(venta.getEmpleados());
                     break;
@@ -141,7 +141,8 @@ public class VentaController {
                     compradorController.update(venta.getComprador());
                     break;
                 case 3: //mtodo de pago
-                    metodoController.updateMDP(venta.getTransaccion(), venta.getAutomovil().getPrecio());
+
+                    metodoController.updateMDP(venta, venta.getAutomovil().getPrecio());
                     break;
                 case 0: // Salir
                     return;
@@ -182,6 +183,7 @@ public class VentaController {
                             this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
                             Venta ven = this.ventaRepository.find(Consola.ingresarXInteger("Ingrese id de la venta"));
                             modifVenta(ven);
+                            ventaRepository.update(ven.getIdVenta(),ven);
 
                         } catch (InvalidIdNotFound e) {
                             Consola.soutAlertString(e.getMessage());
@@ -191,6 +193,7 @@ public class VentaController {
                     case 4: // Eliminar venta
                         try {
                             this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+
                             if (!this.ventaRepository.isEmpty())
                                 this.remover();
                             break;

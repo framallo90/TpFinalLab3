@@ -2,6 +2,7 @@ package com.framallo90.MetodoDePago.Controller;
 
 import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
 import com.framallo90.MetodoDePago.View.MetodoView;
+import com.framallo90.Venta.Model.Entity.Venta;
 import com.framallo90.consola.Consola;
 
 /**
@@ -51,12 +52,11 @@ public class MetodoController {
     /**
      * Actualiza un método de pago existente utilizando la vista (`MetodoView`) para interactuar con el usuario.
      *
-     * @param metodoDePago  El método de pago a actualizar.
+
      * @param precioVehiculo El precio del vehículo para el cual se va a actualizar el método de pago.
      */
-    public void updateMDP(MetodoDePago metodoDePago, Double precioVehiculo) {
+    public void updateMDP(Venta venta, Double precioVehiculo) {
         Integer eleccion;
-        String tipo = metodoDePago.getTipo();
 
         // Imprime el menú de modificación de método de pago en la vista.
         this.metodoView.printMenuModifMDP();
@@ -68,6 +68,6 @@ public class MetodoController {
         if (eleccion == 2) return;
             // Si la elección es 1, carga un nuevo método de pago y lo asigna al métodoDePago actual.
         else if (eleccion == 1)
-            metodoDePago = this.cargarMDP(precioVehiculo);
+            venta.setMetodoDePago(this.cargarMDP(precioVehiculo));
     }
 }

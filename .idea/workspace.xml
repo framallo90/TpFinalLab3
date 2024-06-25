@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af2c7a91-3535-42ec-b80b-fa0688322c68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Automovil/Controller/AutomovilController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Automovil/Controller/AutomovilController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Comprador/Model/Repository/CompradorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Comprador/Model/Repository/CompradorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Login/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Login/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/MetodoDePago/Model/Repository/MetodoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/MetodoDePago/Controller/MetodoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/MetodoDePago/Controller/MetodoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Controller/VentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Model/Repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Model/Repository/VentaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/View/VentaView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/View/VentaView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Compradores.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Compradores.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/empleados.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/empleados.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/stockAutomoviles.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/stockAutomoviles.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ventas.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ventas.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,9 +16,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2iIv15rzpTna6me0lY2H0tMtTu6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,10 +26,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Run",
+    "Application.Main.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Merging main",
-    "kotlin-language-version-configured": "true"
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Usuario/Desktop/Manuelruggeri"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
