@@ -247,7 +247,6 @@ import java.util.function.Predicate;
                 2. Eliminar Automovil
                 3. Buscar Automovil
                 4. Listado de Automoviles (con filtro)
-                5. Modificar Datos Automovil
                 
                 0. Volver
                 ---------------------------------------

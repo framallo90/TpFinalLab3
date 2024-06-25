@@ -13,6 +13,7 @@ import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.CeroAdminsException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
+import com.framallo90.consola.Consola;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -64,8 +65,11 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         try (FileReader fileReader = new FileReader(PATH_EMPLEADOS)) {
             Type type = new TypeToken<List<Empleados>>(){}.getType();
             this.list = gson.fromJson(fileReader, type);
-            if (this.list == null)
+            if (this.list == null) {
                 this.list = new ArrayList<>();
+            }else{
+                Empleados.setCont(this.list.stream().map(c->c.getId()).max((a,b)-> a.compareTo(b)).get());
+            }
         } catch (FileNotFoundException e) {
             this.list = new ArrayList<>();
         } catch (IOException e) {
@@ -98,18 +102,12 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
 
 
     @Override
-    public void remove(Integer id) throws CeroAdminsException {
+    public void remove(Integer id) throws CeroAdminsException,InvalidIdNotFound {
         Empleados remover = this.find(id);
-
-        if (remover == null) return;
-
-        if ("admin".equalsIgnoreCase(remover.getTipo())||
-        "administrador".equalsIgnoreCase(remover.getTipo()))
-            if (this.contAdmins()==1)
-                throw new CeroAdminsException();
-
+        if(remover.getTipo().equals("administrador") && contAdmins()==1){
+            throw new CeroAdminsException();
+        }
         this.list.remove(remover);
-
         this.saveEmpleados();
     }
 
@@ -131,7 +129,7 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
             }
         }
         if(i == list.size()){
-            throw new InvalidIdNotFound("NO se encontro el ID.");
+            throw new InvalidIdNotFound();
         }
     }
 
@@ -142,9 +140,12 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @return El objeto Empleado encontrado o null si no se encuentra.
      */
     @Override
-    public Empleados find(Integer id) {
+    public Empleados find(Integer id) throws InvalidIdNotFound{
         Optional<Empleados> devol = this.list.stream().filter(e -> e.getId().equals(id)).findFirst();
-        return devol.orElse(null);
+        if(devol.isEmpty()){
+            throw new InvalidIdNotFound();
+        }
+        return devol.get();
     }
 
     /**
@@ -166,7 +167,13 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void cambioNombre(Empleados empleados, String nuevoNombre) {
         empleados.setNombre(nuevoNombre);
-        this.saveEmpleados();
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
     }
 
     /**
@@ -177,7 +184,13 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void cambioApellido(Empleados empleados, String nuevoApellido) {
         empleados.setApellido(nuevoApellido);
-        this.saveEmpleados();
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
     }
 
     /**
@@ -187,13 +200,17 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      * @param nuevoDni El nuevo DNI del empleado.
      * @throws IllegalArgumentException Si el nuevo DNI ya pertenece a otro empleado.
      */
-    public void cambioDni(Empleados empleados, Integer nuevoDni) {
-        for (Empleados value : this.list) {
-            if (value.getDni().equals(nuevoDni))
-                throw new IllegalArgumentException("ERROR! El DNI ya pertenece a un Empleado.");
-        }
+    public void cambioDni(Empleados empleados, Integer nuevoDni) throws IllegalArgumentException{
+
         empleados.setDni(nuevoDni);
-        this.saveEmpleados();
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+
     }
 
     /**
@@ -204,6 +221,12 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void cambioUsername(Empleados empleados, String nuevoUsername) {
         empleados.setUsername(nuevoUsername);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
         this.saveEmpleados();
     }
 
@@ -216,7 +239,13 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void cambioPassword(Empleados empleados, String nuevaPassword) {
         empleados.setPassword(nuevaPassword);
-        this.saveEmpleados();
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
     }
 
     /**
@@ -227,7 +256,13 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
      */
     public void cambioTipo(Empleados empleados, String nuevoTipo) {
         empleados.setTipo(nuevoTipo);
-        this.saveEmpleados();
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
     }
 
     /**

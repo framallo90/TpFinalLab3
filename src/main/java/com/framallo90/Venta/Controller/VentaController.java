@@ -135,10 +135,10 @@ public class VentaController {
             this.ventaView.printMenuModifVenta();
             switch (Consola.ingresarXInteger("un campo para modificar en Venta")) {
                 case 1: // Modificar empleado
-                    empleadosController.modificacion(venta.getEmpleados());
+
                     break;
                 case 2: // Modificar comprador
-                    compradorController.update(venta.getComprador());
+
                     break;
                 case 3: //mtodo de pago
 

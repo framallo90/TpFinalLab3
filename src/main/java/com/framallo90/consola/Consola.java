@@ -27,9 +27,9 @@ public class Consola {
     }
 
     public static void soutAlertString(String string){
-        System.err.println(ANSI_RED + string + ANSI_RESET);
+        System.err.println(string);
     }
-
+//ANSI_RED + string + ANSI_RESET
     /**
      * Limpia el buffer del Scanner si hay datos pendientes de lectura.
      *

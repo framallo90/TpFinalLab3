@@ -1,6 +1,7 @@
 package com.framallo90.Comprador.Model.Repository;
 
 import com.framallo90.Comprador.Model.Entity.Comprador;
+import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.Interfaces.IRepository;
 import com.framallo90.consola.Consola;
@@ -96,15 +97,12 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     @Override
     public void update(Integer id,Comprador nuevoComprador) throws InvalidIdNotFound {
+        Comprador compradorActualizar = find(id);
+        setCompradores.remove(compradorActualizar);
+        setCompradores.add(nuevoComprador);
+        updateFile();
 
-        if (nuevoComprador != null) {
-            Comprador compradorActualizar = find(id);
-            setCompradores.remove(compradorActualizar);
-            setCompradores.add(nuevoComprador);
-            updateFile();
-        } else {
-            throw new InvalidIdNotFound();
-        }
+
     }
 /*
     /**
@@ -132,7 +130,11 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     public void cambioNombre(Comprador comprador, String nuevoNom) {
         comprador.setNombre(nuevoNom);
-
+        try {
+            update(comprador.getId(),comprador);
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
         updateFile();
     }
 
@@ -147,15 +149,23 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
         updateFile();
     }
 
-    /**
-     * Cambia el DNI de un comprador y actualiza el archivo JSON.
-     *
-     * @param comprador el comprador cuyo DNI será cambiado
-     * @param dni el nuevo DNI del comprador
-     */
+
+    private boolean compruebaDni(Integer dni){
+        for (Comprador comprador: this.setCompradores){
+            if(comprador.getDni().equals(dni)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void cambioDni(Comprador comprador, Integer dni) {
-        comprador.setDni(dni);
-        updateFile();
+        if(compruebaDni(comprador.getDni())){
+            comprador.setDni(dni);
+            updateFile();
+        }else{
+            Consola.soutAlertString("DNI ya existente");
+        }
+
     }
 
     /**

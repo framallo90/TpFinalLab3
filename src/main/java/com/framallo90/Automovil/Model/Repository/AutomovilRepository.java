@@ -89,12 +89,12 @@ public class AutomovilRepository implements IRepository<Automovil, Integer> {
             } else {
                 if (!automovilList.isEmpty()) {
                     int id = 0;
+
                     for (Automovil automovil : this.automovilList)
                         if (id < automovil.getId()) id = automovil.getId();
                     Automovil.setCont(id);
-                } else {
-                    Automovil.setCont(0);
                 }
+
             }
         } catch (FileNotFoundException e) {
             Consola.soutAlertString(e.getMessage());

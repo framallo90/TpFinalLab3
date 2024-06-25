@@ -12,6 +12,15 @@ package com.framallo90.Excepciones;
  * @version 1.0
  */
 public class InvalidIdNotFound extends Exception {
+    private final String message = "El ID ingresado NO se encuentra registrado.";
+
+    public InvalidIdNotFound() {
+        super();
+    }
+    @Override
+    public String getMessage() {
+        return message;
+    }
 
     /**
      * Constructor que permite especificar un mensaje personalizado para la excepción.

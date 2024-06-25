@@ -208,14 +208,7 @@ public class AutomovilController {
         }
     }
 
-    /**
-     * Método público para buscar un automóvil en el stock utilizando su ID.
-     * @param id ID del automóvil a buscar.
-     * @return Automóvil encontrado, o null si no se encuentra.
-     */
-    public Automovil find(Integer id) {
-        return automovilRepository.find(id);
-    }
+
 
 
     /**
@@ -251,12 +244,12 @@ public class AutomovilController {
                     break;
                 case 3: // Mostrar detalle de automóvil por ID
                     mostrarAutomovilesEnStock();
-                    Automovil find = find(Consola.ingresarXInteger("el ID del Automóvil"));
-                    if (find == null) {
-                        Consola.soutAlertString("NO se encuentra registrado el Automóvil con el ID ingresado.");
-                    } else {
-                        Consola.soutString(find.toString());
+                    try {
+                        this.automovilRepository.find(Consola.ingresarXInteger("id del automovil"));
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutAlertString(e.getMessage());
                     }
+
                     break;
                 case 4: // Ver lista filtrada
                     try{
@@ -266,32 +259,17 @@ public class AutomovilController {
                     }
 
                     break;
-                    /*
-                case 5:
 
-                    Automovil aModificar;
-                    mostrarAutomovilesEnStock();
-                    aModificar = automovilRepository.find(Consola.ingresarXInteger("el ID del Automóvil"));
-                    if(aModificar != null){
-                        try {
-                            modificar(aModificar);
-                            automovilRepository.update(aModificar.getId(),aModificar);
-                        } catch (IOException ex) {
-                            Consola.soutAlertString(ex.getMessage());
-                        } catch (InvalidIdNotFound e) {
-                            Consola.soutAlertString(e.getMessage());
-                        }
-                    }
-
-
-                    break;
-                    */
 
                 default: // Opción no reconocida
                     Consola.soutAlertString("El dato es Invalido!. Reintentar.");
                     break;
             }
         }
+    }
+
+    public Automovil find(Integer id) throws InvalidIdNotFound{
+        return this.automovilRepository.find(id);
     }
 
     /**
@@ -309,9 +287,10 @@ public class AutomovilController {
                     return;
                 case 1: // Mostrar detalle de automóvil por ID
                     mostrarAutomovilesEnStock();
-                    Automovil find = find(Consola.ingresarXInteger("el ID del Automóvil"));
-                    if (find != null) {
-                        Consola.soutString(find.toString());
+                    try {
+                        this.automovilRepository.find(Consola.ingresarXInteger("id del automovil"));
+                    } catch (InvalidIdNotFound e) {
+                        Consola.soutAlertString(e.getMessage());
                     }
                     break;
                 case 2: // Ver stock de automóviles
@@ -338,4 +317,7 @@ public class AutomovilController {
     public boolean isRepoEmpty() {
         return this.automovilRepository.isEmpty();
     }
+
+
+
 }
