@@ -3,6 +3,7 @@ import com.framallo90.Automovil.Controller.AutomovilController;
 import com.framallo90.Comprador.Controller.CompradorController;
 import com.framallo90.Empleados.Controller.EmpleadosController;
 import com.framallo90.Empleados.Model.Entity.Empleados;
+import com.framallo90.Empleados.Model.Repository.EmpleadosRepository;
 import com.framallo90.Login.Login;
 import com.framallo90.MetodoDePago.Controller.MetodoController;
 import com.framallo90.Venta.Controller.VentaController;
@@ -12,6 +13,11 @@ import com.framallo90.consola.Consola;
  * Permite la gestión de compradores, empleados, automóviles, ventas y métodos de pago.
  */
 public class GestionConsecionaria {
+    static {
+        EmpleadosRepository empleadosRepository = new EmpleadosRepository();
+        if (!empleadosRepository.adminAGenerated())
+            empleadosRepository.add(new Empleados("A","A",10999999, 0,"A","A","administrador"));
+    }
     private CompradorController compradorController;
     private EmpleadosController empleadosController;
     private MetodoController metodoController;
