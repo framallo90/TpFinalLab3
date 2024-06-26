@@ -165,4 +165,12 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
                 .count();
     }
 
+    public boolean adminAGenerated(){
+        for (Empleados empleados:this.list){
+            if (empleados.getUsername().equalsIgnoreCase("a"))
+                return true;
+        }
+        return false;
+    }
+
 }
