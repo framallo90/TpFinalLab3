@@ -60,27 +60,32 @@ public class CompradorController {
 
                         switch (opt) {
                             case 1:
-                                compradorRepository.cambioNombre(comprador, Consola.ingresarXString("el Nuevo Nombre"));
+                                comprador.setNombre(Consola.ingresarXString("el Nuevo Nombre"));
+                                this.compradorRepository.update(comprador.getId(),comprador);
                                 break;
                             case 2:
-                                compradorRepository.cambioApellido(comprador, Consola.ingresarXString("el Nuevo Apellido"));
+                                comprador.setApellido(Consola.ingresarXString("el Nuevo Apellido"));
+                                this.compradorRepository.update(comprador.getId(),comprador);
                                 break;
                             case 3:
-                                compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("el Nuevo DNI"));
+                                comprador.setDni(Consola.ingresarXInteger("el Nuevo DNI"));
+                                this.compradorRepository.update(comprador.getId(),comprador);
                                 break;
                             case 4:
-                                compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
+                                comprador.setEmail(compradorView.ingresoEmail());
+                                this.compradorRepository.update(comprador.getId(),comprador);
                                 break;
                             case 0:
-                                System.out.println("Saliste de modificacion Comprador.");
                                 break;
                             default:
                                 Consola.soutAlertString("Opción Inválida. Reintentar!.");
                                 break;
                         }
+                        this.compradorRepository.update(comprador.getId(),comprador);
                     } catch (InvalidIdNotFound e) {
                         Consola.soutAlertString(e.getMessage());
                     }
+
                     break;
                 case 3:
                     verHisorial();
@@ -129,53 +134,7 @@ public class CompradorController {
         }
     }
 
-    /**
-     * Método para actualizar la información de un comprador en el sistema.
-     * Se solicita al usuario ingresar el ID del comprador y luego seleccionar qué atributo desea modificar.
-     * Ofrece opciones para modificar nombre, apellido, DNI y email del comprador.
-     */
-    public void update() {
-        int opt;
-        Comprador comprador = null;
-        try {
-            comprador = find(Consola.ingresarXInteger("el ID del Comprador"));
 
-                    System.out.println("1. Nombre");
-                    System.out.println("2. Apellido");
-                    System.out.println("3. DNI");
-                    System.out.println("4. E-Mail");
-
-                    System.out.println("0. Volver");
-                    opt = Consola.ingresarXInteger("un campo para modificar del Comprador");
-
-                    switch (opt) {
-                        case 1:
-                            compradorRepository.cambioNombre(comprador, Consola.ingresarXString("el Nuevo Nombre"));
-                            break;
-                        case 2:
-                            compradorRepository.cambioApellido(comprador, Consola.ingresarXString("el Nuevo Apellido"));
-                            break;
-                        case 3:
-                            compradorRepository.cambioDni(comprador, Consola.ingresarXInteger("el Nuevo DNI"));
-                            break;
-                        case 4:
-                            compradorRepository.cambioEmail(comprador, compradorView.ingresoEmail());
-                            break;
-                        case 0:
-                            System.out.println("Saliste de modificacion Comprador.");
-                            break;
-                        default:
-                            Consola.soutAlertString("Opción Inválida. Reintentar!.");
-                            break;
-                    }
-
-
-        } catch (InvalidIdNotFound e) {
-            Consola.soutAlertString(e.getMessage());
-        }
-
-
-    }
 
     /**
      * Sobrecarga del método update que permite actualizar la información de un comprador directamente.
@@ -191,8 +150,7 @@ public class CompradorController {
         Integer id = Consola.ingresarXInteger("el ID del Comprador buscado");
         try{
             Comprador comprador = compradorRepository.find(id);
-            if (comprador != null)
-                compradorView.muestroUnComprador(comprador);
+            compradorView.muestroUnComprador(comprador);
         }catch (InvalidIdNotFound e){
             Consola.soutAlertString(e.getMessage());
         }

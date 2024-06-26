@@ -163,4 +163,10 @@ public class Empleados extends Usuario {
     public void setId(Integer id) {
         this.id = id;
     }
+    public void aumentoAutosVendidos(){
+        this.autosvendidos = autosvendidos+1;
+    }
+    public void disminucionAutosVendidos(){
+        this.autosvendidos = autosvendidos-1;
+    }
 }

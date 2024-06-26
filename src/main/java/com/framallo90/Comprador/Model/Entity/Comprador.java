@@ -83,4 +83,5 @@ public class Comprador extends Usuario {
     public static Integer getCont() {
         return cont;
     }
+
 }

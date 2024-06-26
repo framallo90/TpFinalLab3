@@ -2,7 +2,6 @@
 package com.framallo90.Automovil.View;
 
 import com.framallo90.Automovil.Model.Entity.Automovil;
-import com.framallo90.Excepciones.EmptyAStockException;
 import com.framallo90.consola.Consola;
 
 import java.math.BigDecimal;
@@ -38,24 +37,22 @@ import java.util.function.Predicate;
     /**
      * Muestra el stock actual de vehículos.
      * @param automovilList Lista de Automovil que se desea mostrar.
-     * @throws EmptyAStockException Si la lista de automóviles está vacía.
+
      */
-        public void mostrarAutomoviles(List<Automovil> automovilList) throws EmptyAStockException {
+        public void mostrarAutomoviles(List<Automovil> automovilList)  {
             /**
              * Método que muestra el stock actual de vehículos, recibiendo por parámetro la lista cargada (o no).
              * Si la lista está vacía, se lanza una excepción EmptyAStockException.
              * Cuando la lista tiene elementos, se itera con un bucle for-each mostrando cada automóvil.
              * Finalmente, se informa acerca del contador de automóviles en stock.
              */
-            if (automovilList == null || automovilList.isEmpty()) {
-                throw new EmptyAStockException("La lista está vacía.");
-            }
+
 
             automovilList.forEach(a->mostrarAuto(a));
-            System.out.println("Total de Vehículos en Stock -> " + Automovil.getCont());
+
         }
 
-    public void buscarAutomovilesXFiltro(List<Automovil> lista) throws EmptyAStockException {
+    public void buscarAutomovilesXFiltro(List<Automovil> lista)  {
         Predicate<Automovil>[] arrayCondiciones = new Predicate[5];
         String[] arrayTagsMostrar = new String[5];
         int cont = 0;

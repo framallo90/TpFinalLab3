@@ -68,8 +68,12 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     @Override
     public void add(Comprador object) {
-        setCompradores.add(object);
-        updateFile();
+        if(setCompradores.add(object)){
+            updateFile();
+        }else{
+            Consola.soutAlertString("DNI ya existente, no se agregara");
+        }
+
     }
 
     /**
@@ -97,10 +101,24 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
      */
     @Override
     public void update(Integer id,Comprador nuevoComprador) throws InvalidIdNotFound {
-        Comprador compradorActualizar = find(id);
-        setCompradores.remove(compradorActualizar);
-        setCompradores.add(nuevoComprador);
-        updateFile();
+
+        boolean flag = false;
+        for(Comprador comp: this.setCompradores){
+            if(comp.getId().equals(id)){
+                remove(id);
+                comp.setNombre(nuevoComprador.getNombre());
+                comp.setApellido(nuevoComprador.getApellido());
+                comp.setEmail(nuevoComprador.getEmail());
+                comp.setDni(nuevoComprador.getDni());
+
+                updateFile();
+                flag = true;
+                break;
+            }
+        }
+        if(flag==false){
+            throw new InvalidIdNotFound();
+        }
 
 
     }
@@ -122,32 +140,10 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
         }
     }
 
-    /**
-     * Cambia el nombre de un comprador y actualiza el archivo JSON.
-     *
-     * @param comprador el comprador cuyo nombre será cambiado
-     * @param nuevoNom el nuevo nombre del comprador
-     */
-    public void cambioNombre(Comprador comprador, String nuevoNom) {
-        comprador.setNombre(nuevoNom);
-        try {
-            update(comprador.getId(),comprador);
-        } catch (InvalidIdNotFound e) {
-            Consola.soutAlertString(e.getMessage());
-        }
-        updateFile();
-    }
 
-    /**
-     * Cambia el apellido de un comprador y actualiza el archivo JSON.
-     *
-     * @param comprador el comprador cuyo apellido será cambiado
-     * @param nuevoApellido el nuevo apellido del comprador
-     */
-    public void cambioApellido(Comprador comprador, String nuevoApellido) {
-        comprador.setApellido(nuevoApellido);
-        updateFile();
-    }
+
+
+
 
 
     private boolean compruebaDni(Integer dni){
@@ -158,26 +154,9 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
         }
         return false;
     }
-    public void cambioDni(Comprador comprador, Integer dni) {
-        if(compruebaDni(comprador.getDni())){
-            comprador.setDni(dni);
-            updateFile();
-        }else{
-            Consola.soutAlertString("DNI ya existente");
-        }
 
-    }
 
-    /**
-     * Cambia el email de un comprador y actualiza el archivo JSON.
-     *
-     * @param comprador el comprador cuyo email será cambiado
-     * @param nuevoEmail el nuevo email del comprador
-     */
-    public void cambioEmail(Comprador comprador, String nuevoEmail) {
-        comprador.setEmail(nuevoEmail);
-        updateFile();
-    }
+
 
     /**
      * Obtiene la colección de todos los compradores.

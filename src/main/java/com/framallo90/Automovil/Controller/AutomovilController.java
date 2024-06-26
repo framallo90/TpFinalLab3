@@ -3,14 +3,11 @@ import com.framallo90.Automovil.API.ApiAutomovilService;
 import com.framallo90.Automovil.Model.Entity.Automovil;
 import com.framallo90.Automovil.Model.Repository.AutomovilRepository;
 import com.framallo90.Automovil.View.AutomovilView;
-import com.framallo90.Excepciones.EmptyAStockException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.consola.Consola;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
+
 /**
  * Controlador que maneja las operaciones relacionadas con los automóviles, interactuando con la API y la vista.
  */
@@ -169,44 +166,8 @@ public class AutomovilController {
             Consola.soutAlertString(e.getMessage());
         }
     }
-    /**
-     * Método público para modificar un automóvil en el stock utilizando su ID.
-     */
 
-    public void modificar(Automovil automovil) throws IOException {
-        System.out.println("1. Marca( y por consecuente modelo)\n2. Modelo\n3. Precio\n4. Patente \n5. Anio");
-        Integer IDMod = Consola.ingresarXInteger("un campo para modificar del Automovil");
-        switch (IDMod) {
-            case 1:
 
-                automovil.setMarca(seleccionarMarca().getValue());
-                Integer keyMarca = apiAutomovilService.buscarKeyMarca(automovil.getMarca());
-                automovil.setModelo(seleccionarModelo(keyMarca).getValue());
-                break;
-            case 2:
-                Integer keyMarc = apiAutomovilService.buscarKeyMarca(automovil.getMarca());
-                automovil.setModelo(seleccionarModelo(keyMarc).getValue());
-                break;
-            case 3:
-
-                automovil.setPrecio(Consola.ingresarXdouble("el Precio"));
-                break;
-            case 4:
-                automovil.setPatente(Consola.patente("la Patente"));
-                break;
-            case 5:
-                Integer keyMark = apiAutomovilService.buscarKeyMarca(automovil.getMarca());
-                Integer keyModel = apiAutomovilService.buscarKeyModelo(keyMark,automovil.getModelo());
-                String anoId = seleccionarAno(keyMark,keyModel);
-
-                automovil.setAnio(Integer.parseInt(anoId.split("-")[0]));
-                break;
-            default:
-                Consola.soutAlertString("Opcion Invalida!.");
-                break;
-
-        }
-    }
 
 
 
@@ -252,11 +213,7 @@ public class AutomovilController {
 
                     break;
                 case 4: // Ver lista filtrada
-                    try{
-                        automovilView.buscarAutomovilesXFiltro(automovilRepository.getAutomovilList());
-                    }catch (EmptyAStockException e) {
-                        Consola.soutAlertString(e.getMessage());
-                    }
+                    automovilView.buscarAutomovilesXFiltro(automovilRepository.getAutomovilList());
 
                     break;
 
@@ -297,11 +254,7 @@ public class AutomovilController {
                     mostrarAutomovilesEnStock();
                     break;
                 case 3: // Ver lista filtrada
-                    try {
-                        automovilView.buscarAutomovilesXFiltro(automovilRepository.getAutomovilList());
-                    } catch (EmptyAStockException e) {
-                        Consola.soutAlertString(e.getMessage());
-                    }
+                    automovilView.buscarAutomovilesXFiltro(automovilRepository.getAutomovilList());
                     break;
                 default: // Opción no reconocida
                     Consola.soutAlertString("El dato es Invalido!. Reintentar.");

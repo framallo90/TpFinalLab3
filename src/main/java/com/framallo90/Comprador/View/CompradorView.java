@@ -16,6 +16,7 @@ public class CompradorView {
      *
      * @return el correo electrónico ingresado y validado
      */
+
     public String ingresoEmail() {
         while (true) {
             String email = Consola.ingresarXStringSimple("su Correo Electrónico");
@@ -55,4 +56,5 @@ public class CompradorView {
             muestroUnComprador(comprador);
         }
     }
+
 }

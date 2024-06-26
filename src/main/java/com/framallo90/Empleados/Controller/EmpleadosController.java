@@ -80,12 +80,7 @@ public class EmpleadosController {
         Integer idEmpleado = Consola.ingresarXInteger("el ID del Empleado");
         try{
             Empleados empleadoAModificar = empleadosRepository.find(idEmpleado);
-
-            if (empleadoAModificar != null) {
-
-                modificacion(empleadoAModificar);
-                empleadosRepository.update(idEmpleado,empleadoAModificar);
-            }
+            modificacion(empleadoAModificar);
         }catch (InvalidIdNotFound ex){
             Consola.soutAlertString(ex.getMessage());
         }catch (IllegalArgumentException ex){
@@ -105,38 +100,48 @@ public class EmpleadosController {
      *
      * @param empleado El empleado a modificar.
      */
-    public void modificacion(Empleados empleado) {
+    public void modificacion(Empleados empleado) throws InvalidIdNotFound {
         while (true) {
             this.empleadosView.printMenuModifEmpleado();
-            String opcion = String.valueOf(Consola.ingresarXInteger("un campo para modificar Empleado"));
+            Integer opcion = (Consola.ingresarXInteger("un campo para modificar Empleado"));
             switch (opcion) {
-                case "0":
+                case 0:
                     // Salir del menú de modificación.
                     return;
-                case "1":
+                case 1:
+
                     // Modificar el nombre del empleado.
-                    empleadosRepository.cambioNombre(empleado, Consola.ingresarXString("el Nuevo Nombre"));
+                    empleado.setNombre(Consola.ingresarXString("el Nuevo Nombre"));
+                    this.empleadosRepository.update(empleado.getId(),empleado);
                     break;
-                case "2":
+                case 2:
                     // Modificar el apellido del empleado.
-                    empleadosRepository.cambioApellido(empleado, Consola.ingresarXString("el Nuevo Apellido"));
+                    empleado.setApellido(Consola.ingresarXString("el Nuevo Apellido"));
+                    this.empleadosRepository.update(empleado.getId(),empleado);
                     break;
-                case "3":
+                case 3:
+                    empleado.setAutosvendidos(Consola.ingresarXInteger("la nueva Cantidad de Autos vendidos"));
                     // Modificar la cantidad de autos vendidos del empleado.
-                    empleadosRepository.cambioAutosVendidos(empleado, Consola.ingresarXInteger("la nueva Cantidad de Autos vendidos"));
-                    Consola.limpiarBuffer();
+                    this.empleadosRepository.update(empleado.getId(),empleado);
+                    //Consola.limpiarBuffer();
                     break;
-                case "4":
+                case 4:
+                    empleado.setUsername(Consola.ingresarXStringSimple("el Nuevo Username"));
                     // Modificar el username del empleado.
-                    empleadosRepository.cambioUsername(empleado, Consola.ingresarXStringSimple("el Nuevo Username"));
+                    this.empleadosRepository.update(empleado.getId(),empleado);
+
                     break;
-                case "5":
+                case 5:
+                    empleado.setPassword(Consola.ingresarXStringSimple("la Nueva Password"));
                     // Modificar la contraseña del empleado.
-                    empleadosRepository.cambioPassword(empleado, Consola.ingresarXStringSimple("la Nueva Password"));
+                    this.empleadosRepository.update(empleado.getId(),empleado);
+
                     break;
-                case "6":
+                case 6:
+                    empleado.setTipo(Consola.ingresarXString("el Nuevo Tipo"));
                     // Modificar el tipo de empleado.
-                    empleadosRepository.cambioTipo(empleado, Consola.ingresarXString("el Nuevo Tipo"));
+                    this.empleadosRepository.update(empleado.getId(),empleado);
+
                     break;
                 default:
                     // Dato ingresado no válido.

@@ -5,7 +5,6 @@ import com.framallo90.Comprador.Controller.CompradorController;
 import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Controller.EmpleadosController;
 import com.framallo90.Empleados.Model.Entity.Empleados;
-import com.framallo90.Excepciones.EmptyAStockException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
 import com.framallo90.MetodoDePago.Controller.MetodoController;
 import com.framallo90.MetodoDePago.Model.Entity.MetodoDePago;
@@ -14,7 +13,6 @@ import com.framallo90.Venta.Model.Repository.VentaRepository;
 import com.framallo90.Venta.View.VentaView;
 import com.framallo90.consola.Consola;
 
-import java.io.Console;
 import java.time.LocalDate;
 /**
  * Controlador que gestiona las operaciones relacionadas con las ventas de automóviles.
@@ -216,4 +214,6 @@ public class VentaController {
         } while (eleccion != 0);
 
     }
+
+
 }
