@@ -114,13 +114,13 @@ public class VentaRepository implements IRepository<Venta, Integer> {
      */
     @Override
     public void remove(Integer id) throws InvalidIdNotFound {
-        Venta remove = this.map.remove(id);
-        if (remove == null) {
+        if(this.map.containsKey(id)){
+            Venta remove = this.map.remove(id);
+            this.saveVentas();
+        }else{
             throw new InvalidIdNotFound("No se ha encontrado una venta con id " + id + ".");
-        } else {
-            Consola.soutString("Venta Eliminada Correctamente.");
         }
-        this.saveVentas();
+
     }
 
     @Override
