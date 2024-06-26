@@ -186,7 +186,48 @@ public class VentaController {
      * Muestra un menú interactivo para manejar las operaciones relacionadas con las ventas.
      * Permite agregar, mostrar, actualizar y eliminar ventas, además de visualizar el historial completo.
      */
-    public void menuVentas() {
+    public void menuVentasVendedor() {
+        int eleccion = 0;
+        do {
+            try {
+                System.out.println("""
+                 --- MENU VENTAS ---
+                1. Registrar una Venta
+                2. Buscar una Venta
+                3. Mostrar Listado de Ventas
+                
+                0. Volver
+                -------------------
+                """);
+                eleccion = Consola.ingresarXInteger("una opcion del Menu Ventas");
+                switch (eleccion) {
+                    case 0: // Salir
+                        Consola.soutString("Saliste del Menu Ventas.");
+                        break;
+                    case 1: // Agregar venta
+                        this.add();
+                        break;
+                    case 2: // Mostrar venta
+                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                        if (!this.ventaRepository.isEmpty())
+                            this.show();
+                        break;
+                    case 3: // Mostrar todas las ventas
+                        this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
+                        break;
+                    default:
+                        Consola.soutAlertString("Opción Inválida. Reintentar!.");
+                        break;
+                }
+
+            } catch (InvalidIdNotFound e) {
+                Consola.soutAlertString(e.getMessage());
+            }
+
+        } while (eleccion != 0);
+
+    }
+    public void menuVentasAdministrador() {
         int eleccion = 0;
         do {
             try {

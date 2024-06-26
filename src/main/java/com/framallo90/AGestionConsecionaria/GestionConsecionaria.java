@@ -94,7 +94,7 @@ public class GestionConsecionaria {
                     compradorController.compradorMenu();
                     break;
                 case 2: // gestion ventas
-                    ventaController.menuVentas();
+                    ventaController.menuVentasAdministrador();
                     break;
                 case 3: // gestion carros
                     automovilController.menuAutomovilAdmin();
@@ -127,7 +127,7 @@ public class GestionConsecionaria {
                     compradorController.compradorMenu();
                     break;
                 case 2: // gestion ventas
-                    ventaController.menuVentas();
+                    ventaController.menuVentasVendedor();
                     break;
                 case 3: // gestion carros
                     automovilController.menuAutomovilVendedor();

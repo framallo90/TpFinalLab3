@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af2c7a91-3535-42ec-b80b-fa0688322c68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Comprador/Model/Repository/CompradorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Comprador/Model/Repository/CompradorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Empleados/Controller/EmpleadosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Empleados/Controller/EmpleadosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Controller/VentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Controller/VentaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Model/Repository/VentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/framallo90/Venta/Model/Repository/VentaRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/empleados.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/empleados.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/ventas.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ventas.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
