@@ -104,12 +104,15 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
     @Override
     public void remove(Integer id) throws CeroAdminsException,InvalidIdNotFound {
         Empleados remover = this.find(id);
-        if(remover.getTipo().equals("administrador") && contAdmins()==1){
-            throw new CeroAdminsException();
+        if(remover!=null){
+            if(remover.getTipo().equals("administrador") && contAdmins()==1){
+                throw new CeroAdminsException();
+            }
+            this.list.remove(remover);
+            this.saveEmpleados();
         }
-        this.list.remove(remover);
-        this.saveEmpleados();
     }
+
 
     /**
      * Actualiza un empleado existente en la lista.

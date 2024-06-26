@@ -105,7 +105,7 @@ public class CompradorController {
                     Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
-            System.out.println("pasa por menu");
+
         } while (opt != 0);
     }
 
