@@ -9,7 +9,6 @@
  */
 package com.framallo90.Empleados.Model.Repository;
 
-import com.framallo90.Comprador.Model.Entity.Comprador;
 import com.framallo90.Empleados.Model.Entity.Empleados;
 import com.framallo90.Excepciones.CeroAdminsException;
 import com.framallo90.Excepciones.InvalidIdNotFound;
@@ -149,28 +148,132 @@ public class EmpleadosRepository implements IRepository<Empleados, Integer> {
         return devol.get();
     }
 
-    private boolean compruebaDni(Integer dni){
-        for (Empleados empleados: this.list){
-            if(empleados.getDni().equals(dni)){
-                return true;
-            }
-        }
-        return false;
+    /**
+     * Actualiza la cantidad de autos vendidos de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param autosVendidos La nueva cantidad de autos vendidos.
+     */
+    public void cambioAutosVendidos(Empleados empleados, Integer autosVendidos) {
+        empleados.setAutosvendidos(autosVendidos);
+        this.saveEmpleados();
     }
 
+    /**
+     * Actualiza el nombre de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevoNombre El nuevo nombre del empleado.
+     */
+    public void cambioNombre(Empleados empleados, String nuevoNombre) {
+        empleados.setNombre(nuevoNombre);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
 
+    }
+
+    /**
+     * Actualiza el apellido de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevoApellido El nuevo apellido del empleado.
+     */
+    public void cambioApellido(Empleados empleados, String nuevoApellido) {
+        empleados.setApellido(nuevoApellido);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Actualiza el DNI de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevoDni El nuevo DNI del empleado.
+     * @throws IllegalArgumentException Si el nuevo DNI ya pertenece a otro empleado.
+     */
+    public void cambioDni(Empleados empleados, Integer nuevoDni) throws IllegalArgumentException{
+
+        empleados.setDni(nuevoDni);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+
+    }
+
+    /**
+     * Actualiza el nombre de usuario de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevoUsername El nuevo nombre de usuario del empleado.
+     */
+    public void cambioUsername(Empleados empleados, String nuevoUsername) {
+        empleados.setUsername(nuevoUsername);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+        this.saveEmpleados();
+    }
+
+    /**
+     * Actualiza la contraseña de un empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevaPassword La nueva contraseña del empleado.
+     * **Se recomienda almacenar las contraseñas de forma segura, como utilizando un algoritmo de hash.**
+     */
+    public void cambioPassword(Empleados empleados, String nuevaPassword) {
+        empleados.setPassword(nuevaPassword);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Actualiza el tipo de empleado.
+     *
+     * @param empleados El objeto Empleado a actualizar.
+     * @param nuevoTipo El nuevo tipo de empleado.
+     */
+    public void cambioTipo(Empleados empleados, String nuevoTipo) {
+        empleados.setTipo(nuevoTipo);
+        try {
+            update(empleados.getId(),empleados);
+            this.saveEmpleados();
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+    }
+
+    /**
+     * Cuenta la cantidad de empleados que tienen el tipo "administrador" o "admin".
+     *
+     * @return La cantidad de empleados que son administradores o admins.
+     */
     public long contAdmins()  {
         return  list.stream()
                 .filter(e -> "administrador".equalsIgnoreCase(e.getTipo()) || "admin".equalsIgnoreCase(e.getTipo()))
                 .count();
-    }
-
-    public boolean adminAGenerated(){
-        for (Empleados empleados:this.list){
-            if (empleados.getUsername().equalsIgnoreCase("a"))
-                return true;
-        }
-        return false;
     }
 
 }
