@@ -172,15 +172,13 @@ public class EmpleadosController {
      * @param id El ID del empleado a buscar.
      * @return El empleado encontrado, o null si no se encuentra.
      */
-    public Empleados find(Integer id) {
+    public Empleados find(Integer id) throws InvalidIdNotFound{
 
-        Empleados buscar = null;
-        try {
-            buscar = this.empleadosRepository.find(id);
-        } catch (InvalidIdNotFound e) {
-            Consola.soutAlertString(e.getMessage());
-        }
-        return buscar;
+        return this.empleadosRepository.find(id);
+
+    }
+    public void update(Integer id,Empleados empleados) throws InvalidIdNotFound {
+        this.empleadosRepository.update(id,empleados);
     }
 
     /**

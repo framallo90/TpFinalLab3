@@ -133,10 +133,10 @@ public class VentaController {
             this.ventaView.printMenuModifVenta();
             switch (Consola.ingresarXInteger("un campo para modificar en Venta")) {
                 case 1: // Modificar empleado
-
+                    cambiarEmpleadoVenta(venta);
                     break;
                 case 2: // Modificar comprador
-
+                    cambiarCompradorVenta(venta);
                     break;
                 case 3: //mtodo de pago
 
@@ -148,6 +148,37 @@ public class VentaController {
                     Consola.soutAlertString("Opción Inválida. Reintentar!.");
                     break;
             }
+        }
+    }
+    public void cambiarEmpleadoVenta(Venta venta){
+        empleadosController.mostrarHistorial();
+        Integer id = Consola.ingresarXInteger("id del vendedor");
+
+        try{
+            Empleados nuevo = empleadosController.find(id);
+            Empleados saco = venta.getEmpleados();
+            saco.disminucionAutosVendidos();
+            nuevo.aumentoAutosVendidos();
+            venta.setEmpleados(nuevo);
+            empleadosController.update(saco.getId(),saco);
+            empleadosController.update(nuevo.getId(),nuevo);
+            this.ventaRepository.update(venta.getIdVenta(),venta);
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
+        }
+
+
+    }
+    public void cambiarCompradorVenta(Venta venta){
+        compradorController.verHisorial();
+        Integer id = Consola.ingresarXInteger("id del vendedor");
+
+        try{
+            Comprador nuevo = compradorController.find(id);
+            venta.setComprador(nuevo);
+            this.ventaRepository.update(venta.getIdVenta(),venta);
+        } catch (InvalidIdNotFound e) {
+            Consola.soutAlertString(e.getMessage());
         }
     }
 
@@ -166,10 +197,7 @@ public class VentaController {
                         Consola.soutString("Saliste del Menu Ventas.");
                         break;
                     case 1: // Agregar venta
-
                         this.add();
-
-
                         break;
                     case 2: // Mostrar venta
                         this.ventaView.mostrarHistorial(this.ventaRepository.getMap());
@@ -182,6 +210,7 @@ public class VentaController {
                             Venta ven = this.ventaRepository.find(Consola.ingresarXInteger("Ingrese id de la venta"));
                             modifVenta(ven);
                             ventaRepository.update(ven.getIdVenta(),ven);
+
 
                         } catch (InvalidIdNotFound e) {
                             Consola.soutAlertString(e.getMessage());

@@ -105,7 +105,7 @@ public class CompradorRepository implements IRepository<Comprador, Integer> {
         boolean flag = false;
         for(Comprador comp: this.setCompradores){
             if(comp.getId().equals(id)){
-                remove(id);
+
                 comp.setNombre(nuevoComprador.getNombre());
                 comp.setApellido(nuevoComprador.getApellido());
                 comp.setEmail(nuevoComprador.getEmail());
